@@ -19,7 +19,13 @@
     "@angular/platform-browser": "~7.1.0",
     "@angular/platform-browser-dynamic": "~7.1.0",
     "@angular/router": "~7.1.0",
+    "@auth0/angular-jwt": "^2.1.0",
+    "@ng-bootstrap/ng-bootstrap": "^4.0.2",
+    "bootstrap": "^4.2.1",
     "core-js": "^2.5.4",
+    "feather-icons": "^4.17.0",
+    "jwt-decode": "^2.2.0",
+    "ngx-cookie-service": "^2.1.0",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"
