@@ -20,6 +20,8 @@ import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
 import { AuthGuardService as AuthGuard } from './services/auth-guard.service';
 import { RoleGuardService as RoleGuard } from './services/role-guard.service';
 
+import { userRoleEnum } from "./models/user-roles.enum";
+
 const routes: Routes = [
 
   { path: 'signup', component: SignupComponent },
@@ -29,7 +31,7 @@ const routes: Routes = [
     component: HeaderAdminComponent,
     canActivate: [RoleGuard],
     data: {
-      expectedRole: 1 // 'admin'
+      expectedRole: userRoleEnum.admin
     },
     children: [
       { path: 'users', component: UserListComponent },
@@ -53,9 +55,23 @@ const routes: Routes = [
     children: [
       { path: 'user/:id', component: SingleUserComponent },
       { path: 'courses', component: CourseListComponent },
-      { path: 'course/new', component: CourseFormComponent, canActivate: [RoleGuard], data: { expectedRole: 2 /*'teacher'*/ } },
+      { 
+        path: 'course/new',
+        component: CourseFormComponent,
+        canActivate: [RoleGuard],
+        data: { 
+          expectedRole: userRoleEnum.teacher
+        }
+      },
       { path: 'course/:id', component: SingleCourseComponent },
-      { path: 'project/new', component: ProjectFormComponent, canActivate: [RoleGuard], data: { expectedRole: 3 /*'student'*/ } },
+      { 
+        path: 'project/new', 
+        component: ProjectFormComponent, 
+        canActivate: [RoleGuard], 
+        data: { 
+          expectedRole: userRoleEnum.student 
+        } 
+      },
       { path: 'project/:id', component: SingleProjectComponent },
       // { path: 'comment/new' , component: CommentFormComponent }  --> d'apres Chehir mettre en modal
       { path: '', component: CourseListComponent, pathMatch: 'full' },
