@@ -31,7 +31,7 @@ const routes: Routes = [
     component: HeaderAdminComponent,
     canActivate: [RoleGuard],
     data: {
-      expectedRole: userRoleEnum.admin
+      allowedRoles: [userRoleEnum.admin]
     },
     children: [
       { path: 'users', component: UserListComponent },
@@ -49,29 +49,25 @@ const routes: Routes = [
     ]
   },
   {
+    path: 'simpleuser/project/new', 
+    component: ProjectFormComponent, 
+    canActivate: [RoleGuard], 
+    data: { 
+      allowedRoles: [userRoleEnum.student]
+    } 
+  },
+  {
     path: 'simpleuser',
     component: HeaderUserComponent,  
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, RoleGuard],
+    data: { 
+      allowedRoles: [userRoleEnum.teacher, userRoleEnum.student]
+    },
     children: [
       { path: 'user/:id', component: SingleUserComponent },
       { path: 'courses', component: CourseListComponent },
-      { 
-        path: 'course/new',
-        component: CourseFormComponent,
-        canActivate: [RoleGuard],
-        data: { 
-          expectedRole: userRoleEnum.teacher
-        }
-      },
+      { path: 'course/new',  component: CourseFormComponent  },
       { path: 'course/:id', component: SingleCourseComponent },
-      { 
-        path: 'project/new', 
-        component: ProjectFormComponent, 
-        canActivate: [RoleGuard], 
-        data: { 
-          expectedRole: userRoleEnum.student 
-        } 
-      },
       { path: 'project/:id', component: SingleProjectComponent },
       // { path: 'comment/new' , component: CommentFormComponent }  --> d'apres Chehir mettre en modal
       { path: '', component: CourseListComponent, pathMatch: 'full' },
