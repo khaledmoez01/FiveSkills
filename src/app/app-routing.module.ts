@@ -48,16 +48,16 @@ const routes: Routes = [
   },
   {
     path: 'simpleuser',
-    component: HeaderUserComponent,
+    component: HeaderUserComponent,  
     canActivate: [AuthGuard],
     children: [
       { path: 'user/:id', component: SingleUserComponent },
       { path: 'courses', component: CourseListComponent },
+      { path: 'course/new', component: CourseFormComponent, canActivate: [RoleGuard], data: { expectedRole: 2 /*'teacher'*/ } },
       { path: 'course/:id', component: SingleCourseComponent },
+      { path: 'project/new', component: ProjectFormComponent, canActivate: [RoleGuard], data: { expectedRole: 3 /*'student'*/ } },
       { path: 'project/:id', component: SingleProjectComponent },
       // { path: 'comment/new' , component: CommentFormComponent }  --> d'apres Chehir mettre en modal
-      { path: 'course/new', component: CourseFormComponent, canActivate: [RoleGuard], data: { expectedRole: 2 /*'teacher'*/ } },
-      { path: 'project/new', component: ProjectFormComponent, canActivate: [RoleGuard], data: { expectedRole: 3 /*'student'*/ } },
       { path: '', component: CourseListComponent, pathMatch: 'full' },
       { path: '**', redirectTo: '/not-found' }
     ]

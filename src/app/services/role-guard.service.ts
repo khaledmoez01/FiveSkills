@@ -20,7 +20,8 @@ export class RoleGuardService  implements CanActivate {
   ) { }
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
-    console.log('*** kmg RoleGuardService not implemented yet ***');
+    console.log('*** kmg RoleGuardService not implemented yet - route.data.expectedRole ***');
+    console.log(route.data.expectedRole);
     return true;
   }
 }
