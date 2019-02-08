@@ -9,7 +9,11 @@ import { AuthService } from '../../services/auth.service';
 export class LoginComponent implements OnInit {
 
   loginForm;
+<<<<<<< HEAD
   constructor(private authService: AuthService) { }
+=======
+  constructor(private authservice:AuthService) { }
+>>>>>>> 11ad6028910171c0df814b447de472ba25225efa
 
   ngOnInit() {
   }
