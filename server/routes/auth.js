@@ -1,4 +1,4 @@
-const router = require('express').Router()
+/* const router = require('express').Router()
 var users = require('../models/user');
 const path = require("path");
 const multer = require("multer");
@@ -68,3 +68,32 @@ router.post('/register', upload.single('image'), async (req, res) => {
     res.sendFile('C:\\Users\\emna\\Desktop\\projet Niveau 3\\FiveSkills\\server\\image\\upload\\' + req.params.name)
 })
   module.exports = router;
+
+
+*/
+
+let jwt = require('express-jwt')
+
+const getTokenFromHeaders = (req) => {
+  const { headers: { authorization } } = req
+  if (authorization && authorization.split(' ')[0] === 'Bearer') {
+    return authorization.split(' ')[1]
+  }
+  return null
+}
+
+const auth = {
+  required: jwt({
+    secret: process.env.SECRET,
+    userProperty: 'payload',
+    getToken: getTokenFromHeaders
+  }),
+  optional: jwt({
+    secret: process.env.SECRET,
+    userProperty: 'payload',
+    getToken: getTokenFromHeaders,
+    credentialsRequired: false
+  })
+}
+
+module.exports = auth

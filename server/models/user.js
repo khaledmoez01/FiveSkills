@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-bcrypt = require('bcrypt-nodejs'),
-SALT_WORK_FACTOR = 10;
+let mongoose = require('mongoose')
+let Schema = mongoose.Schema
 
+let UserSchema = new Schema()
 
 var usersSchema = new mongoose.Schema({
     firstname: {
