@@ -40,14 +40,9 @@
     "http-errors": "^1.7.1",
     "jsonwebtoken": "^8.4.0",
     "jwt-decode": "^2.2.0",
-<<<<<<< HEAD
-    "mongodb": "^3.1.13",
-    "mongoose": "^5.4.11",
-=======
     "moment": "^2.24.0",
     "mongoose": "^5.4.10",
     "morgan": "^1.9.1",
->>>>>>> 36470c58e8a6c1e557d906e9abd1caa2f86001fe
     "multer": "^1.4.1",
     "ngx-cookie-service": "^2.1.0",
     "passport": "^0.4.0",
