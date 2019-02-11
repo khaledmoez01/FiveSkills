@@ -25,11 +25,11 @@ var UserSchema = new mongoose.Schema({
     }
   });
   UserSchema.pre('save', function() {
-    console.log(this.password);
-    this.password = bcrypt.hashSync(this.password);
-    console.log(this.password);
+    console.log(this.user_password);
+    this.user_password = bcrypt.hashSync(this.user_password);
+    console.log(this.user_password);
   }); 
-  UserSchema.path('email').validate( (val)=> {
+  UserSchema.path('user_email').validate( (val)=> {
     var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
     return emailRegex.test(val);
   }, 'Valid E-mail please.');
