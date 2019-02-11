@@ -23,40 +23,27 @@
     "@angular/router": "~7.1.0",
     "@auth0/angular-jwt": "^2.1.0",
     "@ng-bootstrap/ng-bootstrap": "^4.0.2",
-<<<<<<< HEAD
     "async": "^2.6.1",
     "bcryptjs": "^2.4.3",
-=======
-    "bcrypt-nodejs": "0.0.3",
->>>>>>> 771111719010f36278c3431838ea118098cb4be8
     "body-parser": "^1.18.3",
     "bootstrap": "^4.2.1",
     "compression": "^1.7.3",
     "cookie-parser": "^1.4.3",
     "core-js": "^2.5.4",
-<<<<<<< HEAD
     "cors": "^2.8.5",
     "enum": "^2.5.0",
     "express": "^4.16.4",
     "express-jwt": "^5.3.1",
     "express-validator": "^5.3.1",
-=======
-    "express": "^4.16.4",
->>>>>>> 771111719010f36278c3431838ea118098cb4be8
     "feather-icons": "^4.17.0",
     "helmet": "^3.15.0",
     "http-errors": "^1.7.1",
     "jsonwebtoken": "^8.4.0",
     "jwt-decode": "^2.2.0",
-<<<<<<< HEAD
     "moment": "^2.24.0",
     "mongoose": "^5.4.10",
     "morgan": "^1.9.1",
     "multer": "^1.4.1",
-=======
-    "mongodb": "^3.1.13",
-    "mongoose": "^5.4.11",
->>>>>>> 771111719010f36278c3431838ea118098cb4be8
     "ngx-cookie-service": "^2.1.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
