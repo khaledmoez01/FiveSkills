@@ -1,6 +1,6 @@
-const router = require('express').Router()
-var users = require('../models/user');
+let jwt = require('express-jwt')
 
+<<<<<<< HEAD
 router.post('/register', async (req, res) => {
   console.log('im here')
   let lvl = 0;
@@ -72,3 +72,28 @@ router.post('/login', async (req, res) => {
 
 
 module.exports = router;
+=======
+const getTokenFromHeaders = (req) => {
+  const { headers: { authorization } } = req
+  if (authorization && authorization.split(' ')[0] === 'Bearer') {
+    return authorization.split(' ')[1]
+  }
+  return null
+}
+
+const auth = {
+  required: jwt({
+    secret: process.env.SECRET,
+    userProperty: 'payload',
+    getToken: getTokenFromHeaders
+  }),
+  optional: jwt({
+    secret: process.env.SECRET,
+    userProperty: 'payload',
+    getToken: getTokenFromHeaders,
+    credentialsRequired: false
+  })
+}
+
+module.exports = auth
+>>>>>>> 36470c58e8a6c1e557d906e9abd1caa2f86001fe
