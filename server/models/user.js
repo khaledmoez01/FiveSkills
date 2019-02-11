@@ -1,39 +1,36 @@
 let mongoose = require('mongoose')
-let Schema = mongoose.Schema
 
-let UserSchema = new Schema()
-
-var usersSchema = new mongoose.Schema({
-    firstname: {
+var UserSchema = new mongoose.Schema({
+    user_first_name: {
       type: String
   
     },
-    lastname: {
+    user_last_name: {
       type: String
   
     },
-    birthday: {
+    user_birthday: {
       type: Date
     },
-    image:  String,
+    user_image:  String,
 
-    email: {
+    user_email: {
       type: String,
       unique: true
     },
-    password: {
+    user_password: {
       type: String,
       required: true
   
     }
   });
-  usersSchema.pre('save', function() {
+  UserSchema.pre('save', function() {
     console.log(this.password);
     this.password = bcrypt.hashSync(this.password);
     console.log(this.password);
   }); 
-  usersSchema.path('email').validate( (val)=> {
+  UserSchema.path('email').validate( (val)=> {
     var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
     return emailRegex.test(val);
   }, 'Valid E-mail please.');
-  module.exports = mongoose.model('users', usersSchema);
+  module.exports = mongoose.model('users', UserSchema);
