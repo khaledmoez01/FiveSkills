@@ -15,6 +15,8 @@ var usersSchema = new mongoose.Schema({
     birthday: {
       type: String
     },
+    image:  String,
+
     email: {
       type: String,
       unique: true

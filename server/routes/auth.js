@@ -1,7 +1,20 @@
 const router = require('express').Router()
 var users = require('../models/user');
+const path = require("path");
+const multer = require("multer");
 
-router.post('/register', async (req, res) => {
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'server/image/upload')
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+    }
+});
+var upload = multer({ storage: storage });
+
+router.post('/register', upload.single('image'), async (req, res) => {
+    req.body.image = req.file.filename;
     console.log('im here')
     let lvl = 0;
     const number = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
@@ -51,4 +64,7 @@ router.post('/register', async (req, res) => {
     }
   
   })
+  router.get('/user/image/:name', upload.single('image'), async (req, res) => {
+    res.sendFile('C:\\Users\\emna\\Desktop\\projet Niveau 3\\FiveSkills\\server\\image\\upload\\' + req.params.name)
+})
   module.exports = router;
