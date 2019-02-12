@@ -31,9 +31,174 @@
 		}
 	},
 	"paths": {
+		"/signup": {
+			"post": {
+				"summary": "Creer un nouvel utilisateur",
+				"description": "Creer un nouvel utilisateur avec nom, prenom, mail, mot de passe requis. Le role est optionnel.",
+				"parameters": [
+					{
+						"name": "user",
+						"in": "body",
+						"description": "le user à créer.",
+						"schema": {
+							"required": [
+								"first_name",
+								"family_name",
+								"email",
+								"password"
+							],
+							"properties": {
+								"first_name": {
+									"type": "string"
+								},
+								"family_name": {
+									"type": "string"
+								},
+								"email": {
+									"type": "string",
+									"pattern": "\\S+@\\S+\\.\\S+",
+									"description": "doit avoir un format mail valide par exemple xxx@yyy.zz",
+									"uniqueItems": true
+								},
+								"password": {
+									"type": "string"
+								},
+								"role": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "les détails de l'utilisateur à peine créé",
+						"schema": {
+							"properties": {
+								"code": {
+									"type": "string",
+									"enum": [
+										"200"
+									]
+								},
+								"message": {
+									"type": "string",
+									"enum": [
+										"Création d'utilisateur réussie."
+									]
+								}
+							}
+						}
+					},
+					"422": {
+						"$ref": "#/responses/Standard422ErrorResponse"
+					},
+					"500": {
+						"$ref": "#/responses/Standard500ErrorResponse"
+					}
+				}
+			}
+		},
+		"/login": {
+			"post": {
+				"summary": "Authentification d'un utilisateur déjà créé",
+				"description": "Authentification d'un utilisateur déjà créé avec email et password",
+				"parameters": [
+					{
+						"name": "authentification",
+						"in": "body",
+						"description": "les paramètres d'authentification.",
+						"schema": {
+							"required": [
+								"email",
+								"password"
+							],
+							"properties": {
+								"email": {
+									"type": "string",
+									"pattern": "\\S+@\\S+\\.\\S+",
+									"description": "doit avoir un format mail valide par exemple xxx@yyy.zz"
+								},
+								"password": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "les détails de l'authentification",
+						"schema": {
+							"properties": {
+								"token": {
+									"type": "string"
+								},
+								"message": {
+									"type": "string",
+									"enum": [
+										"connexion réussie."
+									]
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/responses/Standard400ErrorResponse"
+					},
+					"404": {
+						"$ref": "#/responses/Standard404ErrorResponse"
+					},
+					"422": {
+						"$ref": "#/responses/Standard422ErrorResponse"
+					},
+					"500": {
+						"$ref": "#/responses/Standard500ErrorResponse"
+					}
+				}
+			}
+		}
 	},
 	"definitions": {
+		"Error": {
+			"required": [
+				"code",
+				"message"
+			],
+			"properties": {
+				"code": {
+					"type": "string"
+				},
+				"message": {
+					"type": "string"
+				}
+			}
+		}
 	},
 	"responses": {
+		"Standard500ErrorResponse": {
+			"description": "Erreur lors de la manipulation de la base de données.",
+			"schema": {
+				"$ref": "#/definitions/Error"
+			}
+		},
+		"Standard422ErrorResponse": {
+			"description": "Erreur dans les données à insérer.",
+			"schema": {
+				"$ref": "#/definitions/Error"
+			}
+		},
+		"Standard404ErrorResponse": {
+			"description": "L'element recherché est introuvable dans la base de données.",
+			"schema": {
+				"$ref": "#/definitions/Error"
+			}
+		},
+		"Standard400ErrorResponse": {
+			"description": "Erreur lors de la génération du user par le package passport",
+			"schema": {
+				"$ref": "#/definitions/Error"
+			}
+		}
 	}
 }
