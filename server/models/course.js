@@ -60,7 +60,7 @@ let CourseSchema = new Schema(
 )
 
 CourseSchema
-  .virtual('courser_virtual_statement_introduction')
+  .virtual('course_virtual_statement_introduction')
   .get(function () {
     return this.course_statement.slice(0, 25)
   })
