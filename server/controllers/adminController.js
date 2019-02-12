@@ -1,3 +1,6 @@
+var User = require('../models/user');
+var Course = require('../models/course');
+
 // 01 - Récupérer le nombre des cours , des projets , des commentaires et des utilisateurs
 exports.admin_count_get = [
   (req, res, next) => {
@@ -7,8 +10,10 @@ exports.admin_count_get = [
 
 // 02 - Récupérer la liste des courses
 exports.admin_courses_get = [
-  (req, res, next) => {
-    res.send('NOT IMPLEMENTED: admin_courses_get')
+  async (req, res, next) => {
+    const result = await Course.find({}).exec().catch(err => err)
+    res.send(result)
+    //res.send('NOT IMPLEMENTED: admin_courses_get')
   }
 ]
 
@@ -91,8 +96,11 @@ exports.admin_comment_delete_post = [
 
 // 14 - Récupérer la liste des users
 exports.admin_users_get = [
-  (req, res, next) => {
-    res.send('NOT IMPLEMENTED: admin_users_get')
+ async (req, res, next) => {
+    console.log('yyy')
+    const result = await User.find().exec().catch(err => err);
+     res.send(result)
+    //res.send('NOT IMPLEMENTED: admin_users_get')
   }
 ]
 
