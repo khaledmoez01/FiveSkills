@@ -1,0 +1,39 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"version": "1.0.0",
+		"title": "projet par equipe Fivepoints niveau03 - skillShare",
+		"description": "SPA avec des étudiants, des ensignants et des admins pour la gestion de cours et de projets"
+	},
+	"schemes": [
+		"http"
+	],
+	"host": "localhost:3000",
+	"basePath": "/",
+	"securityDefinitions": {
+		"Bearer_admin": {
+			"type": "apiKey",
+			"in": "header",
+			"name": "Authorization",
+			"description": "fournir un token valide dans le header pour l'accés à cette page à un utilisateur admin."
+		},
+		"Bearer_teacher": {
+			"type": "apiKey",
+			"in": "header",
+			"name": "Authorization",
+			"description": "fournir un token valide dans le header pour l'accés à cette page à un enseignant."
+		},
+		"Bearer_student": {
+			"type": "apiKey",
+			"in": "header",
+			"name": "Authorization",
+			"description": "fournir un token valide dans le header pour l'accés à cette page à un étudiant."
+		}
+	},
+	"paths": {
+	},
+	"definitions": {
+	},
+	"responses": {
+	}
+}

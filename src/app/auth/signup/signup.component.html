@@ -1,3 +1,47 @@
-<p>
-  signup works!
-</p>
+<section class="signup">
+  <div class="container">
+  <div class="signup-content">
+  <div class="signup-form">
+  <h2 class="form-title">Sign up</h2>
+  <form method="POST" class="register-form" id="register-form" [formGroup]="userForm">
+      <div class="form-group">
+      <label for="Image" class="image-upload-container btn btn-bwm"><i></i></label>
+            <input type='file' name='image' (change)="selectedFile($event);readURL($event);">
+            <img id="blah" [src]="imageSrc" alt="your image" />
+      </div>
+  <div class="form-group">
+  <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+  <input type="text" formControlName="firstname" id="name" placeholder="Your First Name" />
+  </div>
+  <div class="form-group">
+    <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+    <input type="text" formControlName="lastname" id="name" placeholder="Your Last Name" />
+    </div>
+    <div class="form-group">
+      <label for="name"><i ></i></label>
+      <input type="date" formControlName="birthday" id="birthday" placeholder="Your Birthday" />
+      </div>
+  <div class="form-group">
+  <label for="email"><i class="zmdi zmdi-email"></i></label>
+  <input type="email" formControlName="email" id="email" placeholder="Your Email" />
+  </div>
+  <div class="form-group">
+  <label for="pass"><i class="zmdi zmdi-lock"></i></label>
+  <input type="password" formControlName="password" id="pass" placeholder="Password" />
+  </div>
+  <div class="form-group">
+  <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
+  <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in <a href="#" class="term-service">Terms of service</a></label>
+  </div>
+  <div class="form-group form-button">
+  <input type="button" name="signup" (click)="addUsers()" id="signup" class="form-submit" value="Register" />
+  </div>
+  </form>
+  </div>
+  <div class="signup-image">
+  <figure><img src="../../../assets/Auth/signup-image.jpg" alt="sing up image"></figure>
+  <a href="#" class="signup-image-link">I am already member</a>
+  </div>
+  </div>
+  </div>
+  </section>
