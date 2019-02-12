@@ -1,6 +1,7 @@
 var User = require('../models/user');
 var Course = require('../models/course');
-// 01 - Récupérer le nombre d'articles, d'utilisateurs et de commentaires
+
+// 01 - Récupérer le nombre des cours , des projets , des commentaires et des utilisateurs
 exports.admin_count_get = [
   (req, res, next) => {
     res.send('NOT IMPLEMENTED: admin_count_get')
