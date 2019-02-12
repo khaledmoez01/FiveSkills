@@ -1,20 +1,38 @@
+
+let Course = require('../models/course')
 // 01 - recuperer la liste des courses
 exports.user_courses_get = [
-  (req, res, next) => {
-    res.send('NOT IMPLEMENTED: user_courses_get')
+  async(req, res, next) => {
+
+    const result = await Course.find().catch(err => err)
+    res.send(result)
   }
 ]
 
 // 02 - creer un course
 exports.user_course_create_post = [
-  (req, res, next) => {
-    res.send('NOT IMPLEMENTED: user_course_create_post')
+  async(req, res, next) => {
+
+    console.log(req.body)
+    let courseDATA={
+      course_title: req.body.course_title,
+      course_teacher: req.body.course_teacher,
+      course_content: req.body.course_content,
+      course_description: req.body.course_description,
+      course_statement: req.body.course_statement,
+      course_status: req.body.course_status
+  }
+  const result = await Course.create(courseDATA).catch(err => err)
+    res.send(result)
   }
 ]
 
 // 03 - Récupérer les détails d’un course. cela inclut la récupération des projets de ce course et ses commentaires
 exports.user_course_get = [
-  (req, res, next) => {
+  async(req, res, next) => { 
+    let courseID=req.params.id_course;
+    const result = await Course.findOne({ _id: courseID }).populate({ path: 'course_followers' }).catch(err => err)
+    res.send(result)
     res.send('NOT IMPLEMENTED: user_course_get')
   }
 ]
