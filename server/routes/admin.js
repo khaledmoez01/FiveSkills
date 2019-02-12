@@ -15,10 +15,10 @@ router.get('/courses', auth.optional, adminController.admin_courses_get)
 router.get('/course/:id_course', auth.required, adminController.admin_course_get)
 
 // 04 - Mettre à jour un course. id_course present dans body
-router.post('/course/update', auth.required, adminController.admin_course_update_post)
+router.post('/course/update/:id_courses', auth.optional, adminController.admin_course_update_post)
 
 // 05 - Suppression d'un course. id_course present dans body
-router.post('/course/delete', auth.required, adminController.admin_course_delete_post)
+router.post('/course/delete/:id_courses', auth.optional, adminController.admin_course_delete_post)
 
 // 06 - Récupérer la liste des projects
 router.get('/projects', auth.required, adminController.admin_projects_get)
@@ -48,12 +48,12 @@ router.post('/comment/delete', auth.required, adminController.admin_comment_dele
 router.get('/users', auth.optional, adminController.admin_users_get)
 
 // 15 - Récupérer les détails d’un user
-router.get('/user/:id_user', auth.required, adminController.admin_user_get)
+router.get('/user/:id_user', auth.optional, adminController.admin_user_get)
 
 // 16 - Mettre à jour un user
 router.post('/user/:id_user/update', auth.required, adminController.admin_user_update_post)
 
 // 17 - Suppression d'un user. id_user present dans body
-router.post('/user/delete', auth.required, adminController.admin_user_delete_post)
+router.post('/user/delete/:id', auth.optional, adminController.admin_user_delete)
 
 module.exports = router
