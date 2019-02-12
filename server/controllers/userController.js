@@ -1,5 +1,6 @@
 
 let Course = require('../models/course')
+let Project= require('../models/project')
 // 01 - recuperer la liste des courses
 exports.user_courses_get = [
   async(req, res, next) => {
@@ -33,7 +34,6 @@ exports.user_course_get = [
     let courseID=req.params.id_course;
     const result = await Course.findOne({ _id: courseID }).populate({ path: 'course_followers' }).catch(err => err)
     res.send(result)
-    res.send('NOT IMPLEMENTED: user_course_get')
   }
 ]
 
@@ -109,7 +109,10 @@ exports.user_project_vote_post = [
 
 // 14 - Récupérer les détails d’un project.
 exports.user_project_get = [
-  (req, res, next) => {
-    res.send('NOT IMPLEMENTED: user_project_get')
+  async(req, res, next) => {
+
+    let ProjectID=req.params.id_project;
+    const result = await Project.findOne({ _id: ProjectID }).populate({ path: 'project_course' }).populate({path:'project_user'}).catch(err => err)
+    res.send(result)
   }
 ]
