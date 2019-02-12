@@ -14,11 +14,11 @@ export class SignupComponent implements OnInit {
   selectedImage: File;
   constructor( private ApiService :AuthService ) { 
     this.userForm = new FormGroup({
-      firstname: new FormControl('', [Validators.required]),
-      lastname: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required, Validators.minLength(8)]),
-      birthday: new FormControl('', [Validators.required]),
+      user_first_name: new FormControl('', [Validators.required]),
+      user_last_name: new FormControl('', [Validators.required]),
+      user_email: new FormControl('', [Validators.required, Validators.email]),
+      user_password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+      user_birthday: new FormControl('', [Validators.required]),
     })
   }
 
@@ -27,12 +27,12 @@ export class SignupComponent implements OnInit {
   addUsers() {
     console.log(this.userForm.value)
     const formData = new FormData();
-    formData.append('firstname', this.userForm.value.firstname)
-    formData.append('lastname', this.userForm.value.lastname)
-    formData.append('email', this.userForm.value.email)
-    formData.append('password', this.userForm.value.password)
-    formData.append('birthday', this.userForm.value.birthday)
-    formData.append('image', this.selectedImage, this.selectedImage.name)
+    formData.append('user_first_name', this.userForm.value.user_first_name)
+    formData.append('user_last_name', this.userForm.value.user_last_name)
+    formData.append('user_email', this.userForm.value.user_email)
+    formData.append('user_password', this.userForm.value.user_password)
+    formData.append('user_birthday', this.userForm.value.user_birthday)
+    formData.append('user_image', this.selectedImage, this.selectedImage.name)
 
     this.ApiService.login(formData).subscribe(async file => {
       //Read the result field from the JSON response.
