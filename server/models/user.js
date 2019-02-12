@@ -1,4 +1,5 @@
 let mongoose = require('mongoose')
+let userRoleEnum = require('../config/userRoles').userRoleEnum
 
 var UserSchema = new mongoose.Schema({
     user_first_name: {
@@ -22,7 +23,17 @@ var UserSchema = new mongoose.Schema({
       type: String,
       required: true
   
-    }
+    },
+    user_role: {
+      type: Number,
+      required: [true, 'user role is mandatory'],
+      default: userRoleEnum.get('student').value,
+      validate: [
+        (v) => userRoleEnum.isDefined(v),
+        require('../config/userRoles').errorMessage
+      ]
+    },
+    user_followed_courses:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Course' ,required: [true, 'user\'s course is mandatory']}]
   });
   UserSchema.pre('save', function() {
     console.log(this.user_password);
@@ -33,4 +44,4 @@ var UserSchema = new mongoose.Schema({
     var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
     return emailRegex.test(val);
   }, 'Valid E-mail please.');
-  module.exports = mongoose.model('users', UserSchema);
+  module.exports = mongoose.model('user', UserSchema);
