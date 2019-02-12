@@ -9,7 +9,7 @@ let adminController = require('../controllers/adminController')
 router.get('/', auth.required, adminController.admin_count_get)
 
 // 02 - Récupérer la liste des courses
-router.get('/courses', auth.required, adminController.admin_courses_get)
+router.get('/courses', auth.optional, adminController.admin_courses_get)
 
 // 03 - Récupérer les détails d’un course
 router.get('/course/:id_course', auth.required, adminController.admin_course_get)
@@ -45,7 +45,7 @@ router.post('/comment/update', auth.required, adminController.admin_comment_upda
 router.post('/comment/delete', auth.required, adminController.admin_comment_delete_post)
 
 // 14 - Récupérer la liste des users
-router.get('/users', auth.required, adminController.admin_users_get)
+router.get('/users', auth.optional, adminController.admin_users_get)
 
 // 15 - Récupérer les détails d’un user
 router.get('/user/:id_user', auth.required, adminController.admin_user_get)
