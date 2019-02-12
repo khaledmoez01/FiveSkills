@@ -5,7 +5,7 @@
   <h2 class="form-title">Sign up</h2>
   <form method="POST" class="register-form" id="register-form" [formGroup]="userForm">
       <div class="form-group">
-      <img id="blah" class="rounded float-right img-thumbnail imageSize" [src]="imageSrc" alt="your image" />
+      <img  class="rounded float-right img-thumbnail imageSize" [src]="imageSrc" />
             <div class="input-group">
                 <div class="custom-file">
                   <input  name='user_image' (change)="selectedFile($event);readURL($event);" type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
