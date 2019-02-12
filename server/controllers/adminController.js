@@ -1,7 +1,41 @@
-// 01 - Récupérer le nombre d'articles, d'utilisateurs et de commentaires
+let Course = require('../models/course')
+let User = require('../models/user')
+let Comment = require('../models/comment')
+let Project = require('../models/project')
+
+let async = require('async')
+let userRoleEnum = require('../config/userRoles').userRoleEnum
+
+// 01 - Récupérer le nombre de projets, d'utilisateurs, de commentaires et de cours.
 exports.admin_count_get = [
   (req, res, next) => {
-    res.send('NOT IMPLEMENTED: admin_count_get')
+    console.log(req.payload)
+    if (req.payload.role === userRoleEnum.get('admin').value) {
+      async.parallel(
+        {
+          course_count: function (callback) {
+            Course.countDocuments({}, callback)
+          },
+          user_count: function (callback) {
+            User.countDocuments({}, callback)
+          },
+          comment_count: function (callback) {
+            Comment.countDocuments({}, callback)
+          },
+          project_count: function (callback) {
+            Project.countDocuments({}, callback)
+          }
+        },
+        function (err, results) {
+          if (err) {
+            return res.status(500).send({ code: '500', message: 'There was a problem counting the documents in the database: ' + err.message })
+          }
+          res.status(200).send(results)
+        }
+      )
+    } else {
+      return res.status(403).send({ code: 403, message: 'access denied' })
+    }
   }
 ]
 
