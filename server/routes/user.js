@@ -6,10 +6,10 @@ let auth = require('./auth')
 let userController = require('../controllers/userController')
 
 // 01 - recuperer la liste des courses
-router.get('/courses', auth.required, userController.user_courses_get)
+router.get('/courses', auth.optional, userController.user_courses_get)
 
 // 02 - creer un course
-router.post('/course/create', auth.required, userController.user_course_create_post)
+router.post('/course/create', auth.optional, userController.user_course_create_post)
 
 // 03 - Récupérer les détails d’un course. cela inclut la récupération des projets de ce course et ses commentaires
 router.get('/course/:id_course', auth.required, userController.user_course_get)
