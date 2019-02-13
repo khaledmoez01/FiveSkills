@@ -1,5 +1,11 @@
 var User = require('../models/user');
+<<<<<<< HEAD
 let bcrypt=require('bcrypt-nodejs');
+=======
+var jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt-nodejs');
+
+>>>>>>> fe27c6abb94209b3b37dddd24b488f3c30ec9462
 // body(firstName, lastName, email, password, role) - Création d’un user
 exports.index_signup_post = [
   async (req, res, next) => {
@@ -49,7 +55,19 @@ exports.index_signup_post = [
 
 // body(email, password) - Authentification d’un user
 exports.index_login_post = [
-  (req, res, next) => {
-    res.send('NOT IMPLEMENTED: index_login_post')
+  async (req, res, next) => {
+
+    console.log(req.body.email);
+    let Email = req.body.user_email;
+    let Password = req.body.user_password
+    const result = await User.findOne({ user_email: Email })
+    console.log(result);
+    if (result && bcrypt.compareSync(Password, result.user_password)) {
+      const token = jwt.sign({id: result.user_email}, 'user');
+        res.send( {lvl : 'Your connexion is valide', token:token});
+    }
+    else {
+        res.send( {lvl : ' Please verify your Email or Password '});
+    };
   }
 ]

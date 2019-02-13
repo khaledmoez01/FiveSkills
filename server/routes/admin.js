@@ -12,7 +12,7 @@ router.get('/', auth.required, adminController.admin_count_get)
 router.get('/courses', auth.optional, adminController.admin_courses_get)
 
 // 03 - Récupérer les détails d’un course
-router.get('/course/:id_course', auth.required, adminController.admin_course_get)
+router.get('/course/:id_course', auth.optional, adminController.admin_course_get)
 
 // 04 - Mettre à jour un course. id_course present dans body
 router.post('/course/update/:id_courses', auth.optional, adminController.admin_course_update_post)
