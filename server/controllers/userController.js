@@ -39,15 +39,21 @@ exports.user_course_get = [
 
 // 04 - Mettre à jour un course  (id_course présent dans body) ecrit par ce user. l'id du user sera récupéré du token
 exports.user_course_update_post = [
-  (req, res, next) => {
-    res.send('NOT IMPLEMENTED: user_course_update_post')
+  async (req, res, next) => {
+    let id = { _id: ObjectId(req.params.id_courses) }
+    const result = await Course.findByIdAndUpdate(id, { $set: req.body }).exec().catch(err => err)
+    res.send({ msg: "changed", result })
+    // res.send('NOT IMPLEMENTED: user_course_update_post')
   }
 ]
 
 // 05 - Suppression d'un course ecrit par ce user  (id_course présent dans body). l'id du user sera récupéré du token
 exports.user_course_delete_post = [
   (req, res, next) => {
-    res.send('NOT IMPLEMENTED: user_course_delete_post')
+    let id = { _id: ObjectId(req.params.id_courses) }
+    Course.findByIdAndRemove(id).catch(err => err)
+    res.send("deleted")
+    // res.send('NOT IMPLEMENTED: user_course_delete_post')
   }
 ]
 
