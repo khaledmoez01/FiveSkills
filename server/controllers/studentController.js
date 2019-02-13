@@ -1,7 +1,9 @@
+//let Project = require('../models/Project')
 // 01 - creer un nouveau projet
 exports.student_project_create_post = [
   (req, res, next) => {
-    res.send('NOT IMPLEMENTED: student_project_create_post')
+    console.log(req.body)
+
   }
 ]
 
