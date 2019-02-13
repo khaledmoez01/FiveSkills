@@ -1,4 +1,5 @@
-let mongoose = require('mongoose')
+let mongoose = require('mongoose');
+const bcrypt = require('bcrypt-nodejs');
 let userRoleEnum = require('../config/userRoles').userRoleEnum
 
 var UserSchema = new mongoose.Schema({
@@ -40,6 +41,7 @@ var UserSchema = new mongoose.Schema({
     this.user_password = bcrypt.hashSync(this.user_password);
     console.log(this.user_password);
   }); 
+  
   UserSchema.path('user_email').validate( (val)=> {
     var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
     return emailRegex.test(val);
