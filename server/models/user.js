@@ -1,5 +1,6 @@
 let mongoose = require('mongoose')
 let userRoleEnum = require('../config/userRoles').userRoleEnum
+let bcrypt=require('bcrypt-nodejs')
 
 var UserSchema = new mongoose.Schema({
     user_first_name: {

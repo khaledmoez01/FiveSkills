@@ -1,4 +1,5 @@
 var User = require('../models/user');
+let bcrypt=require('bcrypt-nodejs');
 // body(firstName, lastName, email, password, role) - Création d’un user
 exports.index_signup_post = [
   async (req, res, next) => {
