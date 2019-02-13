@@ -1,11 +1,7 @@
 var User = require('../models/user');
-<<<<<<< HEAD
-let bcrypt=require('bcrypt-nodejs');
-=======
 var jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt-nodejs');
 
->>>>>>> fe27c6abb94209b3b37dddd24b488f3c30ec9462
 // body(firstName, lastName, email, password, role) - Création d’un user
 exports.index_signup_post = [
   async (req, res, next) => {

@@ -1,11 +1,7 @@
 let mongoose = require('mongoose');
 let userRoleEnum = require('../config/userRoles').userRoleEnum
-<<<<<<< HEAD
-let bcrypt=require('bcrypt-nodejs')
-=======
 bcrypt = require('bcrypt-nodejs'),
 SALT_WORK_FACTOR = 10;
->>>>>>> fe27c6abb94209b3b37dddd24b488f3c30ec9462
 
 var UserSchema = new mongoose.Schema({
     user_first_name: {
