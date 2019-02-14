@@ -1,4 +1,8 @@
-// 01 - Récupérer le nombre d'articles, d'utilisateurs et de commentaires
+var User = require('../models/user');
+var Course = require('../models/course');
+const ObjectId = require('mongodb').ObjectId;
+
+// 01 - Récupérer le nombre des cours , des projets , des commentaires et des utilisateurs
 exports.admin_count_get = [
   (req, res, next) => {
     res.send('NOT IMPLEMENTED: admin_count_get')
@@ -7,8 +11,10 @@ exports.admin_count_get = [
 
 // 02 - Récupérer la liste des courses
 exports.admin_courses_get = [
-  (req, res, next) => {
-    res.send('NOT IMPLEMENTED: admin_courses_get')
+  async (req, res, next) => {
+    const result = await Course.find({}).exec().catch(err => err)
+    res.send(result)
+    //res.send('NOT IMPLEMENTED: admin_courses_get')
   }
 ]
 
@@ -21,15 +27,21 @@ exports.admin_course_get = [
 
 // 04 - Mettre à jour un course
 exports.admin_course_update_post = [
-  (req, res, next) => {
-    res.send('NOT IMPLEMENTED: admin_course_update_post')
+  async (req, res, next) => {
+    let id = { _id: ObjectId(req.params.id_courses) }
+    const result = await Course.findByIdAndUpdate(id, { $set: req.body }).exec().catch(err => err)
+    res.send({ msg: "changed", result })
+    //res.send('NOT IMPLEMENTED: admin_course_update_post')
   }
 ]
 
 // 05 - Suppression d'un course
 exports.admin_course_delete_post = [
   (req, res, next) => {
-    res.send('NOT IMPLEMENTED: admin_course_delete_post')
+    let id = { _id: ObjectId(req.params.id_courses) }
+    Course.findByIdAndRemove(id).catch(err => err)
+    res.send("deleted")
+    //res.send('NOT IMPLEMENTED: admin_course_delete_post')
   }
 ]
 
@@ -91,15 +103,21 @@ exports.admin_comment_delete_post = [
 
 // 14 - Récupérer la liste des users
 exports.admin_users_get = [
-  (req, res, next) => {
-    res.send('NOT IMPLEMENTED: admin_users_get')
+ async (req, res, next) => {
+    console.log('yyy')
+    const result = await User.find().exec().catch(err => err);
+     res.send(result)
+    //res.send('NOT IMPLEMENTED: admin_users_get')
   }
 ]
 
 // 15 - Récupérer les détails d’un user
 exports.admin_user_get = [
-  (req, res, next) => {
-    res.send('NOT IMPLEMENTED: admin_user_get')
+  async (req, res, next) => {
+    let id = { _id: ObjectId(req.params.id_user) }
+    const result = await User.findOne(id).catch(err => err)
+    res.send(result)
+    //res.send('NOT IMPLEMENTED: admin_user_get')
   }
 ]
 
@@ -111,8 +129,11 @@ exports.admin_user_update_post = [
 ]
 
 // 17 - Suppression d'un user
-exports.admin_user_delete_post = [
+exports.admin_user_delete = [
   (req, res, next) => {
-    res.send('NOT IMPLEMENTED: admin_user_delete_post')
+    let id = { _id: ObjectId(req.params.id) }
+    User.findByIdAndRemove(id).catch(err => err)
+    res.send("deleted")
+    //res.send('NOT IMPLEMENTED: admin_user_delete_post')
   }
 ]

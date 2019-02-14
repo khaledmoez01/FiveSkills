@@ -5,7 +5,7 @@ const path = require("path");
 const multer = require("multer");
 var storage = multer.diskStorage({
   destination: (req, file, cb) => {
-      cb(null, 'server/image/upload')
+      cb(null, 'server/uploads')
   },
   filename: (req, file, cb) => {
       cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
@@ -17,7 +17,7 @@ var upload = multer({ storage: storage });
 let indexController = require('../controllers/indexController')
 
 // body(firstName, lastName, email, password, role) - Création d’un user
-router.post('/signup', upload.single('user_image'), auth.optional, indexController.index_signup_post)
+router.post('/signup', upload.single('user_image'),indexController.index_signup_post)
 
 // body(email, password) - Authentification d’un user
 router.post('/login', auth.optional, indexController.index_login_post)
