@@ -1,12 +1,17 @@
 var User = require('../models/user');
 var Course = require('../models/course');
-const Project = require('../models/project')
+var Project = require('../models/project');
+var Comment = require('../models/comment');
 const ObjectId = require('mongodb').ObjectId;
 
 // 01 - Récupérer le nombre des cours , des projets , des commentaires et des utilisateurs
 exports.admin_count_get = [
-  (req, res, next) => {
-    res.send('NOT IMPLEMENTED: admin_count_get')
+  async (req, res, next) => {
+    const nbrCourse = await Course.count().exec().catch(err => err)
+    const nbrProject = await Project.count().exec().catch(err => err)
+    const nbrComment = await Comment.count().exec().catch(err => err)
+    return res.json({"nbrCourse": nbrCourse, "nbrProject": nbrProject, "nbrComment": nbrComment})
+    //res.send('NOT IMPLEMENTED: admin_count_get')
   }
 ]
 
@@ -21,8 +26,12 @@ exports.admin_courses_get = [
 
 // 03 - Récupérer les détails d’un course
 exports.admin_course_get = [
-  (req, res, next) => {
-    res.send('NOT IMPLEMENTED: admin_course_get')
+  async (req, res, next) => {
+    let course = await Course.findOne({ _id: ObjectId(req.params.id_course) }).catch(err => err);
+    if (!course)
+    return res.json({"Status": "Course not found"});
+    return res.json(course);
+   //res.send('NOT IMPLEMENTED: admin_course_get')
   }
 ]
 
@@ -52,7 +61,7 @@ exports.admin_projects_get = [
     console.log('yyy')
     const result = await Project.find().exec().catch(err => err);
      res.send(result)
-    //res.send('NOT IMPLEMENTED: admin_projects_get')   
+    //res.send('NOT IMPLEMENTED: admin_projects_get')
   }
 ]
 
