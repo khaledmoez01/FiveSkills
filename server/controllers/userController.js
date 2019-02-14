@@ -1,6 +1,11 @@
 
 let Course = require('../models/course')
 let Project= require('../models/project')
+var User = require('../models/user')
+var Comment = require('../models/Comment');
+
+const ObjectId = require('mongodb').ObjectId;
+
 // 01 - recuperer la liste des courses
 exports.user_courses_get = [
   async(req, res, next) => {
@@ -100,11 +105,12 @@ exports.user_delete_post = [
 // 10 - Créer un commentaire sur un course (id_article présent dans body). Le commentateur sera ce même user. l'id du user sera récupéré du token
 exports.user_comment_create_post = [
   async (req, res, next) => {
-    let id = { _id: ObjectId(req.params.id_Course) }
-  console.log(req.params.id);
-  const result = await comment.create(req.body).catch(err => err)
-  const Course = await Course.updateOne(id, { $push: { comment: result } }).catch(err => err)
-  res.send(Course);
+ let id = { _id: ObjectId(req.params.id_Course) }
+    console.log("result")
+  const result = await Comment.create(req.body).catch(err => err)
+const Cours = await Course.updateOne(id, { $push: { course_comment: result } }).catch(err => err)
+  res.send(result);
+  console.log(Cours)
     // res.send('NOT IMPLEMENTED: user_comment_create_post')
   }
 ]
@@ -112,8 +118,8 @@ exports.user_comment_create_post = [
 // 11 - Mettre à jour un comment ecrit par ce user (id_user récupéré depuis le token). id_comment present dans body.
 exports.user_comment_update_post = [
   async (req, res, next) => {
-    let id = { _id: ObjectId(req.params.id_user) }
-  const result = await comment.findOneAndReplace(id, req.body).catch(err => err)
+    let id = { _id: ObjectId(req.params.id) }
+  const result = await Comment.findByIdAndUpdate(id, req.body).catch(err => err)
   res.send(result);
 
     // res.send('NOT IMPLEMENTED: user_comment_update_post')
@@ -125,10 +131,10 @@ exports.user_comment_delete_post = [
   async (req, res, next) => {
     let ID = ObjectId(req.params.id_Course);
     let comment_index = req.params.index_comment;
-    let result = await Course.updateOne({ _id: ID }, { $unset: { [`comment.${comment_index}`]: 1 } });
+    let result = await Course.updateOne({ _id: ID }, { $unset: { [`course_comment.${comment_index}`]: 1 } });
     console.log(result);
-    result = await Course.updateOne({ _id: ID }, { $pull: { comment: null } });
-    await Course.updateOne(id, { $pull: { comment: result } }).catch(err => err)
+    result = await Course.updateOne({ _id: ID }, { $pull: { course_comment: null } });
+    await Course.updateOne(ID, { $pull: { course_comment: result } }).catch(err => err)
     console.log(result);
     res.send(result)
   
