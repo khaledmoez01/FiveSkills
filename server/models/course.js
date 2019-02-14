@@ -51,7 +51,9 @@ let CourseSchema = new Schema(
         require('../config/courseStatus').errorMessage
       ]
     },
-    course_followers: [subSchemaFollowers]
+    course_followers: [subSchemaFollowers],
+    course_project:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Project' }],
+    course_comment:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
   },
   {
     toObject: { virtuals: true },
