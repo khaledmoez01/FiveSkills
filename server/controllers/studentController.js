@@ -35,17 +35,17 @@ exports.student_update_project = [
 exports.student_delete_project = [
   async(req, res, next) => {
 
-    let projectID = ObjectId(req.params.id_project)
+    let projectID = objectId(req.params.id_project)
 
     result0 = await Project.findOne({ _id: projectID }).catch(err => err)
     console.log(result0);
-    let courseID = result0.course_project;
+    let courseID = result0.project_course;
     console.log(courseID);
     const result = await Project.deleteOne({ _id: projectID }).catch(err => err)
     console.log(result);
     
-    resultF = await Course.updateOne({ _id: courseID }, { $pull: { course_project: projefixctID } }).catch(err => err);
-    res.send("resultF","deleted");
+    resultF = await Course.updateOne({ _id: courseID }, { $pull: { "course_project": projectID } }).catch(err => err);
+    res.send("deleted");
 
    // res.send('NOT IMPLEMENTED: student_delete_project')
   }
