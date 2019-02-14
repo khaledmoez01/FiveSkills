@@ -50,7 +50,7 @@ exports.user_course_update_post = [
 
 // 05 - Suppression d'un course ecrit par ce user  (id_course présent dans body). l'id du user sera récupéré du token
 exports.user_course_delete_post = [
-  (req, res, next) => {
+  async(req, res, next) => {
     let id = { _id: ObjectId(req.params.id_courses) }
     Course.findByIdAndRemove(id).catch(err => err)
     res.send("deleted")
