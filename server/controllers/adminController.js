@@ -1,5 +1,6 @@
 var User = require('../models/user');
 var Course = require('../models/course');
+const Project = require('../models/project')
 const ObjectId = require('mongodb').ObjectId;
 
 // 01 - Récupérer le nombre des cours , des projets , des commentaires et des utilisateurs
@@ -47,8 +48,11 @@ exports.admin_course_delete_post = [
 
 // 06 - Récupérer la liste des projects
 exports.admin_projects_get = [
-  (req, res, next) => {
-    res.send('NOT IMPLEMENTED: admin_projects_get')
+  async (req, res, next) => {
+    console.log('yyy')
+    const result = await Project.find().exec().catch(err => err);
+     res.send(result)
+    //res.send('NOT IMPLEMENTED: admin_projects_get')   
   }
 ]
 
