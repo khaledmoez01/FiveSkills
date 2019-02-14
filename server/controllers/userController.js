@@ -22,7 +22,7 @@ exports.user_course_create_post = [
       course_content: req.body.course_content,
       course_description: req.body.course_description,
       course_statement: req.body.course_statement,
-      course_status: req.body.course_status
+     // course_status: req.body.course_status
   }
   const result = await Course.create(courseDATA).catch(err => err)
     res.send(result)
