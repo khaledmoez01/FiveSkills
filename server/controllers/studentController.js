@@ -64,10 +64,12 @@ exports.student_addVote = [
  
 exports.student_followCourse = [
   async(req, res, next) => {
-    Course.updateOne( { _id: objectId(req.params.id_course) },{ $addToSet: {course_followers :req.params.id_user } },(err,ress)=>{
+    Course.updateOne( { _id: objectId(req.params.id_course) },{ $addToSet: {course_followers : {user_id:req.params.id_user} } },(err,ress)=>{
       if(err){res.send(err)}
    res.send(ress)
   })
+  //course.subSchemaFollowers.create(req.params.id_user)
+  
 
       }
 ]
