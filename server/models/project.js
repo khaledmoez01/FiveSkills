@@ -11,11 +11,10 @@ let ProjectSchema = new Schema(
       type: String,
       required: [true, 'project content is mandatory']
     },
-    project_vote: {
-      type: Number,
-      required: [true, 'project vote is mandatory'],
-      default: 0
-    },
+    project_vote:
+      [{ type: mongoose.Schema.Types.ObjectId, ref: 'user',unique : true }
+    ]
+    ,
     project_date: {
       type: Date,
       default: Date.now,
