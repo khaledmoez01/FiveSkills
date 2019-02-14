@@ -50,3 +50,13 @@ exports.student_delete_project = [
    // res.send('NOT IMPLEMENTED: student_delete_project')
   }
 ]
+// 04 - add vote to project
+exports.student_addVote = [
+  (req, res, next) => {
+    Project.updateOne( { _id: objectId(req.params.id_project) },{ $addToSet: {project_vote :req.params.id_user } },(err,ress)=>{
+      if(err){res.send(err)}
+   res.send(ress)
+  })
+
+      }
+]

@@ -23,5 +23,6 @@ router.post('/project/update/:id_project', auth.optional, studentController.stud
 
 // 03 - delete d'un projet écrit par ce student. l'id du student sera récupéré du token
 router.get('/project/delete/:id_project', auth.optional, studentController.student_delete_project)
+router.get('/project/vote/:id_user/:id_project', auth.optional, studentController.student_addVote)
 
 module.exports = router
