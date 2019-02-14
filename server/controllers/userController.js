@@ -2,7 +2,7 @@
 let Course = require('../models/course')
 let Project= require('../models/project')
 var User = require('../models/user')
-var Comment = require('../models/Comment');
+var Comment = require('../models/comment');
 
 const ObjectId = require('mongodb').ObjectId;
 
