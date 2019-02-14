@@ -26,8 +26,12 @@ exports.admin_courses_get = [
 
 // 03 - Récupérer les détails d’un course
 exports.admin_course_get = [
-  (req, res, next) => {
-    res.send('NOT IMPLEMENTED: admin_course_get')
+  async (req, res, next) => {
+    let course = await Course.findOne({ _id: ObjectId(req.params.id_course) }).catch(err => err);
+    if (!course)
+    return res.json({"Status": "Course not found"});
+    return res.json(course);
+   //res.send('NOT IMPLEMENTED: admin_course_get')
   }
 ]
 
