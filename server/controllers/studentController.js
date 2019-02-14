@@ -1,4 +1,5 @@
 const Project = require('../models/project')
+const Course= require('../models/course')
 // 01 - creer un nouveau projet
 exports.student_project_create_post = [
   async(req, res, next) => {
@@ -29,9 +30,18 @@ exports.student_update_project = [
 exports.student_delete_project = [
   async(req, res, next) => {
 
-    let id = { _id: ObjectId(req.params.id_project) }
-    Project.findByIdAndRemove(id).catch(err => err)
-    res.send("deleted")
+    let projectID = ObjectId(req.params.id_project)
+
+    result0 = await Project.findOne({ _id: projectID }).catch(err => err)
+    console.log(result0);
+    let courseID = result0.course_project;
+    console.log(courseID);
+    const result = await Project.deleteOne({ _id: projectID }).catch(err => err)
+    console.log(result);
+    
+    resultF = await Course.updateOne({ _id: courseID }, { $pull: { course_project: projectID } }).catch(err => err);
+    res.send("resultF","deleted");
+
    // res.send('NOT IMPLEMENTED: student_delete_project')
   }
 ]
