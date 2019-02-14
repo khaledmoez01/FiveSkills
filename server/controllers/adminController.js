@@ -1,11 +1,17 @@
 var User = require('../models/user');
 var Course = require('../models/course');
+var Project = require('../models/project');
+var Comment = require('../models/comment');
 const ObjectId = require('mongodb').ObjectId;
 
 // 01 - Récupérer le nombre des cours , des projets , des commentaires et des utilisateurs
 exports.admin_count_get = [
-  (req, res, next) => {
-    res.send('NOT IMPLEMENTED: admin_count_get')
+  async (req, res, next) => {
+    const nbrCourse = await Course.count().exec().catch(err => err)
+    const nbrProject = await Project.count().exec().catch(err => err)
+    const nbrComment = await Comment.count().exec().catch(err => err)
+    return res.json({"nbrCourse": nbrCourse, "nbrProject": nbrProject, "nbrComment": nbrComment})
+    //res.send('NOT IMPLEMENTED: admin_count_get')
   }
 ]
 
