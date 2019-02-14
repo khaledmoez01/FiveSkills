@@ -27,7 +27,7 @@ router.get('/projects', auth.required, adminController.admin_projects_get)
 router.get('/project/:id_project', auth.required, adminController.admin_project_get)
 
 // 08 - Mettre à jour d'un project. id_project present dans body
-router.post('/project/update', auth.required, adminController.admin_project_update_post)
+router.post('/project/update/:id_project', auth.optional, adminController.admin_project_update_post)
 
 // 09 - Suppression d'un project. id_project present dans body
 router.post('/project/delete', auth.required, adminController.admin_project_delete_post)
