@@ -23,6 +23,9 @@ router.post('/project/update/:id_project', auth.optional, studentController.stud
 
 // 03 - delete d'un projet écrit par ce student. l'id du student sera récupéré du token
 router.get('/project/delete/:id_project', auth.optional, studentController.student_delete_project)
+// 04 - voter un project
 router.get('/project/vote/:id_user/:id_project', auth.optional, studentController.student_addVote)
+// 05 - course followers
+router.get('/course/follow/:id_user/:id_course', auth.optional, studentController.student_followCourse)
 
 module.exports = router

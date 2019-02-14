@@ -60,3 +60,14 @@ exports.student_addVote = [
 
       }
 ]
+// 05 - follow course  
+ 
+exports.student_followCourse = [
+  async(req, res, next) => {
+    Course.updateOne( { _id: objectId(req.params.id_course) },{ $addToSet: {course_followers :req.params.id_user } },(err,ress)=>{
+      if(err){res.send(err)}
+   res.send(ress)
+  })
+
+      }
+]
