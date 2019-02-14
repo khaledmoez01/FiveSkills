@@ -1,11 +1,7 @@
 const Project = require('../models/project')
-<<<<<<< HEAD
-const Course= require('../models/course')
-=======
 const Course = require('../models/course')
 let Mongoose = require('mongoose')
 let objectId=Mongoose.Types.ObjectId
->>>>>>> 347aec37fd78f99bb1e0bd1e5126ba0b03025275
 // 01 - creer un nouveau projet
 exports.student_project_create_post = [
   async(req, res, next) => {
@@ -48,7 +44,7 @@ exports.student_delete_project = [
     const result = await Project.deleteOne({ _id: projectID }).catch(err => err)
     console.log(result);
     
-    resultF = await Course.updateOne({ _id: courseID }, { $pull: { course_project: projectID } }).catch(err => err);
+    resultF = await Course.updateOne({ _id: courseID }, { $pull: { course_project: projefixctID } }).catch(err => err);
     res.send("resultF","deleted");
 
    // res.send('NOT IMPLEMENTED: student_delete_project')
