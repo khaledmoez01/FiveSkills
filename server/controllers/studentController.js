@@ -1,5 +1,11 @@
 const Project = require('../models/project')
+<<<<<<< HEAD
 const Course= require('../models/course')
+=======
+const Course = require('../models/course')
+let Mongoose = require('mongoose')
+let objectId=Mongoose.Types.ObjectId
+>>>>>>> 347aec37fd78f99bb1e0bd1e5126ba0b03025275
 // 01 - creer un nouveau projet
 exports.student_project_create_post = [
   async(req, res, next) => {
@@ -11,8 +17,11 @@ exports.student_project_create_post = [
     "project_user":req.params.id_user
   }
     const result = await Project.create(ProjectData).catch(err => err)
-    res.send(result)
-    console.log(req.body)
+    var id_project=result._id
+    Course.update( { _id: objectId(req.params.id_course) },{ $push: { course_project:id_project } },(err,ress)=>{
+        if(err){res.send(err)}
+     res.send(ress)
+    })
   }
 ]
 
