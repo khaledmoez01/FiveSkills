@@ -5,8 +5,8 @@ let auth = require('./auth')
 // Require controller modules.
 let userController = require('../controllers/userController')
 
-// 01 - recuperer la liste des courses
-router.get('/courses', auth.optional, userController.user_courses_get)
+// 01 - recuperer la liste des courses(id teacher)
+router.get('/courses/:id_teacher', auth.optional, userController.user_courses_get)
 
 // 02 - creer un course
 router.post('/course/create', auth.optional, userController.user_course_create_post)
