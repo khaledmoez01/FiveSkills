@@ -15,9 +15,10 @@ exports.user_course_create_post = [
   async(req, res, next) => {
 
     console.log(req.body)
+    let teacherID=req.params.id_teacher
     let courseDATA={
       course_title: req.body.course_title,
-      course_teacher: req.body.course_teacher,
+      course_teacher: teacherID,
       course_content: req.body.course_content,
       course_description: req.body.course_description,
       course_statement: req.body.course_statement,
