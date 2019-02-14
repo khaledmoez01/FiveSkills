@@ -2,7 +2,13 @@ const Project = require('../models/project')
 // 01 - creer un nouveau projet
 exports.student_project_create_post = [
   async(req, res, next) => {
-    ProjectData={"project_title":req.body.project_title,"project_content":req.body.project_content,"project_image":req.file.filename,"project_course":req.params.id_course,"project_user":req.params.id_user}
+    ProjectData={
+    "project_title":req.body.project_title,
+    "project_content":req.body.project_content,
+    "project_image":req.file.filename,
+    "project_course":req.params.id_course,
+    "project_user":req.params.id_user
+  }
     const result = await Project.create(ProjectData).catch(err => err)
     res.send(result)
     console.log(req.body)
@@ -11,14 +17,21 @@ exports.student_project_create_post = [
 
 // 02 - Mettre à jour un projet écrit par ce student. l'id du student sera récupéré du token
 exports.student_update_project = [
-  (req, res, next) => {
-    res.send('NOT IMPLEMENTED: student_update_project')
+ async(req, res, next) => {
+  let id = { _id: ObjectId(req.params.id_project) }
+  const result = await Project.findByIdAndUpdate(id, { $set: req.body }).exec().catch(err => err)
+  res.send({ msg: "changed", result })
+    //res.send('NOT IMPLEMENTED: student_update_project')
   }
 ]
 
 // 03 - delete d'un projet écrit par ce student. l'id du student sera récupéré du token
 exports.student_delete_project = [
-  (req, res, next) => {
-    res.send('NOT IMPLEMENTED: student_delete_project')
+  async(req, res, next) => {
+
+    let id = { _id: ObjectId(req.params.id_project) }
+    Project.findByIdAndRemove(id).catch(err => err)
+    res.send("deleted")
+   // res.send('NOT IMPLEMENTED: student_delete_project')
   }
 ]
