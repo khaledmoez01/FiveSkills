@@ -18,7 +18,7 @@ exports.admin_count_get = [
 // 02 - Récupérer la liste des courses
 exports.admin_courses_get = [
   async (req, res, next) => {
-    const result = await Course.find({}).exec().catch(err => err)
+    const result = await Course.find({course_status : 3}).exec().catch(err => err)
     res.send(result)
     //res.send('NOT IMPLEMENTED: admin_courses_get')
   }
@@ -154,5 +154,34 @@ exports.admin_user_delete = [
     User.findByIdAndRemove(id).catch(err => err)
     res.send("deleted")
     //res.send('NOT IMPLEMENTED: admin_user_delete_post')
+  }
+]
+// 18 - Validated course to become a teacher
+exports.admin_validated_course = [
+  (req, res, next) => {
+    let id = { _id: ObjectId(req.params.id_user) }
+    let ID = { _id: ObjectId(req.params.id_course) }
+   User.findByIdAndUpdate(id ,{$set: {user_role : 2}}).catch(err => err)
+   Course.findByIdAndUpdate(ID ,{$set: {course_status : 3}}).catch(err => err)
+    //res.send('NOT IMPLEMENTED: admin_validated_teachert')
+    res.send("changed")
+  }
+]
+// 19 - rejected course 
+exports.admin_rejected_course = [
+  (req, res, next) => {
+    let ID = { _id: ObjectId(req.params.id_course) }
+   Course.findByIdAndUpdate(ID ,{$set: {course_status : 4}}).catch(err => err)
+    //res.send('NOT IMPLEMENTED: admin_validated_teachert')
+    res.send("changed")
+  }
+]
+// 20 - get pending courses
+exports.admin_pending_courses = [
+  async(req, res, next) => {
+    console.log("aaaaa")
+  const result= await Course.find({course_status : 2}).exec().catch(err => err)
+   //res.send('NOT IMPLEMENTED: admin_pending_courses')
+    res.send(result)
   }
 ]

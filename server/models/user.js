@@ -35,7 +35,10 @@ var UserSchema = new mongoose.Schema({
         require('../config/userRoles').errorMessage
       ]
     },
-    user_followed_courses:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Course' ,required: [true, 'user\'s course is mandatory']}]
+    user_followed_courses:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Course' ,required: [true, 'user\'s course is mandatory']}],
+   
+    user_courses:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Course'}]
+  
   });
   UserSchema.pre('save', function() {
     console.log(this.user_password);
