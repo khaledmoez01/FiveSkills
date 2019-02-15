@@ -68,7 +68,7 @@ exports.admin_projects_get = [
 // 07 - Récupérer les détails d’un project
 exports.admin_project_get = [
   async(req, res, next) => {
-    let id = { _id: ObjectId(req.params.id_projec) }
+    let id = { _id: ObjectId(req.params.id_projet) }
     const result = await User.findOne(id).catch(err => err)
     res.send(result)
     //res.send('NOT IMPLEMENTED: admin_project_get')
@@ -78,7 +78,10 @@ exports.admin_project_get = [
 // 08 - Mettre à jour d'un project
 exports.admin_project_update_post = [
   (req, res, next) => {
-    res.send('NOT IMPLEMENTED: admin_project_update_post')
+    let id = { _id: ObjectId(req.params.id_projet) }
+    commentaire.findByIdAndUpdate(id, req.body).catch(err => err)
+    res.send("changed")
+    //res.send('NOT IMPLEMENTED: admin_project_update_post')
   }
 ]
 

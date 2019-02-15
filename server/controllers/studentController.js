@@ -14,11 +14,12 @@ exports.student_project_create_post = [
   }
     const result = await Project.create(ProjectData).catch(err => err)
     var id_project=result._id
-    Course.update( { _id: objectId(req.params.id_course) },{ $push: { course_project:id_project } },(err,ress)=>{
+    Course.update( { _id: objectId(req.params.id_course) },{ $push: {course_project:id_project } },(err,ress)=>{
         if(err){res.send(err)}
      res.send(ress)
     })
   }
+
 ]
 
 // 02 - Mettre à jour un projet écrit par ce student. l'id du student sera récupéré du token
@@ -64,10 +65,12 @@ exports.student_addVote = [
  
 exports.student_followCourse = [
   async(req, res, next) => {
-    Course.updateOne( { _id: objectId(req.params.id_course) },{ $addToSet: {course_followers :req.params.id_user } },(err,ress)=>{
+    Course.updateOne( { _id: objectId(req.params.id_course) },{ $addToSet: {course_followers : {user_id:req.params.id_user} } },(err,ress)=>{
       if(err){res.send(err)}
    res.send(ress)
   })
+  //course.subSchemaFollowers.create(req.params.id_user)
+  
 
       }
 ]
