@@ -74,3 +74,47 @@ exports.student_followCourse = [
 
       }
 ]
+// 06 - students add courses to draft
+exports.student_add_Course_to_draft = [
+  async(req, res, next) => {
+    console.log(req.body)
+    let StudentID=req.params.id_user
+    let courseDATA={
+      course_title: req.body.course_title,
+      course_teacher: StudentID,
+      course_content: req.body.course_content,
+      course_description: req.body.course_description,
+      course_statement: req.body.course_statement,
+     // course_status: req.body.course_status
+  }
+  const result = await Course.create(courseDATA).catch(err => err)
+    res.send(result)
+    const add = await User.findByIdAndUpdate(StudentID,{ $push:{ user_courses:result }}).catch(err => err)
+    console.log(add)
+  } 
+    
+    // res.send('NOT IMPLEMENTED: student_add_Course_to_draft')
+    
+]
+// 07-send to validated
+exports.student_send_Course_to_validate = [
+  async(req, res, next) => {
+    
+    console.log(req.body)
+    let StudentID=req.params.id_user
+    let courseDATA={
+      course_title: req.body.course_title,
+      course_teacher: StudentID,
+      course_content: req.body.course_content,
+      course_description: req.body.course_description,
+      course_statement: req.body.course_statement,
+    course_status: 2,
+  }
+  const result = await Course.create(courseDATA).catch(err => err)
+    res.send(result)
+    const add = await User.findByIdAndUpdate(StudentID,{ $push:{ user_courses:result }}).catch(err => err)
+    console.log(add)
+  } 
+    // res.send('NOT IMPLEMENTED: student_send_Course_to_validate')
+     
+]
