@@ -36,7 +36,7 @@ router.post('/user/update/:id_user', auth.optional, userController.user_update_p
 router.post('/user/delete/:id_user', auth.optional, userController.user_delete_post)
 
 // 11 - Créer un commentaire sur un course (id_article présent dans body). Le commentateur sera ce même user. l'id du user sera récupéré du token
-router.post('/comment/create/:id_Course', auth.optional, userController.user_comment_create_post)
+router.post('/comment/create/:id_Course/:id_user', auth.optional, userController.user_comment_create_post)
 
 // 12 - Mettre à jour un comment ecrit par ce user (id_user récupéré depuis le token). id_comment present dans body.
 router.post('/comment/update/:id', auth.optional, userController.user_comment_update_post)

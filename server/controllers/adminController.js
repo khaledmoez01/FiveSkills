@@ -94,8 +94,10 @@ exports.admin_project_delete_post = [
 
 // 10 - Récupérer la liste des comments
 exports.admin_comments_get = [
-  (req, res, next) => {
-    res.send('NOT IMPLEMENTED: admin_comments_get')
+  async(req, res, next) => {
+   const comments = await Comment.find().exec().catch(err => err)
+   res.send(comments)
+    //res.send('NOT IMPLEMENTED: admin_comments_get')
   }
 ]
 
@@ -116,7 +118,10 @@ exports.admin_comment_update_post = [
 // 13 - Suppression d'un comment
 exports.admin_comment_delete_post = [
   (req, res, next) => {
-    res.send('NOT IMPLEMENTED: admin_comment_delete_post')
+    let id = req.params.id_comment
+    Comment.findByIdAndRemove(id).catch(err => err)
+    res.send("deleted")
+    //res.send('NOT IMPLEMENTED: admin_comment_delete_post')
   }
 ]
 
