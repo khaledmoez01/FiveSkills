@@ -130,12 +130,19 @@ exports.user_delete_post = [
 // 11 - Créer un commentaire sur un course (id_article présent dans body). Le commentateur sera ce même user. l'id du user sera récupéré du token
 exports.user_comment_create_post = [
   async (req, res, next) => {
-    let id = { _id: ObjectId(req.params.id_Course) }
+    let course_id = req.params.id_Course
+    let user_ID =req.params.id_user
     console.log("result")
-    const result = await Comment.create(req.body).catch(err => err)
-    const Cours = await Course.updateOne(id, { $push: { course_comment: result } }).catch(err => err)
+    let commentDATA={
+      comment_content: req.body.comment_content,
+      comment_user: user_ID,
+      comment_course: course_id
+  }
+    const result = await Comment.create(commentDATA).catch(err => err)
+    const Cours = await Course.findByIdAndUpdate(course_id, { $push: { course_comment: result } }).catch(err => err)
+    const comment = await User.findByIdAndUpdate(user_ID, { $push: { user_comments: result } }).catch(err => err)
     res.send(result);
-    console.log(Cours)
+    console.log(Cours,comment)
     // res.send('NOT IMPLEMENTED: user_comment_create_post')
   }
 ]
