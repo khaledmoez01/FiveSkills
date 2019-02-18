@@ -35,7 +35,13 @@ var UserSchema = new mongoose.Schema({
         require('../config/userRoles').errorMessage
       ]
     },
-    user_followed_courses:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Course' ,required: [true, 'user\'s course is mandatory']}]
+    user_followed_courses:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Course' ,required: [true, 'user\'s course is mandatory']}],
+    
+    user_courses:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Course'}],
+
+    user_comments:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment'}],
+
+    user_project:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Project'}]
   });
   UserSchema.pre('save', function() {
     console.log(this.user_password);
@@ -47,4 +53,4 @@ var UserSchema = new mongoose.Schema({
     var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
     return emailRegex.test(val);
   }, 'Valid E-mail please.');
-  module.exports = mongoose.model('user', UserSchema);
+  module.exports = mongoose.model('User', UserSchema);

@@ -15,10 +15,9 @@ exports.user_courses_get = [
   }
 ]
 
-
-// 02 - creer un course
-exports.user_course_create_post = [
-  async (req, res, next) => {
+// 02 - creer un course draft
+exports.user_course_create_draft = [
+  async(req, res, next) => {
 
     console.log(req.body)
     let teacherID = req.params.id_teacher
@@ -32,10 +31,32 @@ exports.user_course_create_post = [
     }
     const result = await Course.create(courseDATA).catch(err => err)
     res.send(result)
+    const add = await User.findByIdAndUpdate(teacherID,{ $push:{ user_courses:result }}).catch(err => err)
+  console.log(add)
   }
 ]
 
-// 03 - Récupérer les détails d’un course. cela inclut la récupération des projets de ce course et ses commentaires
+// 03 - creer un course published
+exports.user_course_create_published = [
+  async(req, res, next) => {
+
+    console.log(req.body)
+    let teacherID=req.params.id_teacher
+    let courseDATA={
+      course_title: req.body.course_title,
+      course_teacher: teacherID,
+      course_content: req.body.course_content,
+      course_description: req.body.course_description,
+      course_statement: req.body.course_statement,
+      course_status:3,
+  }
+  const result = await Course.create(courseDATA).catch(err => err)
+    res.send(result)
+    const add = await User.findByIdAndUpdate(teacherID,{ $push:{ user_courses:result }}).catch(err => err)
+    console.log(add)
+  }
+]
+// 04 - Récupérer les détails d’un course. cela inclut la récupération des projets de ce course et ses commentaires
 exports.user_course_get = [
   async (req, res, next) => {
     let courseID = req.params.id_course;
@@ -44,7 +65,7 @@ exports.user_course_get = [
   }
 ]
 
-// 04 - Mettre à jour un course  (id_course présent dans body) ecrit par ce user. l'id du user sera récupéré du token
+// 05 - Mettre à jour un course  (id_course présent dans body) ecrit par ce user. l'id du user sera récupéré du token
 exports.user_course_update_post = [
   async (req, res, next) => {
     let id = { _id: ObjectId(req.params.id_course) }
@@ -54,7 +75,7 @@ exports.user_course_update_post = [
   }
 ]
 
-// 05 - Suppression d'un course ecrit par ce user  (id_course présent dans body). l'id du user sera récupéré du token
+// 06 - Suppression d'un course ecrit par ce user  (id_course présent dans body). l'id du user sera récupéré du token
 exports.user_course_delete_post = [
   async (req, res, next) => {
     let id = { _id: ObjectId(req.params.id_courses) }
@@ -64,7 +85,7 @@ exports.user_course_delete_post = [
   }
 ]
 
-// 06 - follow a course (id_course présent dans body). Le votant sera ce même user. l'id du user sera récupéré du token
+// 07 - follow a course (id_course présent dans body). Le votant sera ce même user. l'id du user sera récupéré du token
 exports.user_course_follow_post = [
   (req, res, next) => {
     Course.updateOne({ _id: objectId(req.params.id_course) }, { $addToSet: { course_followers: req.params.id_user } }, (err, ress) => {
@@ -75,7 +96,7 @@ exports.user_course_follow_post = [
   // res.send('NOT IMPLEMENTED: user_course_follow_post')
 ]
 
-// 07 - Récupérer les détails d’un user. l'id du user sera récupéré du token. On recupere aussi la liste des commentaires ecrits par ce user
+// 08 - Récupérer les détails d’un user. l'id du user sera récupéré du token. On recupere aussi la liste des commentaires ecrits par ce user
 exports.user_get = [
   async (req, res, next) => {
     let id = { _id: ObjectId(req.params.id_user) }
@@ -85,7 +106,7 @@ exports.user_get = [
   }
 ]
 
-// 08 - Mettre à jour de ce même user. l'id du user sera récupéré du token
+// 09 - Mettre à jour de ce même user. l'id du user sera récupéré du token
 exports.user_update_post = [
   async (req, res, next) => {
     let id = { _id: ObjectId(req.params.id_user) }
@@ -96,7 +117,7 @@ exports.user_update_post = [
   }
 ]
 
-// 09 - Suppression de ce même user. l'id du user sera récupéré du token
+// 10 - Suppression de ce même user. l'id du user sera récupéré du token
 exports.user_delete_post = [
   async (req, res, next) => {
     let id = { _id: ObjectId(req.params.id_user) }
@@ -106,20 +127,27 @@ exports.user_delete_post = [
   }
 ]
 
-// 10 - Créer un commentaire sur un course (id_article présent dans body). Le commentateur sera ce même user. l'id du user sera récupéré du token
+// 11 - Créer un commentaire sur un course (id_article présent dans body). Le commentateur sera ce même user. l'id du user sera récupéré du token
 exports.user_comment_create_post = [
   async (req, res, next) => {
-    let id = { _id: ObjectId(req.params.id_Course) }
+    let course_id = req.params.id_Course
+    let user_ID =req.params.id_user
     console.log("result")
-    const result = await Comment.create(req.body).catch(err => err)
-    const Cours = await Course.updateOne(id, { $push: { course_comment: result } }).catch(err => err)
+    let commentDATA={
+      comment_content: req.body.comment_content,
+      comment_user: user_ID,
+      comment_course: course_id
+  }
+    const result = await Comment.create(commentDATA).catch(err => err)
+    const Cours = await Course.findByIdAndUpdate(course_id, { $push: { course_comment: result } }).catch(err => err)
+    const comment = await User.findByIdAndUpdate(user_ID, { $push: { user_comments: result } }).catch(err => err)
     res.send(result);
-    console.log(Cours)
+    console.log(Cours,comment)
     // res.send('NOT IMPLEMENTED: user_comment_create_post')
   }
 ]
 
-// 11 - Mettre à jour un comment ecrit par ce user (id_user récupéré depuis le token). id_comment present dans body.
+// 12 - Mettre à jour un comment ecrit par ce user (id_user récupéré depuis le token). id_comment present dans body.
 exports.user_comment_update_post = [
   async (req, res, next) => {
     let id = { _id: ObjectId(req.params.id) }
@@ -130,7 +158,7 @@ exports.user_comment_update_post = [
   }
 ]
 
-// 12 - Suppression d'un comment ecrit par ce user (id_user récupéré depuis le token). id_comment present dans body
+// 13 - Suppression d'un comment ecrit par ce user (id_user récupéré depuis le token). id_comment present dans body
 exports.user_comment_delete_post = [
   async (req, res, next) => {
     let ID = ObjectId(req.params.id_Course);
@@ -146,7 +174,7 @@ exports.user_comment_delete_post = [
   }
 ]
 
-// 13 - voter un projet (id_projet présent dans body). Le votant sera ce même user. l'id du user sera récupéré du token
+// 14 - voter un projet (id_projet présent dans body). Le votant sera ce même user. l'id du user sera récupéré du token
 exports.user_project_vote_post = [
   (req, res, next) => {
     (req, res, next) => {
@@ -159,7 +187,7 @@ exports.user_project_vote_post = [
   }
 ]
 
-// 14 - Récupérer les détails d’un project.
+// 15 - Récupérer les détails d’un project.
 exports.user_project_get = [
   async (req, res, next) => {
 

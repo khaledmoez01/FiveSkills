@@ -12,8 +12,7 @@ let ProjectSchema = new Schema(
       required: [true, 'project content is mandatory']
     },
     project_vote:
-      [{ type: mongoose.Schema.Types.ObjectId, ref: 'user',unique : true }
-    ]
+      [{ type: Schema.Types.ObjectId, ref: 'User',required: false} ]
     ,
     project_date: {
       type: Date,
