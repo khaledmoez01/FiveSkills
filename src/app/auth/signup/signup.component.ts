@@ -25,9 +25,9 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
   }
   addUsers() {
+    console.log(this.userForm.value)
     if (this.userForm.valid) {
 
-      console.log(this.userForm.value)
       const formData = new FormData();
       formData.append('user_first_name', this.userForm.value.user_first_name)
       formData.append('user_last_name', this.userForm.value.user_last_name)
@@ -36,7 +36,7 @@ export class SignupComponent implements OnInit {
       formData.append('user_birthday', this.userForm.value.user_birthday)
       formData.append('user_image', this.selectedImage, this.selectedImage.name)
 
-      this.ApiService.login(formData).subscribe(async file => {
+      this.ApiService.signup(formData).subscribe(async file => {
         //Read the result field from the JSON response.
         console.log(file)
         alert('you are added with success')
