@@ -21,9 +21,11 @@ import { AuthGuardService as AuthGuard } from './services/auth-guard.service';
 import { RoleGuardService as RoleGuard } from './services/role-guard.service';
 
 import { userRoleEnum } from "./models/user-roles.enum";
+import { HomeComponent } from './home/home.component';
+
 
 const routes: Routes = [
-
+  { path: 'home', component: HomeComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'login', component: LoginComponent },
   {
