@@ -5,7 +5,7 @@
   <h2 class="form-title">Sign up</h2>
   <form method="POST" class="register-form" id="register-form" [formGroup]="userForm">
       <div class="form-group">
-      <img  class="rounded float-right img-thumbnail imageSize" [src]="imageSrc" />
+      <img  class="rounded float-right img-thumbnail imageSize" [src]="imageSrc || 'http://www.stleos.uq.edu.au/wp-content/uploads/2016/08/image-placeholder-350x350.png'" />
             <div class="input-group">
                 <div class="custom-file">
                   <input  name='user_image' (change)="selectedFile($event);readURL($event);" type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">

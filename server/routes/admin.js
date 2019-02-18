@@ -23,11 +23,11 @@ router.get('/comments', auth.optional, adminController.admin_comments_get)
 // 20 - get pending courses
 router.get('/course/pending', auth.optional, adminController.admin_pending_courses)
 
-// 09 - Suppression d'un project. id_project present dans body
-router.post('/project/delete', auth.required, adminController.admin_project_delete_post)
 
 // 12 - Mettre à jour un comment. id_comment present dans body
 router.post('/comment/update', auth.required, adminController.admin_comment_update_post)
+// 09 - Suppression d'un project. id_project present dans body
+router.post('/project/delete/id_projet', auth.optional, adminController.admin_project_delete_post)
 
 // 13 - Suppression d'un comment. id_comment present dans body
 router.delete('/comment/delete/:id_comment', auth.optional, adminController.admin_comment_delete_post)

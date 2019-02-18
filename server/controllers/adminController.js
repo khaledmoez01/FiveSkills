@@ -88,7 +88,10 @@ exports.admin_project_update_post = [
 // 09 - Suppression d'un project
 exports.admin_project_delete_post = [
   (req, res, next) => {
-    res.send('NOT IMPLEMENTED: admin_project_delete_post')
+    let id = req.params.id_projet
+    Project.findByIdAndRemove(id).catch(err => err)
+    res.send("deleted")
+    //res.send('NOT IMPLEMENTED: admin_project_delete_post')
   }
 ]
 
