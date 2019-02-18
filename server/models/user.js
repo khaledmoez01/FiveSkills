@@ -36,11 +36,12 @@ var UserSchema = new mongoose.Schema({
       ]
     },
     user_followed_courses:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Course' ,required: [true, 'user\'s course is mandatory']}],
-   
+    
     user_courses:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Course'}],
 
-    user_comments:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment'}]
-  
+    user_comments:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment'}],
+
+    user_project:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Project'}]
   });
   UserSchema.pre('save', function() {
     console.log(this.user_password);
