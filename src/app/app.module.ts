@@ -32,6 +32,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CommentListComponent,
     DashboardComponent,
     HeaderUserComponent,
-    FourOhFourComponent
+    FourOhFourComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
