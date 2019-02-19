@@ -1,15 +1,30 @@
 let express = require('express')
 let router = express.Router()
 let auth = require('./auth')
-
+const path = require("path");
+const multer = require("multer");
+var storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+      cb(null, 'server/uploads')
+  },
+  filename: (req, file, cb) => {
+      cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+  }
+});
+var upload = multer({ storage: storage });
 // Require controller modules.
 let userController = require('../controllers/userController')
+
+router.get('/courses/image/:name', async (req, res) => {
+  console.log(__dirname);
+  res.sendFile('C:\\Users\\dell\\Desktop\\Projet Niveau3\\FiveSkills\\server\\uploads\\'+ req.params.name)
+ });
 
 // 01 - recuperer la liste des courses(id teacher)
 router.get('/courses', auth.optional, userController.user_courses_get)
 
 // 02 - creer un course
-router.post('/course/createdraft/:id_teacher', auth.optional, userController.user_course_create_draft)
+router.post('/course/createdraft/:id_teacher', auth.optional , upload.single('course_image'), userController.user_course_create_draft)
 
 // 03 - creer un course published
 router.post('/course/createpublished/:id_teacher', auth.optional, userController.user_course_create_published)

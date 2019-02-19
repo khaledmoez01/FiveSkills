@@ -18,7 +18,6 @@ exports.user_courses_get = [
 // 02 - creer un course draft
 exports.user_course_create_draft = [
   async(req, res, next) => {
-
     console.log(req.body)
     let teacherID = req.params.id_teacher
     let courseDATA = {
@@ -26,6 +25,7 @@ exports.user_course_create_draft = [
       course_teacher: teacherID,
       course_content: req.body.course_content,
       course_description: req.body.course_description,
+      course_image : req.file.filename,
       course_statement: req.body.course_statement,
       // course_status: req.body.course_status
     }
@@ -39,7 +39,7 @@ exports.user_course_create_draft = [
 // 03 - creer un course published
 exports.user_course_create_published = [
   async(req, res, next) => {
-
+    req.body.user_image = req.file.filename;
     console.log(req.body)
     let teacherID=req.params.id_teacher
     let courseDATA={

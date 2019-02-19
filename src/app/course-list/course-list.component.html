@@ -1,39 +1,7 @@
  <!-- mian-content -->
     <!-- //header -->
-    <div class="banner-content inner" id="home">
-      <!-- header -->
-      <header class="header">
-          <div class="container-fluid px-lg-5">
-              <!-- nav -->
-              <nav class="py-4">
-                  <div id="logo">
-                      <h1> <a href="index.html"><span>5</span>Skills</a></h1>
-                  </div>
-
-                  <label for="drop" class="toggle">Menu</label>
-                  <input type="checkbox" id="drop" />
-                  <ul class="menu mt-2">
-                      <li><a href="#">Home</a></li>
-                      <li><a href="about.html">About</a></li>
-
-                      <li class="active">
-                          <!-- First Tier Drop Down -->
-                          <label for="drop-2" class="toggle">Courses <span class="fa fa-angle-down" aria-hidden="true"></span> </label>
-                          <a href="#">Courses <span class="fa fa-angle-down" aria-hidden="true"></span></a>
-                          <input type="checkbox" id="drop-2" />
-                          <ul>
-                              <li><a href="courses.html" class="scroll">Add link1</a></li>
-                              <li><a href="courses.html">Add link2</a></li>
-                              <li><a href="courses.html">Add link3</a></li>
-                          </ul>
-                      </li>
-                      <li><a href="events.html">Events</a></li>
-                      <li><a href="contact.html">Contact</a></li>
-                  </ul>
-              </nav>
-              <!-- //nav -->
-          </div>
-      </header>
+    <div class="banner-content inner">
+  
       <!-- //header -->
   </div>
   <!-- //header -->
@@ -48,210 +16,39 @@
   <!---->
   <!--// mian-content -->
   <!-- banner -->
-  <section class="ab-info-main py-md-5 py-4">
+
+  <section  class="ab-info-main py-md-5 py-4">
+     
       <div class="container">
           <div class="ab-info-grids pt-md-5 pt-3">
               <h3 class="tittle text-center mb-lg-5 mb-3"><span class="sub-tittle">Latest</span>Available Courses</h3>
               <div id="products" class="row view-group">
-                  <div class="item col-lg-4">
+                  
+                  <div class="item col-lg-4" *ngFor="let results of result">
                       <div class="thumbnail card">
                           <div class="img-event">
-                              <img class="group list-group-image img-fluid" src="assets/images/g1.jpg" alt="" />
+                              <img class="group list-group-image img-fluid" src="http://localhost:3000/user/courses/image/{{results.course_image}}" alt="" />
                           </div>
                           <div class="caption card-body">
                               <h4 class="group card-title inner list-group-item-heading">
-                                  Programming</h4>
+                                  {{results.course_title}}</h4>
                               <p class="group inner list-group-item-text">
-                                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+                                  </p>
                               <div class="row">
                                   <div class="col-6">
+                                      {{slice(results.course_statement)}}
                                   </div>
                                   <div class="col-6 ban-buttons">
-                                      <a class="btn btn-course" href="single.html">View More</a>
+                                      <a class="btn btn-course" (click)="gotoarticle(results._id)">View More</a>
                                   </div>
                               </div>
                           </div>
                       </div>
                   </div>
-                  <div class="item col-lg-4">
-                      <div class="thumbnail card">
-                          <div class="img-event">
-                              <img class="group list-group-image img-fluid" src="images/g2.jpg" alt="" />
-                          </div>
-                          <div class="caption card-body">
-                              <h4 class="group card-title inner list-group-item-heading">
-                                  Art & Design</h4>
-                              <p class="group inner list-group-item-text">
-                                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-                              <div class="row">
-                                  <div class="col-6">
-                                      <p class="lead">
-                                          $25.00</p>
-                                  </div>
-                                  <div class="col-6 ban-buttons">
-                                      <a class="btn btn-course" href="single.html">View More</a>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
                   </div>
-                  <div class="item col-lg-4">
-                      <div class="thumbnail card">
-                          <div class="img-event">
-                              <img class="group list-group-image img-fluid" src="images/g3.jpg" alt="" />
-                          </div>
-                          <div class="caption card-body">
-                              <h4 class="group card-title inner list-group-item-heading">
-                                  Languages</h4>
-                              <p class="group inner list-group-item-text">
-                                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-                              <div class="row">
-                                  <div class="col-6">
-                                      <p class="lead">
-                                          $30.00</p>
-                                  </div>
-                                  <div class="col-6 ban-buttons">
-                                      <a class="btn btn-course" href="single.html">View More</a>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="item col-lg-4">
-                      <div class="thumbnail card">
-                          <div class="img-event">
-                              <img class="group list-group-image img-fluid" src="images/g4.jpg" alt="" />
-                          </div>
-                          <div class="caption card-body">
-                              <h4 class="group card-title inner list-group-item-heading">
-                                  UX Training</h4>
-                              <p class="group inner list-group-item-text">
-                                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-                              <div class="row">
-                                  <div class="col-6">
-                                      <p class="lead">
-                                          $34.00</p>
-                                  </div>
-                                  <div class="col-6 ban-buttons">
-                                      <a class="btn btn-course" href="single.html">View More</a>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="item col-lg-4">
-                      <div class="thumbnail card">
-                          <div class="img-event">
-                              <img class="group list-group-image img-fluid" src="images/g5.jpg" alt="" />
-                          </div>
-                          <div class="caption card-body">
-                              <h4 class="group card-title inner list-group-item-heading">
-                                  Business</h4>
-                              <p class="group inner list-group-item-text">
-                                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-                              <div class="row">
-                                  <div class="col-6">
-                                      <p class="lead">
-                                          $29.00</p>
-                                  </div>
-                                  <div class="col-6 ban-buttons">
-                                      <a class="btn btn-course" href="single.html">View More</a>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="item col-lg-4">
-                      <div class="thumbnail card">
-                          <div class="img-event">
-                              <img class="group list-group-image img-fluid" src="images/g6.jpg" alt="" />
-                          </div>
-                          <div class="caption card-body">
-                              <h4 class="group card-title inner list-group-item-heading">
-                                  Vocabulary</h4>
-                              <p class="group inner list-group-item-text">
-                                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-                              <div class="row">
-                                  <div class="col-6">
-                                      <p class="lead">
-                                          $20.00</p>
-                                  </div>
-                                  <div class="col-6 ban-buttons">
-                                      <a class="btn btn-course" href="single.html">View More</a>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="item col-lg-4">
-                      <div class="thumbnail card">
-                          <div class="img-event">
-                              <img class="group list-group-image img-fluid" src="images/g3.jpg" alt="" />
-                          </div>
-                          <div class="caption card-body">
-                              <h4 class="group card-title inner list-group-item-heading">
-                                  Photography</h4>
-                              <p class="group inner list-group-item-text">
-                                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-                              <div class="row">
-                                  <div class="col-6">
-                                      <p class="lead">
-                                          $31.00</p>
-                                  </div>
-                                  <div class="col-6 ban-buttons">
-                                      <a class="btn btn-course" href="single.html">View More</a>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="item col-lg-4">
-                      <div class="thumbnail card">
-                          <div class="img-event">
-                              <img class="group list-group-image img-fluid" src="images/g2.jpg" alt="" />
-                          </div>
-                          <div class="caption card-body">
-                              <h4 class="group card-title inner list-group-item-heading">
-                                  Inclusive-education</h4>
-                              <p class="group inner list-group-item-text">
-                                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-                              <div class="row">
-                                  <div class="col-6">
-                                      <p class="lead">
-                                          $19.00</p>
-                                  </div>
-                                  <div class="col-6 ban-buttons">
-                                      <a class="btn btn-course" href="single.html">View More</a>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="item col-lg-4 thumb-last">
-                      <div class="thumbnail card">
-                          <div class="img-event">
-                              <img class="group list-group-image img-fluid" src="images/g1.jpg" alt="" />
-                          </div>
-                          <div class="caption card-body">
-                              <h4 class="group card-title inner list-group-item-heading">
-                                  New Technologies</h4>
-                              <p class="group inner list-group-item-text">
-                                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-                              <div class="row">
-                                  <div class="col-6">
-                                      <p class="lead">
-                                          $33.00</p>
-                                  </div>
-                                  <div class="col-6 ban-buttons">
-                                      <a class="btn btn-course" href="single.html">View More</a>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
+                </div>
               </div>
-          </div>
-      </div>
+      
   </section>
   <!-- //banner -->
   <!--footer -->
