@@ -33,13 +33,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HomeComponent } from './home/home.component';
-import { UsersComponent } from './dashboard/users/users.component';
-import { UserComponent } from './dashboard/user/user.component';
-import { CoursesComponent } from './dashboard/courses/courses.component';
-import { CourseComponent } from './dashboard/course/course.component';
-import { ProjectsComponent } from './dashboard/projects/projects.component';
-import { ProjectComponent } from './dashboard/project/project.component';
-import { CommentsComponent } from './dashboard/comments/comments.component';
 
 @NgModule({
   declarations: [
@@ -59,14 +52,7 @@ import { CommentsComponent } from './dashboard/comments/comments.component';
     DashboardComponent,
     HeaderUserComponent,
     FourOhFourComponent,
-    HomeComponent,
-    UsersComponent,
-    UserComponent,
-    CoursesComponent,
-    CourseComponent,
-    ProjectsComponent,
-    ProjectComponent,
-    CommentsComponent
+    HomeComponent
   ],
   imports: [
     BrowserModule,

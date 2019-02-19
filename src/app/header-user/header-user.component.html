@@ -1,5 +1,35 @@
-<p>
-  header-user works!
-</p>
+    <!-- header -->
+    <header class="header">
+      <div class="container-fluid px-lg-5">
+          <!-- nav -->
+          <nav class="py-4">
+              <div id="logo">
+                  <h1> <a href="index.html"><span>5</span>Skills</a></h1>
+              </div>
+
+              <label for="drop" class="toggle">Menu</label>
+              <input type="checkbox" id="drop" />
+              <ul class="menu mt-2">
+                  <li><a href="#">Home</a></li>
+                  <li><a href="about.html">About</a></li>
+
+                  <li class="active">
+                      <!-- First Tier Drop Down -->
+                      <label for="drop-2" class="toggle">Courses <span class="fa fa-angle-down" aria-hidden="true"></span> </label>
+                      <a href="#">Courses <span class="fa fa-angle-down" aria-hidden="true"></span></a>
+                      <input type="checkbox" id="drop-2" />
+                      <ul>
+                          <li><a href="courses.html" class="scroll">Add link1</a></li>
+                          <li><a href="courses.html">Add link2</a></li>
+                          <li><a href="courses.html">Add link3</a></li>
+                      </ul>
+                  </li>
+                  <li><a href="events.html">Events</a></li>
+                  <li><a href="contact.html">Contact</a></li>
+              </ul>
+          </nav>
+          <!-- //nav -->
+      </div>
+  </header>
 
 <router-outlet></router-outlet>
