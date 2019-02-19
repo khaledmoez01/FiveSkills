@@ -29,7 +29,7 @@ router.post('/course/createdraft/:id_teacher', auth.optional , upload.single('co
 
 
 // 03 - creer un course published
-router.post('/course/createpublished/:id_teacher', auth.optional, userController.user_course_create_published)
+//router.post('/course/createpublished/:id_teacher', auth.optional, userController.user_course_create_published)
 
 // 04 - Récupérer les détails d’un course. cela inclut la récupération des projets de ce course et ses commentaires
 router.get('/course/:id_course', auth.optional, userController.user_course_get)
