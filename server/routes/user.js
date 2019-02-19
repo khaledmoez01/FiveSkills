@@ -24,10 +24,14 @@ router.get('/courses/image/:name', async (req, res) => {
 router.get('/courses', auth.optional, userController.user_courses_get)
 
 // 02 - creer un course
+<<<<<<< HEAD
 router.post('/course/createdraft/:id_teacher', auth.optional , upload.single('course_image'), userController.user_course_create_draft)
+=======
+//router.post('/course/createdraft/:id_teacher', auth.optional, userController.user_course_create_draft)
+>>>>>>> 349314772ebb866ba90a7f4cea030abf56130b47
 
 // 03 - creer un course published
-router.post('/course/createpublished/:id_teacher', auth.optional, userController.user_course_create_published)
+//router.post('/course/createpublished/:id_teacher', auth.optional, userController.user_course_create_published)
 
 // 04 - Récupérer les détails d’un course. cela inclut la récupération des projets de ce course et ses commentaires
 router.get('/course/:id_course', auth.optional, userController.user_course_get)

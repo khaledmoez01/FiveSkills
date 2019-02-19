@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -12,7 +12,7 @@ export class SignupComponent implements OnInit {
   results: any;
   imageSrc: any;
   selectedImage: File;
-  constructor(private ApiService: AuthService) {
+  constructor(private ApiService: AuthService,  private router:Router) {
     this.userForm = new FormGroup({
       user_first_name: new FormControl('', [Validators.required]),
       user_last_name: new FormControl('', [Validators.required]),
@@ -39,7 +39,8 @@ export class SignupComponent implements OnInit {
       this.ApiService.signup(formData).subscribe(async file => {
         //Read the result field from the JSON response.
         console.log(file)
-        alert('you are added with success')
+        alert('you are added with success');
+        this.router.navigate(['/login'])
 
         console.log("file");
         this.results = file.data;

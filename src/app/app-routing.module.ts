@@ -22,6 +22,13 @@ import { RoleGuardService as RoleGuard } from './services/role-guard.service';
 
 import { userRoleEnum } from "./models/user-roles.enum";
 import { HomeComponent } from './home/home.component';
+import { UsersComponent } from './dashboard/users/users.component';
+import { UserComponent } from './dashboard/user/user.component';
+import { CoursesComponent } from './dashboard/courses/courses.component';
+import { CourseComponent } from './dashboard/course/course.component';
+import { ProjectsComponent } from './dashboard/projects/projects.component';
+import { ProjectComponent } from './dashboard/project/project.component';
+import { CommentsComponent } from './dashboard/comments/comments.component';
 
 
 const routes: Routes = [
@@ -30,22 +37,22 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   {
     path: 'dashboard',
-    component: HeaderAdminComponent,
+    component: DashboardComponent,
     canActivate: [RoleGuard],
     data: {
       allowedRoles: [userRoleEnum.admin]
     },
     children: [
-      { path: 'users', component: UserListComponent },
-      { path: 'user/:id', component: SingleUserComponent },
+      { path: 'users', component: UsersComponent },
+      { path: 'user/:id', component:UserComponent },
 
-      { path: 'courses', component: CourseListComponent },
-      { path: 'course/:id', component: SingleCourseComponent },
+      { path: 'courses', component: CoursesComponent },
+      { path: 'course/:id', component:CourseComponent },
 
-      { path: 'projects', component: ProjectListComponent },
-      { path: 'project/:id', component: SingleProjectComponent },
+      { path: 'projects', component: ProjectsComponent },
+      { path: 'project/:id', component:ProjectComponent },
 
-      { path: 'comments', component: CommentListComponent },
+      { path: 'comments', component: CommentsComponent },
       { path: '', component: DashboardComponent, pathMatch: 'full' },
       { path: '**', redirectTo: '/not-found' }
     ]
@@ -76,6 +83,7 @@ const routes: Routes = [
       { path: '**', redirectTo: '/not-found' }
     ]
   },
+   { path: 'createCourse',component:CourseFormComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'not-found', component: FourOhFourComponent },
   { path: '**', redirectTo: '/not-found' }
