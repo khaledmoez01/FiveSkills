@@ -1,3 +1,73 @@
-<p>
-  single-course works!
-</p>
+
+<!-- mian-content -->
+    <!-- //header -->
+    <div class="banner-content inner">
+  
+        <!-- //header -->
+    </div>
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href="index.html">Home</a>
+    </li>
+    <li class="breadcrumb-item active">Single Page</li>
+</ol>
+<!---->
+<!-- banner -->
+  
+<section class="ab-info-main py-md-5 py-4">
+    <div class="container py-md-5 py-4">
+        <button type="button" class="btn btn-success follow">Follow the Course</button>
+
+        <h3 class="tittle text-center mb-lg-5 mb-3"><span class="sub-tittle">Latest</span> Single Page</h3>  
+        
+        <div class="speak">
+            <div class="row mt-lg-5 mt-4" *ngFor="let results of result">
+                <div class="col-md-12 events-img">
+                    <img src="http://localhost:3000/user/courses/image/{{results.course_image}}" class="img-fluid" alt="user-image" />
+                </div>
+                <div class="col-md-12 events-info my-3">
+                    <h3><span class="sub-tittle"></span> {{results.course_title}}</h3>
+                    <h4 class="my-3"><a href="#" class="text-dark">Writer: {{results.course_teacher.user_first_name}}</a></h4>
+                    <p>Course Description : {{results.course_description}} </p>
+                    <ul class="team-icons new-inf mt-md-4 mt-3 d-flex">
+                        <li><a href="#"><span class="fa fa-calendar"></span></a> {{results.course_date|date}} </li>
+                        <li><a href="#"><span class="fa fa-comment-o mx-1"></span> 20</a></li>
+                        <li><a href="#"><span class="fa fa-heart-o"></span> 30 </a></li>
+                    </ul>
+                </div>
+                <p>{{results.course_statement}}</p>
+            </div>
+          
+            <button type="button" class="btn btn-success add">Add a Project</button>
+            <hr>
+            <div class="single-form-left">
+                <!-- contact form grid -->
+                <div class="contact-single">
+                    <h3><span class="sub-tittle"></span> Leave a Comment</h3>
+                    <form action="#" method="get" class="mt-4">
+                        <div class="form-group">
+                            <label for="contactcomment">Your Comment *</label>
+                            <textarea class="form-control border" rows="5" id="contactcomment" required=""></textarea>
+                        </div>
+                        <button type="submit" class="mt-3 btn btn-success btn-block py-3">Post Comment</button>
+                    </form>
+                </div>
+                <!--  //contact form grid ends here -->
+            </div>
+        
+
+        </div>
+    </div>
+</section>
+<!-- //contact -->
+<!--footer -->
+
+<!-- //footer -->
+
+<!-- copyright -->
+<div class="cpy-right text-center py-3">
+    <p class="">© 2019 High Edu. All rights reserved | Design by
+        <a href="http://w3layouts.com"> W3layouts.</a>
+    </p>
+</div>
+<!-- //copyright -->

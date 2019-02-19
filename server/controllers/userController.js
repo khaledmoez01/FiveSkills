@@ -8,6 +8,16 @@ const ObjectId = require('mongodb').ObjectId;
 
 // 01 - recuperer la liste des courses
 exports.user_courses_get = [
+  async (req, res, next) => {
+
+
+    const result = await Course.find().catch(err => err)
+    res.send(result)
+  }
+]
+
+// 02 - creer un course draft
+exports.user_course_create_draft = [
   async(req, res, next) => {
 
     const result = await Course.find().catch(err => err)
@@ -26,6 +36,7 @@ exports.user_course_create_post = [
       course_teacher: teacherID,
       course_content: req.body.course_content,
       course_description: req.body.course_description,
+      course_image : req.file.filename,
       course_statement: req.body.course_statement,
      // course_status: req.body.course_status
   }
