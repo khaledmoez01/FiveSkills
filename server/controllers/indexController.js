@@ -59,7 +59,7 @@ exports.index_login_post = [
     const result = await User.findOne({ user_email: Email })
     console.log(result);
     if (result && bcrypt.compareSync(Password, result.user_password)) {
-      const token = jwt.sign({id: result.user_email}, 'user');
+      const token = jwt.sign({id: result}, 'user');
         res.send( {lvl : 'Your connexion is valide', token:token});
     }
     else {
