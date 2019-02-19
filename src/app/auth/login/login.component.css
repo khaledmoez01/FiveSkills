@@ -1,0 +1,9 @@
+.apply-main {
+    background: url('https://it.cornell.edu/sites/default/files/Two-Step%20Login/two_step%20login%20laptop%20smartphone.jpg') no-repeat center;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    -ms-background-size: cover;
+    min-height: 37.7em;
+}

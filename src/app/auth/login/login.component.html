@@ -1,0 +1,60 @@
+<!-- header -->
+<header class="header">
+  <div class="container-fluid px-lg-5">
+    <!-- nav -->
+    <nav class="py-4">
+      <div id="logo">
+        <h1> <a href="index.html"><span>5</span>Skills</a></h1>
+      </div>
+
+      <label for="drop" class="toggle">Menu</label>
+      <input type="checkbox" id="drop" />
+      <ul class="menu mt-2">
+        <li><a href="#">Home</a></li>
+        <li><a href="about.html">About</a></li>
+
+        <li>
+          <!-- First Tier Drop Down -->
+          <label for="drop-2" class="toggle">Courses <span class="fa fa-angle-down" aria-hidden="true"></span> </label>
+          <a href="#">Courses <span class="fa fa-angle-down" aria-hidden="true"></span></a>
+          <input type="checkbox" id="drop-2" />
+          <ul>
+            <li><a href="courses.html" class="scroll">Add link1</a></li>
+            <li><a href="courses.html">Add link2</a></li>
+            <li><a href="courses.html">Add link3</a></li>
+          </ul>
+        </li>
+        <li class="active"><a href="events.html">Login</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <!-- //nav -->
+  </div>
+</header>
+<section class="apply-main py-5" id="apply">
+  <div class="container">
+    <div class="row py-lg-5">
+      <div class="col-lg-7 apply-info px-lg-5">
+        <h3 class="tittle text-white mb-lg-5 mb-3"> Get
+          the Coaching Training for Free</h3>
+      </div>
+      <div class="login p-md-5 p-4 mx-auto bg-white mw-100 col-lg-5">
+        <h5 class="text-center mb-4">Login</h5>
+        <form action="#" method="post" [formGroup]="loginForm">
+          <div class="form-group mb-4">
+            <label>Email</label>
+            <input type="email" class="form-control" formControlName="user_email" placeholder="" required="">
+          </div>
+          <div class="form-group mb-4">
+            <label class="mb-2">Password</label>
+            <input type="password" class="form-control" formControlName="user_password" placeholder="" required="">
+          </div>
+          <button type="submit" (click)="loginBtn()" class="btn btn-primary submit mb-4">Validate</button>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</section>
+<!-- //header -->
