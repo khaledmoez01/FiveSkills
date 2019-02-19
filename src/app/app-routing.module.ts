@@ -76,6 +76,7 @@ const routes: Routes = [
       { path: '**', redirectTo: '/not-found' }
     ]
   },
+   { path: 'createCourse',component:CourseFormComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'not-found', component: FourOhFourComponent },
   { path: '**', redirectTo: '/not-found' }
