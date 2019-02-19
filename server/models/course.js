@@ -21,6 +21,7 @@ let CourseSchema = new Schema(
       type: String,
       required: [true, 'course title is mandatory']
     },
+    course_image:  {type :String},
     course_date: {
       type: Date,
       default: Date.now,
