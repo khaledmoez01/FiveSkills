@@ -46,6 +46,7 @@ router.post('/course/follow/:id_user/:id_course', auth.required, userController.
 // 08 - Récupérer les détails d’un user. l'id du user sera récupéré du token. On recupere aussi la liste des commentaires ecrits par ce user
 router.get('/user/:id_user', auth.optional, userController.user_get)
 
+
 // 09 - Mettre à jour de ce même user. l'id du user sera récupéré du token
 router.post('/user/update/:id_user', auth.optional, userController.user_update_post)
 

@@ -73,7 +73,7 @@ const routes: Routes = [
       allowedRoles: [userRoleEnum.teacher, userRoleEnum.student]
     },
     children: [
-      { path: 'user/:id', component: SingleUserComponent },
+      { path: 'user', component: SingleUserComponent },
       { path: 'courses', component: CourseListComponent },
       { path: 'course/new',  component: CourseFormComponent  },
       { path: 'course/:id', component: SingleCourseComponent },
