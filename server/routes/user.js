@@ -41,7 +41,7 @@ router.post('/course/update/:id_course', auth.optional,upload.single('course_ima
 router.get('/course/delete/:id_course/:id_user/:index', auth.optional, userController.user_course_delete_post)
 
 // 06 - follow a course (id_course présent dans body). Le votant sera ce même user. l'id du user sera récupéré du token
-router.post('/course/follow/:id_user/:id_course', auth.required, userController.user_course_follow_post)
+router.post('/course/follow/:id_user/:id_course', auth.optional, userController.user_course_follow_post)
 
 // 08 - Récupérer les détails d’un user. l'id du user sera récupéré du token. On recupere aussi la liste des commentaires ecrits par ce user
 router.get('/user/:id_user', auth.optional, userController.user_get)
@@ -57,10 +57,10 @@ router.post('/user/delete/:id_user', auth.optional, userController.user_delete_p
 router.post('/comment/create/:id_Course/:id_user', auth.optional, userController.user_comment_create_post)
 
 // 12 - Mettre à jour un comment ecrit par ce user (id_user récupéré depuis le token). id_comment present dans body.
-router.post('/comment/update/:id', auth.optional, userController.user_comment_update_post)
+router.post('/comment/update/:id_comment', auth.optional, userController.user_comment_update_post)
 
 // 13 - Suppression d'un comment ecrit par ce user (id_user récupéré depuis le token). id_comment present dans body
-router.post('/comment/delete/:id_Course/:index_comment', auth.optional, userController.user_comment_delete_post)
+router.get('/comment/delete/:id_Course/:id_comment', auth.optional, userController.user_comment_delete_post)
 
 // 13 - voter un projet (id_projet présent dans body). Le votant sera ce même user. l'id du user sera récupéré du token
 router.post('/project/vote/:id_user/:id_project', auth.required, userController.user_project_vote_post)
