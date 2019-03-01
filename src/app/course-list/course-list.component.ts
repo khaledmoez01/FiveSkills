@@ -10,22 +10,27 @@ import { Router } from '@angular/router';
 export class CourseListComponent implements OnInit {
   result;
   getpara;
-  constructor(private apiService: CoursesService,private router: Router) { }
+  constructor(private apiService: CoursesService, private router: Router) { }
 
   ngOnInit() {
-    this.apiService.getApiatricle().subscribe(doc => {
-      console.log(doc);
-      this.result = doc;
-   });
+
+    this.apiService.getCourses().subscribe((doc:any) => {
+       for (let i =0; i < doc.length; i++) {
+         if (doc[i].course_status === 3) {
+           this.result = [doc[i]];
+         }
+       }
+     
+    });
   }
 
-  gotoarticle(id){
+  gotocoursebyid(id) {
     console.log(id);
-    this.apiService.setid(id);
-    this.router.navigate(['/simpleuser/course/:id']); 
+    // this.apiService.setid(id);
+    this.router.navigate(['/simpleuser/course/' + id]);
   }
-  slice(f){
-  this.getpara = f.slice(0, -500)
-  return this.getpara;
-  } 
+  slice(f) {
+    this.getpara = f.slice(0, -500)
+    return this.getpara;
+  }
 }

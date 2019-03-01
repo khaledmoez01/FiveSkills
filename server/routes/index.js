@@ -19,7 +19,12 @@ let indexController = require('../controllers/indexController')
 // body(firstName, lastName, email, password, role) - Création d’un user
 router.post('/signup', upload.single('user_image'),indexController.index_signup_post)
 
+
 // body(email, password) - Authentification d’un user
 router.post('/login', auth.optional, indexController.index_login_post)
 
+router.get('/image/:name', upload.single('user_image'),async (req, res) => {
+  console.log(__dirname)
+  res.sendFile('C:\\Users\\emna\\Desktop\\projet Niveau 3\\FiveSkills\\server\\uploads\\' + req.params.name)
+})
 module.exports = router

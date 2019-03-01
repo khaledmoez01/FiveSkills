@@ -77,7 +77,7 @@ const routes: Routes = [
       allowedRoles: [userRoleEnum.teacher, userRoleEnum.student]
     },
     children: [
-      { path: 'user/:id', component: SingleUserComponent },
+      { path: 'user', component: SingleUserComponent },
       { path: 'courses', component: CourseListComponent },
       { path: 'course/new',  component: CourseFormComponent  },
       { path: 'course/:id', component: SingleCourseComponent },
@@ -88,7 +88,7 @@ const routes: Routes = [
     ]
   },
    { path: 'createCourse',component:CourseFormComponent },
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'not-found', component: FourOhFourComponent },
   { path: '**', redirectTo: '/not-found' }
 ];

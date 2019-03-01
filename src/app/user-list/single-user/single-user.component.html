@@ -1,0 +1,338 @@
+<div class="bg">
+  <div class="container">
+    <div class="row">
+      <div class="container emp-profile" *ngFor="let result of results ">
+        <form method="post">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="profile-img">
+                <img src="http://localhost:3000/image/{{result.user_image}}" alt="" />
+                <!--  <div class="file btn btn-lg btn-primary">
+                      Change Photo
+                      <input type="file" name="file"/>
+                  </div> -->
+              </div>
+            </div>
+            <div class="col-md-5">
+              <div class="profile-head">
+                <h5>
+                  {{result.user_first_name}} {{result.user_last_name}}
+                </h5>
+                <br>
+                <h6>
+                  {{result.user_role === 3 ? 'Student' : 'Teacher'}}
+                </h6>
+                <p class="proile-rating"><span></span></p>
+                <ngb-tabset>
+                  <ngb-tab title="About">
+                    <ng-template ngbTabContent>
+                      <div>
+                        <div class="row" style="margin-top: 31px">
+                          <div class="col-md-5">
+                            <label>First Name</label>
+                          </div>
+                          <div class="col-md-6">
+                            <p>{{result.user_first_name}} </p>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-5">
+                            <label>Last Name</label>
+                          </div>
+                          <div class="col-md-6">
+                            <p>{{result.user_last_name}}</p>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-5">
+                            <label>Email</label>
+                          </div>
+                          <div class="col-md-6">
+                            <p>{{result.user_email}}</p>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-5">
+                            <label>Birthday</label>
+                          </div>
+                          <div class="col-md-6">
+                            <p>{{result.user_birthday}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </ngb-tab>
+                  <ngb-tab title="courses">
+                    <ng-template ngbTabContent>
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th scope="col-4">Image</th>
+                            <th scope="col-4">Courses</th>
+                            <th scope="col">Course Status</th>
+                            <th scope="col">Options</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let course of courses;let i = index">
+                            <td>
+                              <img class="image" src="http://localhost:3000/image/{{ course.course_image }}" alt="" />
+
+                            </td>
+                            <td>
+                              {{ course.course_title }}
+                            </td>
+                            <td>
+                              {{ (course.course_status === 3 ) ?  'Published':  (course.course_status === 1)?'Draft'  :'Pending'}}
+                            </td>
+                            <td class="tdbutton">
+                              <button type="button" class="btn btn-outline-dark"
+                                (click)="open(content3); getid(i)">Edit</button>
+                              <button type="button" (click)="deleteCourse(i)"
+                                class="btn btn-outline-dark">Delete</button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </ng-template>
+                  </ngb-tab>
+                  <ngb-tab title="Projects" *ngIf="hidden">
+                        <ng-template ngbTabContent >
+                          <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                <th scope="col-4">Image</th>
+                                <th scope="col-4">Project Title</th>
+                                <th scope="col">Options</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let project of projects;let i = index">
+                                <td>
+                                  <img class="image" src="http://localhost:3000/image/{{ project.project_image}}" alt="" />
+                                </td>
+                                <td>
+                                  {{ project.project_title }}
+                                </td>
+                                <td class="tdbutton">
+                                  <button type="button" class="btn btn-outline-dark"
+                                    (click)="open(content5);getProjectIndex(i)">Edit</button>
+                                  <button type="button" (click)="Userdeleteproject(i)"
+                                    class="btn btn-outline-dark">Delete</button>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                    </ng-template>
+                  </ngb-tab>
+                </ngb-tabset>
+
+              </div>
+            </div>
+            <div class="col-md-2">
+              <input type="button" class="profile-edit-btn" (click)="open(content);getindex();" value="Edit Profile" />
+            </div>
+            <div class="col-md-2" *ngIf="show">
+              <input type="button" class="profile-edit-btn" (click)="open(content2);getindex();" value="Add Course" />
+            </div>
+            <div class="col-md-4" *ngIf="hidden">
+              <input type="button" class="profile-edit-btn" (click)="open(content4);getindex();"
+                value="create Course" />
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="UserForm">
+      <div class="form-group">
+        <label>First Name</label>
+        <div class="input-group">
+          <input [value]="ID.user_first_name" formControlName="user_first_name" class="form-control">
+        </div>
+        <label>Last Name</label>
+        <div class="input-group">
+          <input [value]="ID.user_last_name" formControlName="user_last_name" class="form-control">
+        </div>
+        <label>Image</label>
+        <div class="input-group">
+          <input type="file" (change)="selectedFile($event)" class="form-control" name="user_image">
+        </div>
+        <label>Email</label>
+        <div class="input-group">
+          <input [value]="ID.user_email" formControlName="user_email" class="form-control">
+        </div>
+        <label>Birthday</label>
+        <div class="input-group">
+          <input type="text" [value]="ID.user_birthday" formControlName="user_birthday" class="form-control">
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click');EditProfil()">Save</button>
+  </div>
+</ng-template>
+<ng-template #content2 let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add Course</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="CourseForm">
+      <div class="form-group">
+        <label>Course Title</label>
+        <div class="input-group">
+          <input formControlName="course_title" class="form-control" >
+        </div>
+        <label>course_content</label>
+        <div class="input-group">
+          <input formControlName="course_content" class="form-control"  >
+        </div>
+        <label>Course Description</label>
+        <div class="input-group">
+          <input formControlName="course_description" class="form-control" >
+        </div>
+        <label>Course Statement</label>
+        <div class="input-group">
+          <input formControlName="course_statement" class="form-control" >
+        </div>
+        <label>Image</label>
+        <div class="input-group">
+          <input type="file" (change)="selectedFile($event)" class="form-control" name="course_image">
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark"
+      (click)="modal.close('Save click');publishedCourse()">Published</button>
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click');createcourseDraft()">Add to
+      draft</button>
+  </div>
+</ng-template>
+<ng-template #content3 let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Edit Course</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="CourseForm">
+      <div class="form-group">
+        <label>Course Title</label>
+        <div class="input-group">
+          <input formControlName="course_title" class="form-control">
+        </div>
+        <label>Course Content</label>
+        <div class="input-group">
+          <input formControlName="course_content" class="form-control">
+        </div>
+        <label>Course Description</label>
+        <div class="input-group">
+          <input formControlName="course_description" class="form-control">
+        </div>
+        <label>Course Statement</label>
+        <div class="input-group">
+          <input formControlName="course_statement" class="form-control">
+        </div>
+        <label>Image</label>
+        <div class="input-group">
+          <input type="file" (change)="selectedFile($event)" class="form-control" name="course_image">
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click');editCourse(i)">Edit</button>
+  </div>
+</ng-template>
+
+<ng-template #content4 let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add Course</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="CourseForm">
+      <div class="form-group">
+        <label>Course Title</label>
+        <div class="input-group">
+          <input formControlName="course_title" class="form-control">
+        </div>
+        <label>course_content</label>
+        <div class="input-group">
+          <input formControlName="course_content" class="form-control">
+        </div>
+        <label>Course Description</label>
+        <div class="input-group">
+          <input formControlName="course_description" class="form-control">
+        </div>
+        <label>Course Statement</label>
+        <div class="input-group">
+          <input formControlName="course_statement" class="form-control">
+        </div>
+        <label>Image</label>
+        <div class="input-group">
+          <input type="file" (change)="selectedFile($event)" class="form-control" name="course_image">
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark"
+      (click)="modal.close('Save click');CourseSendedToValidate()">Pending</button>
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click');draftStudentCourse()">Add to
+      draft</button>
+  </div>
+</ng-template>
+
+<ng-template #content5 let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Edit Project</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+  
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="ProjectForm">
+        <div class="form-group">
+          <label>Project Title</label>
+          <div class="input-group">
+            <input formControlName="project_title" class="form-control">
+          </div>
+          <label>Project Content</label>
+          <div class="input-group">
+            <input formControlName="project_content" class="form-control">
+          </div>
+          <label>Image</label>
+          <div class="input-group">
+            <input type="file" (change)="selectedFile($event)" class="form-control" name="project_image">
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click');EditPtojectUser(i)">Edit</button>
+    </div>
+  </ng-template>

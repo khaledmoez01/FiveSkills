@@ -38,8 +38,11 @@
                                   <div class="col-6">
                                       {{slice(results.course_statement)}}
                                   </div>
+                                  <div class="col-6">
+                                    {{results.course_status}}
+                                </div>
                                   <div class="col-6 ban-buttons">
-                                      <a class="btn btn-course" (click)="gotoarticle(results._id)">View More</a>
+                                      <a class="btn btn-course" routerLink="/simpleuser/course/{{results._id}}">View More</a>
                                   </div>
                               </div>
                           </div>

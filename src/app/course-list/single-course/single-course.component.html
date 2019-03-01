@@ -1,69 +1,265 @@
-
 <!-- mian-content -->
+<!-- //header -->
+<div class="banner-content inner">
+
     <!-- //header -->
-    <div class="banner-content inner">
-  
-        <!-- //header -->
-    </div>
+</div>
 <ol class="breadcrumb">
     <li class="breadcrumb-item">
         <a href="index.html">Home</a>
     </li>
-    <li class="breadcrumb-item active">Single Page</li>
+    <li class="breadcrumb-item active">Single Course</li>
 </ol>
 <!---->
 <!-- banner -->
-  
-<section class="ab-info-main py-md-5 py-4">
-    <div class="container py-md-5 py-4">
-        <button type="button" class="btn btn-success follow">Follow the Course</button>
 
-        <h3 class="tittle text-center mb-lg-5 mb-3"><span class="sub-tittle">Latest</span> Single Page</h3>  
-        
+<section class="ab-info-main">
+    <div class="container " *ngFor="let results of result; let i = index">
+        <br>
+        <h3 class="tittle text-center mb-lg-5 mb-3"><span class="sub-tittle">Course title</span>{{results.course_title}}
+        </h3>
+
         <div class="speak">
-            <div class="row mt-lg-5 mt-4" *ngFor="let results of result">
+            <div class="row mt-lg-5 mt-4">
                 <div class="col-md-12 events-img">
-                    <img src="http://localhost:3000/user/courses/image/{{results.course_image}}" class="img-fluid" alt="user-image" />
+                    <img src="http://localhost:3000/user/courses/image/{{results.course_image}}" class="img-fluid"
+                        alt="user-image" />
                 </div>
                 <div class="col-md-12 events-info my-3">
-                    <h3><span class="sub-tittle"></span> {{results.course_title}}</h3>
-                    <h4 class="my-3"><a href="#" class="text-dark">Writer: {{results.course_teacher.user_first_name}}</a></h4>
+                    <h4 class="my-3"><a class="text-dark">Course teacher: {{results.course_teacher.user_first_name}}
+                            {{results.course_teacher.user_last_name}}</a></h4>
                     <p>Course Description : {{results.course_description}} </p>
                     <ul class="team-icons new-inf mt-md-4 mt-3 d-flex">
-                        <li><a href="#"><span class="fa fa-calendar"></span></a> {{results.course_date|date}} </li>
-                        <li><a href="#"><span class="fa fa-comment-o mx-1"></span> 20</a></li>
-                        <li><a href="#"><span class="fa fa-heart-o"></span> 30 </a></li>
+                        <li><a><span class="fa fa-calendar"></span></a> {{results.course_date|date}} </li>
+                        <li><a><span class="fa fa-comment-o mx-1"></span> {{commentsNumber}} </a></li>
+                        <li *ngIf="show"><a (click)="followthecourse()"><img
+                                    src="https://img.icons8.com/metro/26/000000/like.png"> {{followersNumber}} </a></li>
+                        <li *ngIf="hidden"><a (click)="unfollowCourse()"> <img
+                                    src="https://img.icons8.com/metro/26/000000/hearts.png"> {{followersNumber}} </a>
+                        </li>
+
                     </ul>
                 </div>
                 <p>{{results.course_statement}}</p>
+
             </div>
-          
-            <button type="button" class="btn btn-success add">Add a Project</button>
+
+
             <hr>
-            <div class="single-form-left">
-                <!-- contact form grid -->
+            <div class="container py-xl-5 py-lg-3">
+                <h3 class="tittle text-center mb-lg-5 mb-3 project"><span></span>
+                    Class Projects
+                </h3>
+                <ng-template #content let-modal>
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modal-basic-title">Add Project</h4>
+                        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form [formGroup]="ProjectForm">
+                            <div class="form-group">
+                                <label for="dateOfBirth">Project Title</label>
+                                <div class="input-group">
+                                    <input class="form-control" placeholder="Project Title"
+                                        formControlName="project_title">
+                                </div>
+                                <label for="dateOfBirth">Project Content</label>
+                                <div>
+                                    <div class="form-group">
+                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                            formControlName="project_content"></textarea>
+                                    </div>
+                                </div>
+                                <label for="dateOfBirth">Project Content</label>
+                                <div class="input-group">
+                                    <span style="color:red;" *ngIf="message">{{message}}</span>
+                                    <input #file type="file" accept='image/*'
+                                        (change)="preview(file.files);selectedFile($event)" name="project_image" />
+                                    <img [src]="imgURL" height="200" *ngIf="imgURL">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-dark"
+                                    (click)="modal.close('Save click');addproject()">Save</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </ng-template>
+
+                <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Add Project</button>
+                <br>
+                <br>
+                <div class="container-fluid">
+
+                    <div class="row">
+                        <div class="col-sm-6" *ngFor="let project of projects; let k = index">
+                            <div class="card">
+                                <img class="card-img"
+                                    src="http://localhost:3000/student/projects/image/{{project.project_image}}">
+                                <div class="card-block">
+                                    <h4 class="card-title">{{project.project_title}}</h4>
+                                    <div class="meta">
+                                        <a>{{project.project_user.user_first_name}}
+                                            {{project.project_user.user_last_name}}</a>
+                                    </div>
+                                    <div class="card-text">
+                                        {{project.project_content}}
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <span class="float-right">{{project.project_date|date}}</span>
+
+                                    <div>
+                                        <ul>
+                                            <a *ngIf="!checkLike(project.project_vote)" (click)="AddVote(project.id)">
+                                                <img src="https://img.icons8.com/windows/32/000000/star.png"> </a>
+
+                                            <a *ngIf="checkLike(project.project_vote)"
+                                                (click)="unvoteprojrct(project.id)"> <img
+                                                    src="https://img.icons8.com/windows/32/000000/filled-star.png"></a>
+
+                                        </ul>
+                                    </div>
+
+                                </div>
+                                <div class="card-footer">
+                                    <button class="btn btn-secondary float-right btn-sm"
+                                        (click)="open(content);projectbyid(project._id)">show</button>
+                                    <ng-template #content let-modal>
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="modal-basic-title">Full Project</h4>
+                                            <button type="button" class="close" aria-label="Close"
+                                                (click)="modal.dismiss('Cross click')">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form *ngFor="let resultat of res">
+                                                <div class="card-block">
+
+                                                    <h4 class="card-title">{{resultat.project_title}}</h4>
+                                                    <div class="meta">
+                                                        <a href="#">{{resultat.project_user}}</a>
+                                                    </div>
+                                                    <div class="card-text">
+                                                        {{resultat.project_content}}
+
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-outline-dark"
+                                                        (click)="modal.close('Save click')">Close</button>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                    </ng-template>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!--    <div class="single-form-left">
+               contact form grid 
                 <div class="contact-single">
                     <h3><span class="sub-tittle"></span> Leave a Comment</h3>
-                    <form action="#" method="get" class="mt-4">
+                    <form action="#" method="get" class="mt-4" [formGroup]="CommentForm">
                         <div class="form-group">
                             <label for="contactcomment">Your Comment *</label>
-                            <textarea class="form-control border" rows="5" id="contactcomment" required=""></textarea>
+                            <textarea class="form-control border" rows="5" formControlName="comment_content"></textarea>
                         </div>
-                        <button type="submit" class="mt-3 btn btn-success btn-block py-3">Post Comment</button>
+                        <button type="button" (click)="addcommentcourse()"
+                            class="mt-3 btn btn-success btn-block py-3">Post Comment</button>
                     </form>
-                </div>
-                <!--  //contact form grid ends here -->
-            </div>
-        
 
+                </div>
+            </div> -->
+            <!--  //contact form grid ends here -->
+            <form [formGroup]="CommentForm">
+                <div class="row bootstrap snippets">
+                    <div class="col-md">
+                        <div class="comment-wrapper">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    Comment panel
+                                </div>
+                                <div class="panel">
+                                    <textarea class="form-control" formControlName="comment_content"
+                                        placeholder="write a comment..." rows="3"></textarea>
+                                    <br>
+                                    <button type="button" class="btn btn-info pull-right"
+                                        (click)="addcommentcourse()">Post</button>
+                                    <div class="clearfix"></div>
+                                    <hr>
+                                    <ul class="media-list" *ngFor="let results of result">
+                                        <li class="media" *ngFor="let commnet of comments.slice().reverse()">
+                                            <a href="#" class="pull-left">
+                                                <img src="http://localhost:3000/student/projects/image/{{commnet.comment_user.user_image}}"
+                                                    alt="" class="img-circle">
+                                            </a>
+                                            <div class="media-body">
+                                                <span class="text-muted pull-right">
+                                                    <small class="text-muted">{{commnet.comment_date | date}} {{f}}</small>
+                                                    <a (click)="open(content5);getIdComment(commnet._id,commnet.comment_content)">  <img
+                                                            src="https://img.icons8.com/windows/32/000000/create-new.png" style="  width:30px; height:30px"></a>
+                                                            <a (click)="deleteComment(commnet._id)"><img src="https://img.icons8.com/material-outlined/32/000000/close-window.png" style="width:30px; height:30px"></a>
+                                                </span>
+
+                                                <strong class="text-success">@{{commnet.comment_user.user_first_name}}
+                                                    {{commnet.comment_user.user_last_name}}</strong>
+                                                <p>
+                                                    {{commnet.comment_content}}.
+                                                </p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
         </div>
+
     </div>
 </section>
+<ng-template #content5 let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Edit Comment</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="CommentForm">
+            <div class="form-group">
+                <label for="dateOfBirth">Comment content</label>
+                <div class="input-group">
+                    <input class="form-control" placeholder="Project Title" formControlName="comment_content">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark"
+                    (click)="modal.close('Save click');editComment(IdComment)">Save</button>
+            </div>
+        </form>
+    </div>
+
+</ng-template>
 <!-- //contact -->
 <!--footer -->
 
 <!-- //footer -->
-
 <!-- copyright -->
 <div class="cpy-right text-center py-3">
     <p class="">© 2019 High Edu. All rights reserved | Design by
