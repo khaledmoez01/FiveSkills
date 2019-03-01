@@ -11,14 +11,14 @@ exports.user_courses_get = [
   async (req, res, next) => {
 
 
-    const result = await Course.find().catch(err => err)
+    const result = await Course.find().exec().catch(err => err)
     res.send(result)
   }
 ]
 
 // 02 - creer un course draft
 exports.user_course_create_draft = [
-  async(req, res, next) => {
+  async (req, res, next) => {
 
     console.log(req.body)
     let teacherID = req.params.id_teacher
@@ -32,37 +32,37 @@ exports.user_course_create_draft = [
     }
     const result = await Course.create(courseDATA).catch(err => err)
     res.send(result)
-    const add = await User.findByIdAndUpdate(teacherID,{ $push:{ user_courses:result }}).catch(err => err)
-  console.log(add)
+    const add = await User.findByIdAndUpdate(teacherID, { $push: { user_courses: result } }).catch(err => err)
+    console.log(add)
   }
 ]
 
 // 03 - creer un course published
 exports.user_course_create_published = [
-  async(req, res, next) => {
+  async (req, res, next) => {
 
     console.log(req.body)
-    let teacherID=req.params.id_teacher
-    let courseDATA={
+    let teacherID = req.params.id_teacher
+    let courseDATA = {
       course_title: req.body.course_title,
       course_teacher: teacherID,
       course_content: req.body.course_content,
       course_description: req.body.course_description,
-      course_image : req.file.filename,
+      course_image: req.file.filename,
       course_statement: req.body.course_statement,
-      course_status:3,
-  }
-  const result = await Course.create(courseDATA).catch(err => err)
+      course_status: 3,
+    }
+    const result = await Course.create(courseDATA).catch(err => err)
     res.send(result)
-    const add = await User.findByIdAndUpdate(teacherID,{ $push:{ user_courses:result }}).catch(err => err)
+    const add = await User.findByIdAndUpdate(teacherID, { $push: { user_courses: result } }).catch(err => err)
     console.log(add)
   }
 ]
 // 04 - Récupérer les détails d’un course. cela inclut la récupération des projets de ce course et ses commentaires
 exports.user_course_get = [
   async (req, res, next) => {
-    let courseID = req.params.id_course;
-    const result = await Course.findOne({ _id: courseID }).populate({ path: 'course_followers' }).catch(err => err)
+    let courseID = { _id: ObjectId(req.params.id_course) };
+    const result = await Course.findOne(courseID).populate([{ path: 'course_project', populate: { path: 'project_user', select: ['user_last_name', 'user_first_name'] } }, { path: 'course_comment', select: ['comment_content', 'comment_date'],populate: { path: 'comment_user', select: ['user_last_name', 'user_first_name','user_image'] } }, { path: 'course_teacher', select: ['user_first_name', 'user_last_name'] }]).exec().catch(err => err)
     res.send(result)
   }
 ]
@@ -90,10 +90,10 @@ exports.user_course_delete_post = [
 // 07 - follow a course (id_course présent dans body). Le votant sera ce même user. l'id du user sera récupéré du token
 exports.user_course_follow_post = [
   (req, res, next) => {
-    Course.updateOne({ _id: objectId(req.params.id_course) }, { $addToSet: { course_followers: req.params.id_user } }, (err, ress) => {
-      if (err) { res.send(err) }
-      res.send(ress)
-    })
+    Course.updateOne({ _id: ObjectId(req.params.id_course) }, { $addToSet: { course_followers: { user_id: req.params.id_user } } }
+    ).catch(err => err);
+    console.log(res)
+    res.send("added")
   }
   // res.send('NOT IMPLEMENTED: user_course_follow_post')
 ]
@@ -133,18 +133,18 @@ exports.user_delete_post = [
 exports.user_comment_create_post = [
   async (req, res, next) => {
     let course_id = req.params.id_Course
-    let user_ID =req.params.id_user
+    let user_ID = req.params.id_user
     console.log("result")
-    let commentDATA={
+    let commentDATA = {
       comment_content: req.body.comment_content,
       comment_user: user_ID,
       comment_course: course_id
-  }
+    }
     const result = await Comment.create(commentDATA).catch(err => err)
     const Cours = await Course.findByIdAndUpdate(course_id, { $push: { course_comment: result } }).catch(err => err)
     const comment = await User.findByIdAndUpdate(user_ID, { $push: { user_comments: result } }).catch(err => err)
     res.send(result);
-    console.log(Cours,comment)
+    console.log(Cours, comment)
     // res.send('NOT IMPLEMENTED: user_comment_create_post')
   }
 ]
@@ -152,7 +152,7 @@ exports.user_comment_create_post = [
 // 12 - Mettre à jour un comment ecrit par ce user (id_user récupéré depuis le token). id_comment present dans body.
 exports.user_comment_update_post = [
   async (req, res, next) => {
-    let id = { _id: ObjectId(req.params.id) }
+    let id = { _id: ObjectId(req.params.id_comment) }
     const result = await Comment.findByIdAndUpdate(id, req.body).catch(err => err)
     res.send(result);
 
@@ -164,12 +164,10 @@ exports.user_comment_update_post = [
 exports.user_comment_delete_post = [
   async (req, res, next) => {
     let ID = ObjectId(req.params.id_Course);
-    let comment_index = req.params.index_comment;
-    let result = await Course.updateOne({ _id: ID }, { $unset: { [`course_comment.${comment_index}`]: 1 } });
-    console.log(result);
-    result = await Course.updateOne({ _id: ID }, { $pull: { course_comment: null } });
-    await Course.updateOne(ID, { $pull: { course_comment: result } }).catch(err => err)
-    console.log(result);
+  let result = await Course.updateOne({ _id: ID }, { $pull: { course_comment:ObjectId(req.params.id_comment) } }).exec().catch(err => err);
+       let resultCU = await User.updateMany( {}, { $pull: { user_comments:ObjectId(req.params.id_comment) } }).exec().catch(err => err);
+    let resultCC = await Comment.findByIdAndRemove(req.params.id_comment)
+       console.log({result,resultCU,resultCC});
     res.send(result)
 
     // res.send('NOT IMPLEMENTED: user_comment_delete_post')
@@ -194,7 +192,7 @@ exports.user_project_get = [
   async (req, res, next) => {
 
     let ProjectID = req.params.id_project;
-    const result = await Project.findOne({ _id: ProjectID }).populate({ path: 'project_course' }).populate({ path: 'project_user' }).catch(err => err)
+    const result = await Project.findOne({ _id: ProjectID }).populate({ path: 'project_course' }).exec().catch(err => err)
     res.send(result)
   }
 ]

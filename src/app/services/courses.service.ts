@@ -15,12 +15,19 @@ export class CoursesService {
   }
   constructor(private http: HttpClient) { }
 
- getApiatricle() {
+ getCourses() {
     return this.http.get('http://localhost:3000/user/courses');
   }
 
-  getApiatriclebyid(ID) {
-    return this.http.get(`http://localhost:3000/user/course/${ID} `);
+  getCoursesById(ID) {
+    return this.http.get(`http://localhost:3000/user/course/${ID}`);
 
   }
+
+  followcourse(id_user,ID)
+  {
+    return this.http.get(`http://localhost:3000/student/course/follow/${id_user}/${ID}`);
+  }
+
+
 }

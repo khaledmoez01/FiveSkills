@@ -77,7 +77,7 @@ const routes: Routes = [
     ]
   },
    { path: 'createCourse',component:CourseFormComponent },
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'not-found', component: FourOhFourComponent },
   { path: '**', redirectTo: '/not-found' }
 ];
