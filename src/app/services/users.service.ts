@@ -11,4 +11,7 @@ export class UsersService {
   getUser(ID): Observable<any> {
     return this.http.get(`http://localhost:3000/user/user/${ID}`);
   }
+  updateUser(iD,User){
+    return this.http.post(`http://localhost:3000/user/user/update/${iD}`,User)
+  }
 }

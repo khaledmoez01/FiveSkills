@@ -29,8 +29,8 @@ router.get('/project/vote/:id_user/:id_project', auth.optional, studentControlle
 router.get('/course/follow/:id_user/:id_course', auth.optional, studentController.student_followCourse)
 
 // 06-students add courses to draft
-router.post('/course/addtodraft/:id_user', auth.optional, studentController.student_add_Course_to_draft)
+router.post('/course/addtodraft/:id_user', auth.optional,upload.single('course_image'),  studentController.student_add_Course_to_draft)
 
 // 07-send to validated
-router.post('/course/sendtovalidate/:id_user', auth.optional, studentController.student_send_Course_to_validate)
+router.post('/course/sendtovalidate/:id_user', auth.optional,upload.single('course_image'), studentController.student_send_Course_to_validate)
 module.exports = router
