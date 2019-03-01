@@ -40,6 +40,8 @@ import { CourseComponent } from './dashboard/course/course.component';
 import { ProjectsComponent } from './dashboard/projects/projects.component';
 import { ProjectComponent } from './dashboard/project/project.component';
 import { CommentsComponent } from './dashboard/comments/comments.component';
+import { HomeDComponent } from './dashboard/home-d/home-d.component';
+import { ProfileAComponent } from './dashboard/profile-a/profile-a.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +68,9 @@ import { CommentsComponent } from './dashboard/comments/comments.component';
     CourseComponent,
     ProjectsComponent,
     ProjectComponent,
-    CommentsComponent
+    CommentsComponent,
+    HomeDComponent,
+    ProfileAComponent
   ],
   imports: [
     BrowserModule,

@@ -29,6 +29,8 @@ import { CourseComponent } from './dashboard/course/course.component';
 import { ProjectsComponent } from './dashboard/projects/projects.component';
 import { ProjectComponent } from './dashboard/project/project.component';
 import { CommentsComponent } from './dashboard/comments/comments.component';
+import { HomeDComponent } from './dashboard/home-d/home-d.component';
+import { ProfileAComponent } from './dashboard/profile-a/profile-a.component';
 
 
 const routes: Routes = [
@@ -43,6 +45,7 @@ const routes: Routes = [
       allowedRoles: [userRoleEnum.admin]
     },
     children: [
+      { path: '', component: HomeDComponent },
       { path: 'users', component: UsersComponent },
       { path: 'user/:id', component:UserComponent },
 
@@ -53,6 +56,7 @@ const routes: Routes = [
       { path: 'project/:id', component:ProjectComponent },
 
       { path: 'comments', component: CommentsComponent },
+      { path: 'profile', component: ProfileAComponent },
       { path: '', component: DashboardComponent, pathMatch: 'full' },
       { path: '**', redirectTo: '/not-found' }
     ]

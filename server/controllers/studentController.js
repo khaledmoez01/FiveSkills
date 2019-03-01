@@ -49,7 +49,7 @@ exports.student_delete_project = [
     console.log(result);
     
     resultF = await Course.updateOne({ _id: courseID }, { $pull: { "course_project": projectID } }).catch(err => err);
-    resultD = await Course.updateOne({ _id: UserID }, { $pull: { "user_project": UserID } }).catch(err => err);
+    resultD = await User.updateOne({ _id: UserID }, { $pull: { "user_project": UserID } }).catch(err => err);
     res.send("deleted");
 
    // res.send('NOT IMPLEMENTED: student_delete_project')

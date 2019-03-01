@@ -17,7 +17,7 @@ let userController = require('../controllers/userController')
 
 router.get('/courses/image/:name', async (req, res) => {
   console.log(__dirname);
-  res.sendFile('C:\\Users\\dell\\Desktop\\Projet Niveau3\\FiveSkills\\server\\uploads\\'+ req.params.name)
+  res.sendFile('C:\\Users\\haythem\\Desktop\\node.js\\FiveSkills\\server\\uploads\\'+ req.params.name)
  });
 
 // 01 - recuperer la liste des courses(id teacher)
@@ -29,7 +29,7 @@ router.post('/course/createdraft/:id_teacher', auth.optional , upload.single('co
 
 
 // 03 - creer un course published
-//router.post('/course/createpublished/:id_teacher', auth.optional, userController.user_course_create_published)
+router.post('/course/createpublished/:id_teacher', auth.optional, upload.single('course_image'),  userController.user_course_create_published)
 
 // 04 - Récupérer les détails d’un course. cela inclut la récupération des projets de ce course et ses commentaires
 router.get('/course/:id_course', auth.optional, userController.user_course_get)

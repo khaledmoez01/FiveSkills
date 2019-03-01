@@ -11,9 +11,9 @@ let ProjectSchema = new Schema(
       type: String,
       required: [true, 'project content is mandatory']
     },
-    project_vote:
-      [{ type: Schema.Types.ObjectId, ref: 'User',required: false} ]
-    ,
+     project_vote:
+       [{ type: Schema.Types.ObjectId, ref: 'User',required: false} ],
+    
     project_date: {
       type: Date,
       default: Date.now,

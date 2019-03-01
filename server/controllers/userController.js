@@ -3,7 +3,6 @@ let Course = require('../models/course')
 let Project = require('../models/project')
 var User = require('../models/user')
 var Comment = require('../models/comment');
-
 const ObjectId = require('mongodb').ObjectId;
 
 // 01 - recuperer la liste des courses
@@ -48,7 +47,7 @@ exports.user_course_create_published = [
       course_teacher: teacherID,
       course_content: req.body.course_content,
       course_description: req.body.course_description,
-      course_image : req.file.filename,
+     course_image : req.file.filename,
       course_statement: req.body.course_statement,
       course_status:3,
   }
