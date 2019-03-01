@@ -13,7 +13,7 @@ var UserSchema = new mongoose.Schema({
   
     },
     user_birthday: {
-      type: Date
+      type: String
     },
     user_image:  String,
 

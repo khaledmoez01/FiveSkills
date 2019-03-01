@@ -40,14 +40,15 @@ router.get('/course/unfollow/:id_user', auth.optional, studentController.student
 
 
 // 06-students add courses to draft
-router.post('/course/addtodraft/:id_user', auth.optional, studentController.student_add_Course_to_draft)
+router.post('/course/addtodraft/:id_user', auth.optional,upload.single('course_image'),  studentController.student_add_Course_to_draft)
 
 // 07-send to validated
-router.post('/course/sendtovalidate/:id_user', auth.optional, studentController.student_send_Course_to_validate)
+//router.post('/course/sendtovalidate/:id_user', auth.optional, studentController.student_send_Course_to_validate)
 
 // 08 - recuperer la liste des projets
 router.get('/projets', auth.optional, studentController.student_project_get)
 
 // 09 - recuperer la liste des projets by id
 router.get('/projets/:id_project', auth.optional, studentController.student_project_get_byid)
+router.post('/course/sendtovalidate/:id_user', auth.optional,upload.single('course_image'), studentController.student_send_Course_to_validate)
 module.exports = router

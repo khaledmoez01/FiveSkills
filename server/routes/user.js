@@ -29,16 +29,16 @@ router.post('/course/createdraft/:id_teacher', auth.optional , upload.single('co
 
 
 // 03 - creer un course published
-router.post('/course/createpublished/:id_teacher', auth.optional, userController.user_course_create_published)
+router.post('/course/createpublished/:id_teacher', auth.optional, upload.single('course_image'), userController.user_course_create_published)
 
 // 04 - Récupérer les détails d’un course. cela inclut la récupération des projets de ce course et ses commentaires
 router.get('/course/:id_course', auth.optional, userController.user_course_get)
 
 // 05 - Mettre à jour un course  (id_course présent dans body) ecrit par ce user. l'id du user sera récupéré du token
-router.post('/course/update/:id_course', auth.optional, userController.user_course_update_post)
+router.post('/course/update/:id_course', auth.optional,upload.single('course_image'), userController.user_course_update_post)
 
 // 06 - Suppression d'un course ecrit par ce user  (id_course présent dans body). l'id du user sera récupéré du token
-router.post('/course/delete/:id_course', auth.optional, userController.user_course_delete_post)
+router.get('/course/delete/:id_course/:id_user/:index', auth.optional, userController.user_course_delete_post)
 
 // 06 - follow a course (id_course présent dans body). Le votant sera ce même user. l'id du user sera récupéré du token
 router.post('/course/follow/:id_user/:id_course', auth.optional, userController.user_course_follow_post)
@@ -46,8 +46,9 @@ router.post('/course/follow/:id_user/:id_course', auth.optional, userController.
 // 08 - Récupérer les détails d’un user. l'id du user sera récupéré du token. On recupere aussi la liste des commentaires ecrits par ce user
 router.get('/user/:id_user', auth.optional, userController.user_get)
 
+
 // 09 - Mettre à jour de ce même user. l'id du user sera récupéré du token
-router.post('/user/update/:id_user', auth.optional, userController.user_update_post)
+router.post('/user/update/:id_user', auth.optional, upload.single('user_image'), userController.user_update_post)
 
 // 10 - Suppression de ce même user. l'id du user sera récupéré du token
 router.post('/user/delete/:id_user', auth.optional, userController.user_delete_post)
@@ -65,6 +66,12 @@ router.get('/comment/delete/:id_Course/:id_comment', auth.optional, userControll
 router.post('/project/vote/:id_user/:id_project', auth.required, userController.user_project_vote_post)
 
 // 15 - Récupérer les détails d’un project.
-router.get('/project/:id_project', auth.required, userController.user_project_get)
+router.get('/project/:id_project', auth.optional, userController.user_project_get)
+
+// 16 - modifier les détails d’un project.
+router.post('/project/:id_project', auth.optional,upload.single('project_image'), userController.user_project_edit)
+
+// 15 - delete un project.
+router.get('/project/:id_project/:id_user/:index', auth.optional, userController.user_delete_project)
 
 module.exports = router

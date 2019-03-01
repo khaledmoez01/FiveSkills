@@ -102,6 +102,7 @@ exports.student_add_Course_to_draft = [
       course_content: req.body.course_content,
       course_description: req.body.course_description,
       course_statement: req.body.course_statement,
+      course_image: req.file.filename
      // course_status: req.body.course_status
   }
   const result = await Course.create(courseDATA).catch(err => err)
@@ -125,6 +126,7 @@ exports.student_send_Course_to_validate = [
       course_content: req.body.course_content,
       course_description: req.body.course_description,
       course_statement: req.body.course_statement,
+      course_image: req.file.filename,
     course_status: 2,
   }
   const result = await Course.create(courseDATA).catch(err => err)
