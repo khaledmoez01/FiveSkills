@@ -1,12 +1,13 @@
-body{
-    background: -webkit-linear-gradient(left, #3931af, #00c6ff);
+@import '../../../assets/css/style.css';
+.bg{
+    background: -webkit-linear-gradient(#8f7447,#fff);
 }
 .emp-profile{
     padding: 3%;
-    margin-top: 3%;
     margin-bottom: 3%;
     border-radius: 0.5rem;
     background: #fff;
+    margin-top: 118px;
 }
 .profile-img{
     text-align: center;
@@ -92,4 +93,21 @@ body{
 .profile-tab p{
     font-weight: 600;
     color: #0062cc;
+}
+.margin{
+    max-width: 1140px;
+    margin-top: 55px;
+}
+.profil{
+    margin-left:-96px
+}
+.profile-head{
+    margin-top: 50px;
+}
+.image{
+    width: 50px;
+    height: 50px;
+}
+.tdbutton{
+    display: inline-flex
 }

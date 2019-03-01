@@ -3,6 +3,7 @@ let Course = require('../models/course')
 let Project = require('../models/project')
 var User = require('../models/user')
 var Comment = require('../models/comment');
+var jwt = require('jsonwebtoken');
 
 const ObjectId = require('mongodb').ObjectId;
 
@@ -18,7 +19,7 @@ exports.user_courses_get = [
 
 // 02 - creer un course draft
 exports.user_course_create_draft = [
-  async(req, res, next) => {
+  async (req, res, next) => {
 
     console.log(req.body)
     let teacherID = req.params.id_teacher
@@ -28,33 +29,33 @@ exports.user_course_create_draft = [
       course_content: req.body.course_content,
       course_description: req.body.course_description,
       course_statement: req.body.course_statement,
-      // course_status: req.body.course_status
+      course_image:req.file.filename
     }
     const result = await Course.create(courseDATA).catch(err => err)
     res.send(result)
-    const add = await User.findByIdAndUpdate(teacherID,{ $push:{ user_courses:result }}).catch(err => err)
-  console.log(add)
+    const add = await User.findByIdAndUpdate(teacherID, { $push: { user_courses: result } }).catch(err => err)
+    console.log(add)
   }
 ]
 
 // 03 - creer un course published
 exports.user_course_create_published = [
-  async(req, res, next) => {
+  async (req, res, next) => {
 
     console.log(req.body)
-    let teacherID=req.params.id_teacher
-    let courseDATA={
+    let teacherID = req.params.id_teacher
+    let courseDATA = {
       course_title: req.body.course_title,
       course_teacher: teacherID,
       course_content: req.body.course_content,
       course_description: req.body.course_description,
-      course_image : req.file.filename,
+      course_image: req.file.filename,
       course_statement: req.body.course_statement,
-      course_status:3,
-  }
-  const result = await Course.create(courseDATA).catch(err => err)
+      course_status: 3,
+    }
+    const result = await Course.create(courseDATA).catch(err => err)
     res.send(result)
-    const add = await User.findByIdAndUpdate(teacherID,{ $push:{ user_courses:result }}).catch(err => err)
+    const add = await User.findByIdAndUpdate(teacherID, { $push: { user_courses: result } }).catch(err => err)
     console.log(add)
   }
 ]
@@ -71,6 +72,10 @@ exports.user_course_get = [
 exports.user_course_update_post = [
   async (req, res, next) => {
     let id = { _id: ObjectId(req.params.id_course) }
+    if (req.file) {
+      console.log('file is here', req.file.filename)
+      req.body.course_image = req.file.filename;
+    }
     const result = await Course.findByIdAndUpdate(id, { $set: req.body }).exec().catch(err => err)
     res.send({ msg: "changed", result })
     // res.send('NOT IMPLEMENTED: user_course_update_post')
@@ -80,9 +85,12 @@ exports.user_course_update_post = [
 // 06 - Suppression d'un course ecrit par ce user  (id_course présent dans body). l'id du user sera récupéré du token
 exports.user_course_delete_post = [
   async (req, res, next) => {
-    let id = { _id: ObjectId(req.params.id_courses) }
-    Course.findByIdAndRemove(id).catch(err => err)
-    res.send("deleted")
+    let id_user = { _id: ObjectId(req.params.id_user)}
+    let index = req.params.index;
+    let delet = await Course.findByIdAndRemove(req.params.id_course).exec().catch(err => err)
+    let result = await User.updateOne(id_user, { $unset: { [`user_courses.${index}`]: index } });
+    result = await User.updateOne(id_user, { $pull: { user_courses: null } });
+    res.send({msg :'deleted',result,delet})
     // res.send('NOT IMPLEMENTED: user_course_delete_post')
   }
 ]
@@ -102,7 +110,7 @@ exports.user_course_follow_post = [
 exports.user_get = [
   async (req, res, next) => {
     let id = { _id: ObjectId(req.params.id_user) }
-    const result = await User.findOne(id).catch(err => err)
+    const result = await User.findOne(id).populate([{path : 'user_courses'},{path : 'user_project'}]).exec().catch(err => err)
     res.send(result)
     // res.send('NOT IMPLEMENTED: user_get')
   }
@@ -112,9 +120,22 @@ exports.user_get = [
 exports.user_update_post = [
   async (req, res, next) => {
     let id = { _id: ObjectId(req.params.id_user) }
-    req.body.password = bcrypt.hashSync(this.password);
-    const result = await User.findOneAndUpdate(id, req.body).catch(err => err)
-    res.send(result);
+    if (req.body.password) {
+      req.body.password = bcrypt.hashSync(req.body.password);
+    }
+    if (req.file) {
+      console.log('file is here', req.file.filename)
+      req.body.user_image = req.file.filename;
+    }
+    console.log(req.body);
+    const result = await User.findOneAndUpdate(id, { $set: req.body }).catch(err => err)
+    const result2 = await User.findById(id).catch(err => err)
+    const token = jwt.sign({ id: result2 }, 'user');
+    res.send({ result, token: token });
+    // const result = await User.findOneAndUpdate(id, req.body).catch(err => err)
+    // const result2 = await User.findById(id).catch(err => err)
+    // const token = jwt.sign({ id: result2 }, 'user');
+    // res.send({ result, token: token });
     // res.send('NOT IMPLEMENTED: user_update_post')
   }
 ]
@@ -133,18 +154,18 @@ exports.user_delete_post = [
 exports.user_comment_create_post = [
   async (req, res, next) => {
     let course_id = req.params.id_Course
-    let user_ID =req.params.id_user
+    let user_ID = req.params.id_user
     console.log("result")
-    let commentDATA={
+    let commentDATA = {
       comment_content: req.body.comment_content,
       comment_user: user_ID,
       comment_course: course_id
-  }
+    }
     const result = await Comment.create(commentDATA).catch(err => err)
     const Cours = await Course.findByIdAndUpdate(course_id, { $push: { course_comment: result } }).catch(err => err)
     const comment = await User.findByIdAndUpdate(user_ID, { $push: { user_comments: result } }).catch(err => err)
     res.send(result);
-    console.log(Cours,comment)
+    console.log(Cours, comment)
     // res.send('NOT IMPLEMENTED: user_comment_create_post')
   }
 ]
@@ -196,5 +217,28 @@ exports.user_project_get = [
     let ProjectID = req.params.id_project;
     const result = await Project.findOne({ _id: ProjectID }).populate({ path: 'project_course' }).populate({ path: 'project_user' }).catch(err => err)
     res.send(result)
+  }
+]
+exports.user_project_edit = [
+  async(req, res, next) => {
+    let id = { _id: ObjectId(req.params.id_project) }
+    if (req.file) {
+      console.log('file is here', req.file.filename)
+      req.body.project_image = req.file.filename;
+    }
+    const result = await Project.findByIdAndUpdate(id, { $set: req.body }).exec().catch(err => err)
+    res.send({ msg: "changed", result })
+
+  }
+]
+exports.user_delete_project =[
+ async (req , res , next)=>{
+    let id_user = { _id: ObjectId(req.params.id_user)}
+    let index = req.params.index;
+    let delet = await Project.findByIdAndRemove(req.params.id_project).exec().catch(err => err)
+    let result = await User.updateOne(id_user, { $unset: { [`user_project.${index}`]: index } });
+    result = await User.updateOne(id_user, { $pull: { user_project: null } });
+    let deleteProject = await Course.update({$pull : {course_project: ObjectId(req.params.id_project)}}).exec().catch(err => err)
+    res.send({msg :'deleted',delet,result,deleteProject})
   }
 ]
