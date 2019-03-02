@@ -8,16 +8,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./course-list.component.css']
 })
 export class CourseListComponent implements OnInit {
-  result;
+  result = [];
   getpara;
   constructor(private apiService: CoursesService, private router: Router) { }
 
   ngOnInit() {
 
     this.apiService.getCourses().subscribe((doc:any) => {
-       for (let i =0; i < doc.length; i++) {
+       for (let i = 0; i < doc.length; i++) {
          if (doc[i].course_status === 3) {
-           this.result = [doc[i]];
+           this.result.push(doc[i]);
          }
        }
      
@@ -29,8 +29,9 @@ export class CourseListComponent implements OnInit {
     // this.apiService.setid(id);
     this.router.navigate(['/simpleuser/course/' + id]);
   }
-  slice(f) {
-    this.getpara = f.slice(0, -500)
-    return this.getpara;
-  }
+  // slice(f) {
+  //   console.log(f);
+  //    this.getpara = f.slice(0, -50);
+  //    return this.getpara;
+  // }
 }
