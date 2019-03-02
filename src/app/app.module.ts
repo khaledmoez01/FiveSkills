@@ -18,7 +18,7 @@ import { CommentListComponent } from './comment-list/comment-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeaderUserComponent } from './header-user/header-user.component';
 import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
-
+import {OrderByVote} from './course-list/single-course/orderByVote.pipe'
 import { AuthGuardService } from './services/auth-guard.service';
 import { AuthService } from './services/auth.service';
 import { CommentsService } from './services/comments.service';
@@ -66,7 +66,8 @@ import { CommentsComponent } from './dashboard/comments/comments.component';
     CourseComponent,
     ProjectsComponent,
     ProjectComponent,
-    CommentsComponent
+    CommentsComponent,
+    OrderByVote
   ],
   imports: [
     BrowserModule,

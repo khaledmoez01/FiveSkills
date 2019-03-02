@@ -40,10 +40,10 @@ export class SingleUserComponent implements OnInit {
     private CourseService: CoursesService, 
     private ProjectService : ProjectsService) {
     this.UserForm = new FormGroup({
-      user_first_name: new FormControl(['', [Validators.required]]),
-      user_last_name: new FormControl(['', [Validators.required]]),
-      user_email: new FormControl(['', [Validators.email, Validators.required]]),
-      user_birthday: new FormControl(['', [Validators.required]])
+      user_first_name: new FormControl('', [Validators.required]),
+      user_last_name: new FormControl('', [Validators.required]),
+      user_email: new FormControl('', [Validators.email, Validators.required]),
+      user_birthday: new FormControl('', [Validators.required])
 
     })
     this.CourseForm = new FormGroup({

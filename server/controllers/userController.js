@@ -16,6 +16,12 @@ exports.user_courses_get = [
     res.send(result)
   }
 ]
+exports.user_get_users = [
+  async (req, res, next) => {
+    const result = await User.find().exec().catch(err => err)
+    res.send(result)
+  }
+]
 
 // 02 - creer un course draft
 exports.user_course_create_draft = [
