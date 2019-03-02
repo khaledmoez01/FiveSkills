@@ -48,8 +48,10 @@
             <hr>
             <div class="container py-xl-5 py-lg-3">
                 <h3 class="tittle text-center mb-lg-5 mb-3 project"><span></span>
-                    Class Projects
-                </h3>
+
+                    Class Projects 
+                    <!--  <img src="https://img.icons8.com/material-two-tone/64/000000/add-list.png" (click)="open(content)">     -->
+<button class="btn btn-outline-secondary" style="margin-left: 130px" (click)="open(content)"><img src="https://img.icons8.com/material-two-tone/32/000000/add-list.png"></button>                </h3>
                 <ng-template #content let-modal>
                     <div class="modal-header">
                         <h4 class="modal-title" id="modal-basic-title">Add Project</h4>
@@ -65,8 +67,9 @@
                                     <input class="form-control" placeholder="Project Title"
                                         formControlName="project_title">
                                 </div>
-                                <label for="dateOfBirth">Project Content</label>
+                                <label for="dateOfBirth">Project Content</label> 
                                 <div>
+                                    
                                     <div class="form-group">
                                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
                                             formControlName="project_content"></textarea>
@@ -88,8 +91,7 @@
                     </div>
 
                 </ng-template>
-
-                <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Add Project</button>
+                           
                 <br>
                 <br>
                 <div class="container-fluid">
@@ -98,7 +100,7 @@
                         <div class="col-sm-6" *ngFor="let project of projects | orderByVote; let k = index">
                             <div class="card">
                                 <img class="card-img"
-                                    src="http://localhost:3000/student/projects/image/{{project.project_image}}">
+                                style="width:348px; height:300px"   src="http://localhost:3000/student/projects/image/{{project.project_image}}">
                                 <div class="card-block">
                                     <h4 class="card-title">{{project.project_title}}</h4>
                                     <div class="meta">
@@ -127,7 +129,9 @@
                                 </div>
                                 <div class="card-footer">
                                     <button class="btn btn-secondary float-right btn-sm"
-                                        (click)="open(content);projectbyid(project._id)">show</button>
+                                    (click)="open(content);projectbyid(project._id)">show</button>
+                                </div>
+                                    
                                     <ng-template #content let-modal>
                                         <div class="modal-header">
                                             <h4 class="modal-title" id="modal-basic-title">Full Project</h4>

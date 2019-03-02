@@ -24,23 +24,20 @@
               <h3 class="tittle text-center mb-lg-5 mb-3"><span class="sub-tittle">Latest</span>Available Courses</h3>
               <div id="products" class="row view-group">
                   
-                  <div class="item col-lg-4" *ngFor="let results of result">
-                      <div class="thumbnail card">
+                  <div class="item col-lg-4" *ngFor="let results of result; let i = index" >
+                      <div class="thumbnail card" >
                           <div class="img-event">
-                              <img class="group list-group-image img-fluid" src="http://localhost:3000/user/courses/image/{{results.course_image}}" alt="" />
+                              <img class="group list-group-image img-fluid" style="width:348px; height:300px" src="http://localhost:3000/user/courses/image/{{results.course_image}}" alt="" />
                           </div>
-                          <div class="caption card-body">
-                              <h4 class="group card-title inner list-group-item-heading">
+                          <div class="caption card-body" style="width: 350px">
+                              <h4 class="group card-title inner list-group-item-heading style">
                                   {{results.course_title}}</h4>
                               <p class="group inner list-group-item-text">
                                   </p>
                               <div class="row">
                                   <div class="col-6">
-                                      {{slice(results.course_statement)}}
+                                    
                                   </div>
-                                  <div class="col-6">
-                                    {{results.course_status}}
-                                </div>
                                   <div class="col-6 ban-buttons">
                                       <a class="btn btn-course" routerLink="/simpleuser/course/{{results._id}}">View More</a>
                                   </div>

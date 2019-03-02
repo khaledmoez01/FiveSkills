@@ -6,7 +6,7 @@
           <div class="row">
             <div class="col-md-3">
               <div class="profile-img">
-                <img src="http://localhost:3000/image/{{result.user_image}}" alt="" />
+                <img src="http://localhost:3000/user/courses/image/{{result.user_image}}" alt="" />
                 <!--  <div class="file btn btn-lg btn-primary">
                       Change Photo
                       <input type="file" name="file"/>
@@ -76,7 +76,7 @@
                         <tbody>
                           <tr *ngFor="let course of courses;let i = index">
                             <td>
-                              <img class="image" src="http://localhost:3000/image/{{ course.course_image }}" alt="" />
+                              <img class="image" src="http://localhost:3000/user/courses/image/{{ course.course_image }}" alt="" />
 
                             </td>
                             <td>
@@ -109,7 +109,7 @@
                             <tbody>
                               <tr *ngFor="let project of projects;let i = index">
                                 <td>
-                                  <img class="image" src="http://localhost:3000/image/{{ project.project_image}}" alt="" />
+                                  <img class="image" src="http://localhost:3000/student/projects/image/{{ project.project_image}}" alt="" />
                                 </td>
                                 <td>
                                   {{ project.project_title }}
@@ -165,9 +165,14 @@
           <input [value]="ID.user_last_name" formControlName="user_last_name" class="form-control">
         </div>
         <label>Image</label>
-        <div class="input-group">
+        <!-- <div class="input-group">
           <input type="file" (change)="selectedFile($event)" class="form-control" name="user_image">
-        </div>
+        </div> -->
+        <div class="input-group">
+          <input #file type="file" accept='image/*'
+              (change)="preview(file.files);selectedFile($event)" name="project_image" />
+          <img [src]="imgURL" height="200" *ngIf="imgURL">
+      </div>
         <label>Email</label>
         <div class="input-group">
           <input [value]="ID.user_email" formControlName="user_email" class="form-control">
@@ -211,9 +216,18 @@
           <input formControlName="course_statement" class="form-control" >
         </div>
         <label>Image</label>
+      
         <div class="input-group">
-          <input type="file" (change)="selectedFile($event)" class="form-control" name="course_image">
-        </div>
+          <span style="color:red;" *ngIf="message">{{message}}</span>
+          <input #file type="file" accept='image/*'
+              (change)="preview(file.files);selectedFile($event)" name="project_image" />
+          <img [src]="imgURL" height="200" *ngIf="imgURL">
+      </div>
+
+
+
+
+
       </div>
     </form>
   </div>
@@ -252,9 +266,14 @@
           <input formControlName="course_statement" class="form-control">
         </div>
         <label>Image</label>
-        <div class="input-group">
+       <!--  <div class="input-group">
           <input type="file" (change)="selectedFile($event)" class="form-control" name="course_image">
-        </div>
+        </div> -->
+        <div class="input-group">
+          <input #file type="file" accept='image/*'
+              (change)="preview(file.files);selectedFile($event)" name="project_image" />
+          <img [src]="imgURL" height="200" *ngIf="imgURL">
+      </div>
       </div>
     </form>
   </div>
