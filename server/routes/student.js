@@ -16,7 +16,7 @@ var upload = multer({ storage: storage });
 let studentController = require('../controllers/studentController') 
 router.get('/projects/image/:name', async (req, res) => {
   console.log(__dirname);
-  res.sendFile('C:\\Users\\dell\\Desktop\\Projet Niveau3\\FiveSkills\\server\\uploads\\'+ req.params.name)
+  res.sendFile('C:\\Users\\emna\\Desktop\\projet Niveau 3\\FiveSkills\\server\\uploads\\'+ req.params.name)
  });
 
 // 01 - creer un nouveau projet
@@ -36,7 +36,7 @@ router.get('/project/unvote/:id_user/:id_project', auth.optional, studentControl
 router.get('/course/follow/:id_user/:id_course', auth.optional, studentController.student_followCourse)
 
 // 05 - course unfollowers
-router.get('/course/unfollow/:id_user', auth.optional, studentController.student_unfollowCourse)
+router.get('/course/unfollow/:id_user/:id_course', auth.optional, studentController.student_unfollowCourse)
 
 
 // 06-students add courses to draft

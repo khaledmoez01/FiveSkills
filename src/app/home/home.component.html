@@ -6,28 +6,26 @@
             <!-- nav -->
             <nav class="py-4">
                 <div id="logo">
-                    <h1> <a href="index.html"><span>5</span>Skills</a></h1>
+                    <h1> <a routerLink="/home"><span>5</span>Skills</a></h1>
                 </div>
 
                 <label for="drop" class="toggle">Menu</label>
                 <input type="checkbox" id="drop" />
                 <ul class="menu mt-2">
-                    <li class="active"><a href="#">Home</a></li>
+                    <li class="active"><a routerLink="/home">Home</a></li>
                     <li><a routerLink="/simpleuser/user">Profile</a></li>
 
                     <li>
                         <!-- First Tier Drop Down -->
-                        <label for="drop-2" class="toggle">Courses<span class="fa fa-angle-down" aria-hidden="true"></span> </label>
-                        <a href="#">Courses <span class="fa fa-angle-down" aria-hidden="true"></span></a>
-                        <input type="checkbox" id="drop-2" />
-                        <ul>
-                            <li><a href="courses.html" class="scroll">Add link1</a></li>
-                            <li><a href="courses.html">Add link2</a></li>
-                            <li><a href="courses.html">Add link3</a></li>
-                        </ul>
+                        <label for="drop-2" class="toggle">Courses<span aria-hidden="true"></span> </label>
+                        <a routerLink="/simpleuser/courses">Courses <span ria-hidden="true"></span></a>
                     </li>
-                    <li><a  routerLink="/login">Login</a></li>
-                    <li><a (click)="logout()" routerLink="/login">LogOut</a></li>
+
+                    <li *ngIf="!token"><a routerLink="/login">Login</a></li>
+
+
+                    <li *ngIf="token"><a (click)="logout()" routerLink="/login">LogOut</a></li>
+
                 </ul>
             </nav>
             <!-- //nav -->
@@ -36,10 +34,16 @@
     <!-- //header -->
 
     <!--/banner-->
-    <div class="banner-info-w3pvt">
+    <div *ngIf="!token" class="banner-info-w3pvt">
         <h3>Are you ready to Join Us?</h3>
         <div class="ban-buttons">
-            <a href="single.html" class="btn">Join Us</a>
+            <a routerLink="/signup" class="btn">Join Us</a>
+        </div>
+    </div>
+    <div *ngIf="token" class="banner-info-w3pvt">
+        <h3>Go to profil</h3>
+        <div class="ban-buttons">
+            <a routerLink="/simpleuser/user" class="btn">my Profil</a>
         </div>
     </div>
     <!--// banner-inner -->
@@ -58,9 +62,13 @@
 
             </div>
             <div class="col-md-6 last-img pl-lg-5 p-3">
-                <h3 class="tittle my-lg-5 my-3"><span class="sub-tittle"> Now You can get </span>The Best Education for Bright Future</h3>
-                <p class="mb-4"> Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla mollis dapibus nunc, ut rhoncus turpis sodales quis. Integer sit amet mattis quam, sit amet ultricies velit. Praesent ullamcorper dui turpis.</p>
-                <p class="mb-4">Nulla mollis dapibus nunc, ut rhoncus turpis sodales quis. Integer sit amet mattis quam, sit amet ultricies velit. Praesent ullamcorper dui turpis.</p>
+                <h3 class="tittle my-lg-5 my-3"><span class="sub-tittle"> Now You can get </span>The Best Education for
+                    Bright Future</h3>
+                <p class="mb-4"> Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
+                    Nulla mollis dapibus nunc, ut rhoncus turpis sodales quis. Integer sit amet mattis quam, sit amet
+                    ultricies velit. Praesent ullamcorper dui turpis.</p>
+                <p class="mb-4">Nulla mollis dapibus nunc, ut rhoncus turpis sodales quis. Integer sit amet mattis quam,
+                    sit amet ultricies velit. Praesent ullamcorper dui turpis.</p>
                 <div class="ban-buttons">
                 </div>
             </div>
@@ -73,7 +81,8 @@
 <section class="about py-lg-5 py-md-5 py-3">
     <div class="container">
         <div class="inner-sec-w3ls py-lg-5 py-3">
-            <h3 class="tittle text-center mb-lg-5 mb-3"><span class="sub-tittle">About.</span> Our awesome course categories</h3>
+            <h3 class="tittle text-center mb-lg-5 mb-3"><span class="sub-tittle">About.</span> Our awesome course
+                categories</h3>
             <div class="feature-grids row mb-lg-5 my-3">
                 <div class="col-md-4 p-0">
                     <div class="bottom-gd p-lg-5 p-4">
@@ -100,7 +109,8 @@
             </div>
             <!-- services -->
             <div class="fetured-info pt-lg-5 pt-3 mt-4">
-                <h3 class="tittle text-center my-lg-5 my-3"><span class="sub-tittle">What we do</span> Our Featured courses</h3>
+                <h3 class="tittle text-center my-lg-5 my-3"><span class="sub-tittle">What we do</span> Our Featured
+                    courses</h3>
                 <div class="row fetured-sec mt-lg-5">
 
                     <div class="col-lg-6 serv_bottom">
@@ -158,9 +168,13 @@
                 </div>
             </div>
             <div class="col-md-6 last-img pl-lg-5 p-3">
-                <h3 class="tittle text-white my-lg-5 my-3"><span class="sub-tittle"> Now You can get </span>The Best Education for Bright Future</h3>
-                <p class="mb-4"> Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla mollis dapibus nunc, ut rhoncus turpis sodales quis. Integer sit amet mattis quam, sit amet ultricies velit. Praesent ullamcorper dui turpis.</p>
-                <p class="mb-4">Nulla mollis dapibus nunc, ut rhoncus turpis sodales quis. Integer sit amet mattis quam, sit amet ultricies velit. Praesent ullamcorper dui turpis.</p>
+                <h3 class="tittle text-white my-lg-5 my-3"><span class="sub-tittle"> Now You can get </span>The Best
+                    Education for Bright Future</h3>
+                <p class="mb-4"> Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
+                    Nulla mollis dapibus nunc, ut rhoncus turpis sodales quis. Integer sit amet mattis quam, sit amet
+                    ultricies velit. Praesent ullamcorper dui turpis.</p>
+                <p class="mb-4">Nulla mollis dapibus nunc, ut rhoncus turpis sodales quis. Integer sit amet mattis quam,
+                    sit amet ultricies velit. Praesent ullamcorper dui turpis.</p>
                 <div class="ban-buttons">
                 </div>
             </div>
@@ -171,47 +185,20 @@
 <section class="banner-bottom py-lg-5 py-4">
     <div class="container">
         <div class="inner-sec-w3ls py-lg-5 py-4">
-            <h3 class="tittle text-center my-lg-5 my-3"><span class="sub-tittle">Amazing People</span> Our Great Professors</h3>
+            <h3 class="tittle text-center my-lg-5 my-3"><span class="sub-tittle">Amazing People</span> Our Great
+                Teachers</h3>
             <div class="row mt-lg-5 mt-4">
-                <div class="col-md-4 team-gd text-center">
+                <div class="col-md-4 team-gd text-center" *ngFor="let result of results">
                     <div class="team-img mb-4">
-                        <img src="assets/images/team.jpg" class="img-fluid rounded-circle" alt="user-image">
+                        <img src="http://localhost:3000/image/{{result.user_image}}"
+                            class="imageSize img-fluid rounded-circle" alt="user-image">
                     </div>
                     <div class="team-info">
-                        <h3 class="mt-md-4 mt-3"><span class="sub-tittle-team">Professor</span> Jason Donoghue</h3>
-                        <ul class="social_section_1info mt-md-4 mt-3">
-                            <li class="mb-2 linkedin"><a href="#"><span class="fa fa-linkedin mr-1"></span>linkedin</a></li>
-
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-md-4 team-gd second text-center">
-                    <div class="team-img mb-4">
-                        <img src="assets/images/team1.jpg" class="img-fluid rounded-circle" alt="user-image">
-                    </div>
-                    <div class="team-info">
-                        <h3 class="mt-md-4 mt-3"><span class="sub-tittle-team">Professor</span> Mariana Noe</h3>
-                        <ul class="social_section_1info mt-md-4 mt-3">
-                            <li class="mb-2 linkedin"><a href="#"><span class="fa fa-linkedin mr-1"></span>linkedin</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-4 team-gd text-center">
-                    <div class="team-img mb-4">
-                        <img src="assets/images/team2.jpg" class="img-fluid rounded-circle" alt="user-image">
-                    </div>
-                    <div class="team-info">
-                        <h3 class="mt-md-4 mt-3"><span class="sub-tittle-team">Professor</span> Daniel Doe</h3>
-                        <ul class="social_section_1info mt-md-4 mt-3">
-                            <li class="mb-2 linkedin"><a href="#"><span class="fa fa-linkedin mr-1"></span>linkedin</a></li>
-
-                        </ul>
+                        <h3 class="mt-md-4 mt-3"><span class="sub-tittle-team">Teacher</span>
+                            {{result.user_first_name}} </h3>
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
 </section>
@@ -336,11 +323,14 @@
 <!-- testimonials -->
 <section class="testimonials py-5" id="testi">
     <div class="container py-xl-5 py-lg-3">
-        <h3 class="tittle text-center mb-lg-5 mb-3"><span class="sub-tittle">See what people are saying</span> Testimonials</h3>
+        <h3 class="tittle text-center mb-lg-5 mb-3"><span class="sub-tittle">See what people are saying</span>
+            Testimonials</h3>
         <div class="row">
             <div class="col-lg-6 testimonials_grid">
                 <div class="bg-white rounded p-lg-5 p-3">
-                    <p class="sub-test"><span class="fa fa-quote-left" aria-hidden="true"></span> Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod possimus, omnis voluptas.
+                    <p class="sub-test"><span class="fa fa-quote-left" aria-hidden="true"></span> Nam libero tempore,
+                        cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod possimus, omnis
+                        voluptas.
                     </p>
                     <div class="row mt-4">
                         <div class="col-3 testi-img-res">
@@ -355,7 +345,9 @@
             </div>
             <div class="col-lg-6 testimonials_grid mt-lg-0 mt-4">
                 <div class="bg-white rounded p-lg-5 p-3">
-                    <p class="sub-test"><span class="fa fa-quote-left" aria-hidden="true"></span> Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod possimus, omnis voluptas.
+                    <p class="sub-test"><span class="fa fa-quote-left" aria-hidden="true"></span> Nam libero tempore,
+                        cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod possimus, omnis
+                        voluptas.
                     </p>
                     <div class="row mt-4">
                         <div class="col-3 testi-img-res">
@@ -392,16 +384,19 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 mt-md-0 mt-4 footer-grid_section_1its">
-                   <img class="imageMap" src="https://wunderbarcovington.com/wp-content/uploads/2018/07/Map-Location-10-Maps-Directions-Harvard-University.jpg" alt="">
+                    <img class="imageMap"
+                        src="https://wunderbarcovington.com/wp-content/uploads/2018/07/Map-Location-10-Maps-Directions-Harvard-University.jpg"
+                        alt="">
                 </div>
-            
+
             </div>
             <div class="footer-grid_section text-center">
                 <div class="footer-title-w3ls mb-3">
                     <a href="index.html"><span>5</span>Skills</a>
                 </div>
                 <div class="footer-text">
-                    <p>Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Nulla quis lorem ipnut libero malesuada feugiat. Lorem ipsum dolor sit amet, consectetur elit.</p>
+                    <p>Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Nulla quis lorem ipnut
+                        libero malesuada feugiat. Lorem ipsum dolor sit amet, consectetur elit.</p>
                 </div>
             </div>
             <div class="move-top-w3layouts text-center mt-3">

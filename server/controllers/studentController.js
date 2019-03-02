@@ -87,7 +87,8 @@ exports.student_followCourse = [
 ]
 exports.student_unfollowCourse=[
   async(req, res, next)=>{
-    let deleteFollowCourse = await Course.update({$pull:{course_followers:{user_id :ObjectId(req.params.id_user)}}}).exec().catch(err=>err)
+    const id={_id :ObjectId(req.params.id_course)}
+    let deleteFollowCourse = await Course.findByIdAndUpdate(id,{$pull:{course_followers:{user_id :ObjectId(req.params.id_user)}}}).exec().catch(err=>err)
     res.send({msg:'unfollowed',deleteFollowCourse})
   }
 ]
