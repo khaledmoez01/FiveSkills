@@ -10,22 +10,9 @@
       <label for="drop" class="toggle">Menu</label>
       <input type="checkbox" id="drop" />
       <ul class="menu mt-2">
-        <li><a href="#">Home</a></li>
-        <li><a href="about.html">About</a></li>
-
-        <li>
-          <!-- First Tier Drop Down -->
-          <label for="drop-2" class="toggle">Courses <span class="fa fa-angle-down" aria-hidden="true"></span> </label>
-          <a href="#">Courses <span class="fa fa-angle-down" aria-hidden="true"></span></a>
-          <input type="checkbox" id="drop-2" />
-          <ul>
-            <li><a href="courses.html" class="scroll">Add link1</a></li>
-            <li><a href="courses.html">Add link2</a></li>
-            <li><a href="courses.html">Add link3</a></li>
-          </ul>
-        </li>
-        <li class="active"><a href="events.html">Login</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a routerLink="/home">Home</a></li>
+        <li><a routerLink="/signup">Register</a></li>
+        <li class="active"><a routerLink="/login">Login</a></li>
       </ul>
     </nav>
     <!-- //nav -->

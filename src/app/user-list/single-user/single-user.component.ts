@@ -68,7 +68,6 @@ export class SingleUserComponent implements OnInit {
     })
     this.CourseForm = new FormGroup({
       course_title: new FormControl('', [Validators.required]),
-      course_teacher: new FormControl('', [Validators.required]),
       course_content: new FormControl('', [Validators.required]),
       course_description: new FormControl('', [Validators.required]),
       course_statement: new FormControl('', [Validators.required])
@@ -288,7 +287,7 @@ export class SingleUserComponent implements OnInit {
    
   }
   EditPtojectUser(i){
-    if( this.ProjectForm.value){
+    
       this.id_user = jwt_decode(this.cookieService.get('token')).id._id
       this.id_project = this.projects[i]._id
       const formdata = new FormData
@@ -303,7 +302,7 @@ export class SingleUserComponent implements OnInit {
         console.log(data)
         this.ngOnInit()
       })
-    }
+    
   }
   Userdeleteproject(i){
     this.id_user = jwt_decode(this.cookieService.get('token')).id._id;

@@ -13,18 +13,19 @@
                 <input type="checkbox" id="drop" />
                 <ul class="menu mt-2">
                     <li class="active"><a routerLink="/home">Home</a></li>
-                    <li><a routerLink="/simpleuser/user">Profile</a></li>
+                    <li *ngIf="token"><a routerLink="/simpleuser/user">Profile</a></li>
 
-                    <li>
+                    <li *ngIf="token">
                         <!-- First Tier Drop Down -->
                         <label for="drop-2" class="toggle">Courses<span aria-hidden="true"></span> </label>
                         <a routerLink="/simpleuser/courses">Courses <span ria-hidden="true"></span></a>
                     </li>
+                    <li *ngIf="!token"><a routerLink="/signup">Register</a></li>
 
                     <li *ngIf="!token"><a routerLink="/login">Login</a></li>
 
 
-                    <li *ngIf="token"><a (click)="logout()" routerLink="/login">LogOut</a></li>
+                    <li *ngIf="token"><a (click)="logout()" routerLink="/home">LogOut</a></li>
 
                 </ul>
             </nav>
