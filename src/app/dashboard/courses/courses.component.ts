@@ -14,6 +14,7 @@ export class CoursesComponent implements OnInit {
   courses: any;
   coursesInv: any;
   course:any;
+  srcr='x';
 
 
 
@@ -95,5 +96,21 @@ export class CoursesComponent implements OnInit {
     this.ngOnInit()
   }
 
+
+  openImage1(course){
+    this.srcr=course.course_image
+  }
+  closeimg1(){
+    this.srcr='x';
+    
+  }
+
+  openImage2(courseInv){
+    this.srcr=courseInv.course_image
+  }
+  closeimg2(){
+    this.srcr='x';
+    
+  }
 
 }

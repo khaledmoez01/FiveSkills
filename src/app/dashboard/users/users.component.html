@@ -54,7 +54,7 @@
                                 </tfoot>
                                 <tbody>
                                   <tr  *ngFor="let student of students">
-                                      <td>
+                                      <td  (click)="openImage2(student)">
                                           <img class="iamge " src="http://localhost:3000/user/courses/image/{{student.user_image}}">
                                       </td>
                                     <td>{{student.user_first_name}}</td>
@@ -78,6 +78,10 @@
                         </div>
                               
                   </div>
+
+
+
+                  
   
   
   
@@ -154,9 +158,9 @@
         
   
           <!-- DataTables Example -->
-         
-  
         </div>
+
+        <!-- modal img teacher -->
         
         <div class="show" [class.ffff]="srcr === 'x'" >
             <div class="overlay"></div>
@@ -166,7 +170,20 @@
               
             </div>
           </div>
+            <!-- fin modal img -->
 
+
+             <!-- modal img student -->
+        
+        <div class="show" [class.ffff]="srcr === 'x'" >
+          <div class="overlay"></div>
+          <div class="img-show">
+            <span (click)="closeimg2()">X</span>
+            <img src="http://localhost:3000/user/courses/image/{{srcr}}">
+            
+          </div>
+        </div>
+          <!-- fin modal img -->
 
   <ng-template #content let-modal>
     <div class="modal-header">

@@ -19,4 +19,8 @@ route="";
     this.route="Courses";
   }
 
+  logout(){
+    
+  }
+
 }

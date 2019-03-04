@@ -57,4 +57,13 @@ export class UsersComponent implements OnInit {
     
   }
 
+
+  openImage2(student){
+    this.srcr=student.user_image
+  }
+  closeimg2(){
+    this.srcr='x';
+    
+  }
+
 }

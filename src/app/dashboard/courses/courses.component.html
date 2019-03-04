@@ -52,7 +52,7 @@
                               </tfoot>
                               <tbody>
                                 <tr *ngFor="let course of courses">
-                                  <td>
+                                  <td (click)="openImage1(course)">
                                     <img class="iamge" src="http://localhost:3000/user/courses/image/{{course.course_image}}">
                                   </td>
                                   <td>{{course.course_title}}</td>
@@ -71,9 +71,6 @@
                                 </tr>
                               </tbody>
                             </table>
-              
-              
-                           
                           </div>
                         </div>
                         <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
@@ -82,12 +79,14 @@
                 </div>
 
 
-
-
-
-
+                           
+             
 
 <!-- second tab -->
+
+
+
+
                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 
                     <div class="card mb-3">
@@ -119,7 +118,7 @@
                               </tfoot>
                               <tbody>
                                 <tr *ngFor="let courseInv of coursesInv">
-                                    <td>
+                                    <td (click)="openImage2(courseInv)">
                                         <img class="iamge" src="http://localhost:3000/user/courses/image/{{courseInv.course_image}}">
                                       </td>
                                   <td>{{courseInv.course_title}}</td>
@@ -135,28 +134,44 @@
                                     </td>
                                 </tr>
                               </tbody>
-                            </table>
-              
-              
-                           
+                            </table>             
                           </div>
                         </div>
                         <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-                      </div>
-                          
+                      </div>      
                 </div>
-
-
-
-
             </div>
         </div>
-      
-
         <!-- DataTables Example -->
-       
-
       </div>
+
+
+
+
+        <!-- course img -->
+        <div class="show" [class.ffff]="srcr === 'x'" >
+          <div class="overlay"></div>
+          <div class="img-show">
+            <span (click)="closeimg1()">X</span>
+            <img src="http://localhost:3000/user/courses/image/{{srcr}}">
+            
+          </div>
+        </div>
+        <!-- course img -->
+
+ <!-- course img -->
+ <div class="show" [class.ffff]="srcr === 'x'" >
+  <div class="overlay"></div>
+  <div class="img-show">
+    <span (click)="closeimg2()">X</span>
+    <img src="http://localhost:3000/user/courses/image/{{srcr}}">
+    
+  </div>
+</div>
+<!-- course img -->
+ 
+
+
 <ng-template #content let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
