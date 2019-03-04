@@ -69,12 +69,9 @@ import { ProfileAComponent } from './dashboard/profile-a/profile-a.component';
     ProjectsComponent,
     ProjectComponent,
     CommentsComponent,
-<<<<<<< HEAD
     HomeDComponent,
-    ProfileAComponent
-=======
+    ProfileAComponent,
     OrderByVote
->>>>>>> 08979a844d6a81d773ce491891aa0df9787a4aa1
   ],
   imports: [
     BrowserModule,
