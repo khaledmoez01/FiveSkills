@@ -20,6 +20,7 @@ export class RoleGuardService  implements CanActivate {
   ) { }
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
+    let user = decode(this.cookieService.get('token'))
     console.log('*** kmg RoleGuardService not implemented yet - route.data.expectedRole ***');
     console.log(route.data.allowedRoles);
     return true;
