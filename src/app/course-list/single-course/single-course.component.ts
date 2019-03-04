@@ -37,8 +37,6 @@ export class SingleCourseComponent implements OnInit {
   commentsNumber: any;
   show: boolean = true;
   hidden: boolean = false;
-  shows: boolean = true;
-  hiddens: boolean = false
   i: any;
   id_projec: any;
   projects: any;
@@ -47,6 +45,7 @@ export class SingleCourseComponent implements OnInit {
   teachers: any;
   IdComment;
   id_comment: any;
+  id_course: string;
   preview(files) {
     if (files.length === 0)
       return;
@@ -95,14 +94,12 @@ export class SingleCourseComponent implements OnInit {
       this.projects = data.course_project;
     // this.ProjectVotes = this.projects[0]['project_vote']
       console.log('projects', this.projects)
-      console.log('projectVotes', this.ProjectVotes)
+     // console.log('projectVotes', this.ProjectVotes)
       console.log('followersNumber', this.followers.length)
-
-
       for (let i = 0; i < this.followers.length; i++) {
         console.log('cc', this.followers[i].user_id)
         if (this.followers[i].user_id === this.id_user) {
-          this.show = false;
+          this.show = false
           this.hidden = true
         }
         else {
@@ -189,7 +186,7 @@ export class SingleCourseComponent implements OnInit {
     console.log('ID Course', this.ID)
     this.apiService.followcourse(this.id_user, this.ID).subscribe(doc => {
       this.re = doc;
-      console.log(this.re.length)
+      console.log(this.re.length);
       this.ngOnInit()
 
     });
@@ -210,8 +207,9 @@ export class SingleCourseComponent implements OnInit {
     })
   }
   unfollowCourse() {
+    this.id_course= this.router.snapshot.paramMap.get('id');
     this.id_user = jwt_decode(this.cookiesService.get('token')).id._id;
-    this.APIService.UnfollowCourse(this.id_user).subscribe((data: any) => {
+    this.APIService.UnfollowCourse(this.id_user,this.id_course).subscribe((data: any) => {
       console.log(data);
       // this.hidden= true;
       /*  for (let i = 0; i < this.followers.length; i++) {
@@ -229,8 +227,6 @@ export class SingleCourseComponent implements OnInit {
       this.hidden = false;
       this.ngOnInit()
     })
-
-
   }
 
   unvoteprojrct(f) {

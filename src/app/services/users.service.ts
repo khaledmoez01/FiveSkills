@@ -14,4 +14,7 @@ export class UsersService {
   updateUser(iD,User){
     return this.http.post(`http://localhost:3000/user/user/update/${iD}`,User)
   }
+  getAllUsers(){
+    return this.http.get(`http://localhost:3000/user/users`)
+  }
 }

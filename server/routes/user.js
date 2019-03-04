@@ -17,11 +17,18 @@ let userController = require('../controllers/userController')
 
 router.get('/courses/image/:name', async (req, res) => {
   console.log(__dirname);
+<<<<<<< HEAD
   res.sendFile('C:\\Users\\haythem\\Desktop\\node.js\\FiveSkills\\server\\uploads\\'+ req.params.name)
+=======
+  res.sendFile('C:\\Users\\emna\\Desktop\\projet Niveau 3\\FiveSkills\\server\\uploads\\'+ req.params.name)
+>>>>>>> 08979a844d6a81d773ce491891aa0df9787a4aa1
  });
 
 // 01 - recuperer la liste des courses(id teacher)
 router.get('/courses', auth.optional, userController.user_courses_get)
+
+// 01 - recuperer la liste des Users
+router.get('/users', auth.optional, userController.user_get_users)
 
 // 02 - creer un course
 

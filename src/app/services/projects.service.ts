@@ -34,8 +34,8 @@ export class ProjectsService {
   StudentVoteProject(id_user,id_project){
     return this.http.get(`http://localhost:3000/student/project/vote/${id_user}/${id_project}`)
   }
-  UnfollowCourse(id_user){
-    return this.http.get(`http://localhost:3000/student/course/unfollow/${id_user}`)
+  UnfollowCourse(id_user,id_course){
+    return this.http.get(`http://localhost:3000/student/course/unfollow/${id_user}/${id_course}`)
   }
   studentdeleteVote(id_user,id_project){
     return this.http.get(`http://localhost:3000/student/project/unvote/${id_user}/${id_project}`)}
