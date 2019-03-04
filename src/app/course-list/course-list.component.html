@@ -30,16 +30,20 @@
                               <img class="group list-group-image img-fluid" style="width:348px; height:300px" src="http://localhost:3000/user/courses/image/{{results.course_image}}" alt="" />
                           </div>
                           <div class="caption card-body" style="width: 350px">
-                              <h4 class="group card-title inner list-group-item-heading style">
+                              <h4 class="group card-title inner list-group-item-heading style" style="font-size: 20px;
+                              height: 108px">
                                   {{results.course_title}}</h4>
                               <p class="group inner list-group-item-text">
                                   </p>
                               <div class="row">
                                   <div class="col-6">
-                                    
+                                    <span class="fa fa-calendar"></span> {{results.course_date|date}}
+
                                   </div>
+                                  
                                   <div class="col-6 ban-buttons">
-                                      <a class="btn btn-course" routerLink="/simpleuser/course/{{results._id}}">View More</a>
+                                      <a class="btn btn-course" routerLink="/simpleuser/course/{{results._id}}" style="margin-left: -18px;
+                                      margin-top: -12px">View More</a>
                                   </div>
                               </div>
                           </div>
