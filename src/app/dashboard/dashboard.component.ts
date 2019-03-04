@@ -20,7 +20,7 @@ route="";
   }
 
   logout(){
-    
+    console.log("fffff")
   }
 
 }
