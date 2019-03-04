@@ -1,0 +1,20 @@
+/* @import './../../assets/Dashboard/vendor/fontawesome-free/css/all.min.css';
+@import './../../assets/Dashboard/vendor/datatables/dataTables.bootstrap4.css';
+@import './../../assets/Dashboard/css/sb-admin.css' */
+.navbar-brand {
+    font-size: 35px;
+    padding-right: 85%;
+}
+.far{
+    padding-right: 10px;
+}
+.fas{
+    padding-right: 10px;
+}
+nav p{
+    padding-right: 85% !important;
+}
+.navbar-b{
+    font-size: 20px;
+   
+}
