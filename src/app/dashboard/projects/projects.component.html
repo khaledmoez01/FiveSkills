@@ -1,3 +1,106 @@
-<p>
-  projects works!
-</p>
+
+      <div class="container-fluid">
+
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active">Projects</li>
+        </ol>
+
+        
+
+      
+
+        <!-- DataTables Example -->
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="fas fa-table"></i>
+            Data Table Example</div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                      <th>Image</th>
+                    <th>Title</th>
+                    <th>content</th>
+                    <th>user</th>
+                    <th>course</th>
+                    <th>vote</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                      <th>Image</th>
+                    <th>Title</th>
+                    <th>content</th>
+                    <th>user</th>
+                    <th>course</th>
+                    <th>vote</th>
+                    <th>Action</th>
+                  </tr>
+                </tfoot>
+                <tbody>
+                  <tr *ngFor="let project of allProjects">
+                    <td (click)="openImage(project)">
+
+                              <img src="http://localhost:3000/user/courses/image/{{project.project_image}}" class="iamge">
+                                                                                
+                    </td>
+                  
+                    <td> {{project.project_title}} </td>
+                    <td> 
+                      {{project.project_content | slice:0:20 }}
+                      <a (click)="openWindowCustomClass(content,project)">[...]</a>
+                       </td>
+
+                    <td> {{project.project_user.user_first_name}} {{project.project_user.user_last_name}} </td>
+                    <td> {{project.project_course.course_title}} </td>
+                    <td> {{project.project_vote.length}} </td>
+                    <td> 
+                      
+                        <a (click)="deleteP(project)">
+                            <i class="far fa-trash-alt"></i>
+                            
+                          </a>
+                      </td>
+                  </tr>
+                 
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        </div>
+
+      </div>
+
+ <!-- project img -->
+ <div class="show" [class.ffff]="srcr === 'x'" >
+          <div class="overlay"></div>
+          <div class="img-show">
+            <span (click)="closeimg()">X</span>
+            <img src="http://localhost:3000/user/courses/image/{{srcr}}">
+            
+          </div>
+        </div>
+        <!-- project img -->
+
+      <ng-template #content let-modal>
+          <div class="modal-header">
+            <h4 class="modal-title">Modal title</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              {{contentP}}
+          </div>
+          
+          <div class="modal-footer">
+            <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+          </div>
+        </ng-template>
