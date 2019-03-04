@@ -6,7 +6,7 @@
 </div>
 <ol class="breadcrumb">
     <li class="breadcrumb-item">
-        <a href="index.html">Home</a>
+        <a  routerLink="/home">Home</a>
     </li>
     <li class="breadcrumb-item active">Single Course</li>
 </ol>
@@ -51,7 +51,7 @@
 
                     Class Projects 
                     <!--  <img src="https://img.icons8.com/material-two-tone/64/000000/add-list.png" (click)="open(content)">     -->
-<button class="btn btn-outline-secondary" style="margin-left: 130px" (click)="open(content)"><img src="https://img.icons8.com/material-two-tone/32/000000/add-list.png"></button>                </h3>
+<button *ngIf="shows"  class="btn btn-outline-secondary" style="margin-left: 130px" (click)="open(content)"><img src="https://img.icons8.com/material-two-tone/32/000000/add-list.png"></button>                </h3>
                 <ng-template #content let-modal>
                     <div class="modal-header">
                         <h4 class="modal-title" id="modal-basic-title">Add Project</h4>
@@ -65,14 +65,20 @@
                                 <label for="dateOfBirth">Project Title</label>
                                 <div class="input-group">
                                     <input class="form-control" placeholder="Project Title"
-                                        formControlName="project_title">
+                                        formControlName="project_title"   
+                                           [ngClass]="{ 'is-invalid': ProjectForm.get('project_title').touched && ProjectForm.get('project_title').invalid}">
+                                        <div class="invalid-feedback">Please fille the field are correctly </div>
                                 </div>
+                                <br>
                                 <label for="dateOfBirth">Project Content</label> 
                                 <div>
                                     
                                     <div class="form-group">
                                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
-                                            formControlName="project_content"></textarea>
+                                            formControlName="project_content"
+                                                [ngClass]="{ 'is-invalid': ProjectForm.get('project_content').touched && ProjectForm.get('project_content').invalid}">
+                                           </textarea>
+                                           <div class="invalid-feedback">Please fille the field are correctly </div>
                                     </div>
                                 </div>
                                 <label for="dateOfBirth">Project Content</label>
@@ -84,8 +90,8 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-dark"
-                                    (click)="modal.close('Save click');addproject()">Save</button>
+                                <button type="button" class="btn btn-outline-dark" [disabled]="!ProjectForm.valid"
+                                    (click)="modal.close('Save click');addproject()" >Save</button>
                             </div>
                         </form>
                     </div>
@@ -107,31 +113,93 @@
                                         <a>{{project.project_user.user_first_name}}
                                             {{project.project_user.user_last_name}}</a>
                                     </div>
-                                    <div class="card-text">
-                                        {{project.project_content}}<br>
-                                        Votes: {{project.project_vote.length}}
-                                    </div>
+                                   <!--  <div class="card-text">
+                                        {{slice(project.project_content)}}<br>
+                                            </div> -->
                                 </div>
                                 <div class="card-footer">
-                                    <span class="float-right">{{project.project_date|date}}</span>
+                                    <span class="float-right"><span class="fa fa-calendar"></span> {{project.project_date|date}}</span>
 
                                     <div>
                                         <ul>
+                                            
                                             <a *ngIf="!checkLike(project.project_vote)" (click)="AddVote(project.id)">
-                                                <img src="https://img.icons8.com/windows/32/000000/star.png"> </a>
+                                                <img src="https://img.icons8.com/windows/32/000000/star.png" style="margin-top: -7px"> </a>
 
                                             <a *ngIf="checkLike(project.project_vote)"
                                                 (click)="unvoteprojrct(project.id)"> <img
-                                                    src="https://img.icons8.com/windows/32/000000/filled-star.png"></a>
-
+                                                    src="https://img.icons8.com/windows/32/000000/filled-star.png" style="margin-top: -7px"></a>
+                                                    <a> {{project.project_vote.length}}</a>
                                         </ul>
+                                       
                                     </div>
                                 </div>
                                 <div class="card-footer">
+                                        <button *ngIf="hiddensDeleteProject" class="btn btn-secondary float-right btn-sm"
+                                        (click)=" open(content8)">Delete</button>
                                     <button class="btn btn-secondary float-right btn-sm"
-                                    (click)="open(content);projectbyid(project._id)">show</button>
-                                </div>
+                                    (click)="open(content);projectbyid(project._id)" style="margin-right: 5px">Show</button>
                                     
+                                 
+                                </div>
+                                <ng-template #content8 let-modal>
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="modal-basic-title">Edit Comment</h4>
+                                            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form>
+                                                <div class="form-group">
+                                                    <label >Are you sure you want to delete your project</label>
+                                                            </div>
+                                                <div class="modal-footer">
+                                                        <button type="button" class="btn btn-outline-dark" 
+                                                        (click)="modal.close('Save click')" >cancel</button>
+                                                    <button type="button" class="btn btn-outline-dark" 
+                                                        (click)="modal.close('Save click');StudentDeleteProject(project._id)" >delete</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    
+                                    </ng-template>
+                                <ng-template #content7 let-modal>
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="modal-basic-title">Edit Project</h4>
+                                            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <form [formGroup]="ProjectForm">
+                                        <div class="modal-body">
+                                                  <div class="form-group">
+                                                    <label>Project Title</label>
+                                                    <div class="input-group">
+                                                      <input formControlName="project_title" class="form-control"
+                                                       [ngClass]="{ 'is-invalid': ProjectForm.get('project_title').touched && ProjectForm.get('project_title').invalid}">
+                                                      <div class="invalid-feedback">Please fille the field are correctly </div>
+                                                    </div>
+                                                    <label>Project Content</label>
+                                                    <div class="input-group">
+                                                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                                            formControlName="project_content"
+                                                                [ngClass]="{ 'is-invalid': ProjectForm.get('project_content').touched && ProjectForm.get('project_content').invalid}">
+                                                           </textarea>
+                                                       <div class="invalid-feedback">Please fille the field are correctly </div>
+                                                    </div>
+                                                    <label>Image</label>
+                                                    <div class="input-group">
+                                                      <input type="file" (change)="selectedFile($event)" class="form-control" name="project_image">
+                                                    </div>
+                                                  </div>
+                                              </div>
+                                              <div class="modal-footer">
+                                                    <button type="button" [disabled]="!ProjectForm.valid" class="btn btn-outline-dark" (click)="modal.close('Save click');StudentEditPtoject(project._id)">Edit</button>
+                                                  </div>
+                                                </form>
+
+                                    </ng-template>
                                     <ng-template #content let-modal>
                                         <div class="modal-header">
                                             <h4 class="modal-title" id="modal-basic-title">Full Project</h4>
@@ -141,19 +209,30 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form *ngFor="let resultat of res">
+                                            <form *ngFor="let resultat of res ; let p = index">
                                                 <div class="card-block">
-
+                                                        <img class="card-img"
+                                                        style="width: 250px;margin-left: 94px;height: 250px;"   src="http://localhost:3000/student/projects/image/{{resultat.project_image}}">
+                                                        <br>
+                                                        <br>
+                                                       <a><span class="fa fa-calendar"></span> {{resultat.project_date|date}}</a>
+                                               
                                                     <h4 class="card-title">{{resultat.project_title}}</h4>
                                                     <div class="meta">
-                                                        <a href="#">{{resultat.project_user}}</a>
+                                                        <a >{{resultat.project_user.user_first_name}} {{resultat.project_user.user_last_name}}</a>
+                                                        <br>
+                                                        <a >{{resultat.project_user.user_role  === 3 ? 'Student' : 'Teacher'}} </a>
                                                     </div>
                                                     <div class="card-text">
                                                         {{resultat.project_content}}
 
                                                     </div>
                                                 </div>
+                                              
                                                 <div class="modal-footer">
+                                                
+                                                        <button *ngIf="hiddens" type="button" class="btn btn-outline-dark"
+                                                        (click)="open(content7);getProjectIndex(p)">Edit</button>
                                                     <button type="button" class="btn btn-outline-dark"
                                                         (click)="modal.close('Save click')">Close</button>
                                                 </div>
@@ -200,7 +279,7 @@
                                     <hr>
                                     <ul class="media-list" *ngFor="let results of result">
                                         <li class="media" *ngFor="let commnet of comments.slice().reverse()">
-                                            <a href="#" class="pull-left">
+                                            <a  class="pull-left">
                                                 <img src="http://localhost:3000/student/projects/image/{{commnet.comment_user.user_image}}"
                                                     alt="" class="img-circle">
                                             </a>
@@ -208,21 +287,39 @@
                                                 <span class="text-muted pull-right">
                                                     <small class="text-muted">{{commnet.comment_date | date}}
                                                         {{f}}</small>
-                                                    <a
+                                                    <a *ngIf="id_user === commnet.comment_user._id"
                                                         (click)="open(content5);getIdComment(commnet._id,commnet.comment_content)">
                                                         <img src="https://img.icons8.com/windows/32/000000/create-new.png"
                                                             style="  width:30px; height:30px"></a>
-                                                    <a (click)="deleteComment(commnet._id)"><img
+                                                    <a *ngIf="id_user === commnet.comment_user._id || id_user === teachers._id" (click)="open(content9)"><img
                                                             src="https://img.icons8.com/material-outlined/32/000000/close-window.png"
                                                             style="width:30px; height:30px"></a>
                                                 </span>
-
+                                               
                                                 <strong class="text-success">@{{commnet.comment_user.user_first_name}}
                                                     {{commnet.comment_user.user_last_name}}</strong>
                                                 <p>
                                                     {{commnet.comment_content}}.
                                                 </p>
                                             </div>
+                                            <ng-template #content9 let-modal>
+                                                    <div class="modal-header">
+                                                  
+                                                    </div>
+                                                    <div class="modal-body">
+                                                            <p>
+                                                                    Are you sure you want to delete your comment ?!
+                                                                </p>
+                                                            <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-outline-dark" 
+                                                                    (click)="modal.close('Save click')" >Cancel</button>
+                                                                <button type="button" class="btn btn-outline-dark" 
+                                                                    (click)="modal.close('Save click');deleteComment(commnet._id)" >Delete</button>
+                                                            </div>
+                                                       
+                                                    </div>
+                                                
+                                                </ng-template>
                                         </li>
                                     </ul>
                                 </div>
@@ -234,8 +331,9 @@
             </form>
         </div>
 
-    </div>
+  
 </section>
+
 <ng-template #content5 let-modal>
     <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">Edit Comment</h4>
@@ -248,17 +346,20 @@
             <div class="form-group">
                 <label for="dateOfBirth">Comment content</label>
                 <div class="input-group">
-                    <input class="form-control" placeholder="Project Title" formControlName="comment_content">
+                    <input class="form-control" placeholder="Project Title" formControlName="comment_content"
+                    [ngClass]="{ 'is-invalid': CommentForm.get('comment_content').touched && CommentForm.get('comment_content').invalid}">
+                    <div class="invalid-feedback">Please fille the field are correctly </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-dark"
-                    (click)="modal.close('Save click');editComment(IdComment)">Save</button>
+                <button type="button" class="btn btn-outline-dark" [disabled]="!CommentForm.valid"
+                    (click)="modal.close('Save click');editComment(IdComment)" >Save</button>
             </div>
         </form>
     </div>
 
 </ng-template>
+
 
 
 <!-- //contact -->

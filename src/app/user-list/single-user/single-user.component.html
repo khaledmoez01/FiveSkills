@@ -158,11 +158,15 @@
       <div class="form-group">
         <label>First Name</label>
         <div class="input-group">
-          <input [value]="ID.user_first_name" formControlName="user_first_name" class="form-control">
+          <input [value]="ID.user_first_name" formControlName="user_first_name" class="form-control"
+          [ngClass]="{ 'is-invalid': UserForm.get('user_first_name').touched && UserForm.get('user_first_name').invalid}">
+          <div class="invalid-feedback">Please fille the field are correctly </div>
         </div>
         <label>Last Name</label>
         <div class="input-group">
-          <input [value]="ID.user_last_name" formControlName="user_last_name" class="form-control">
+          <input [value]="ID.user_last_name" formControlName="user_last_name" class="form-control"
+          [ngClass]="{ 'is-invalid': UserForm.get('user_last_name').touched && UserForm.get('user_last_name').invalid}">
+          <div class="invalid-feedback">Please fille the field are correctly </div>
         </div>
         <label>Image</label>
         <!-- <div class="input-group">
@@ -175,11 +179,15 @@
       </div>
         <label>Email</label>
         <div class="input-group">
-          <input [value]="ID.user_email" formControlName="user_email" class="form-control">
+          <input [value]="ID.user_email" formControlName="user_email" class="form-control"
+          [ngClass]="{ 'is-invalid': UserForm.get('user_email').touched && UserForm.get('user_email').invalid}">
+          <div class="invalid-feedback">Please fille the field are correctly </div>
         </div>
         <label>Birthday</label>
         <div class="input-group">
-          <input type="text" [value]="ID.user_birthday" formControlName="user_birthday" class="form-control">
+          <input type="text" [value]="ID.user_birthday" formControlName="user_birthday" class="form-control"
+          [ngClass]="{ 'is-invalid': UserForm.get('user_birthday').touched && UserForm.get('user_birthday').invalid}">
+          <div class="invalid-feedback">Please fille the field are correctly </div>
         </div>
       </div>
     </form>
@@ -196,24 +204,34 @@
     </button>
 
   </div>
+  <form [formGroup]="CourseForm">
   <div class="modal-body">
-    <form [formGroup]="CourseForm">
       <div class="form-group">
         <label>Course Title</label>
         <div class="input-group">
-          <input formControlName="course_title" class="form-control" >
+          <input formControlName="course_title" class="form-control" 
+          [ngClass]="{ 'is-invalid': CourseForm.get('course_title').touched && CourseForm.get('course_title').invalid}">
+          <div class="invalid-feedback">Please fille the field are correctly </div>
         </div>
         <label>course_content</label>
         <div class="input-group">
-          <input formControlName="course_content" class="form-control"  >
+          <input formControlName="course_content" class="form-control"    
+            [ngClass]="{ 'is-invalid': CourseForm.get('course_content').touched && CourseForm.get('course_content').invalid}">
+          <div class="invalid-feedback">Please fille the field are correctly </div>
         </div>
         <label>Course Description</label>
         <div class="input-group">
-          <input formControlName="course_description" class="form-control" >
+          <input formControlName="course_description" class="form-control" 
+          [ngClass]="{ 'is-invalid': CourseForm.get('course_description').touched && CourseForm.get('course_description').invalid}">
+          <div class="invalid-feedback">Please fille the field are correctly </div>
         </div>
         <label>Course Statement</label>
         <div class="input-group">
-          <input formControlName="course_statement" class="form-control" >
+              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+          formControlName="course_statement"
+              [ngClass]="{ 'is-invalid': CourseForm.get('course_statement').touched && CourseForm.get('course_statement').invalid}">
+         </textarea>
+         <div class="invalid-feedback">Please fille the field are correctly </div>
         </div>
         <label>Image</label>
       
@@ -229,14 +247,14 @@
 
 
       </div>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark"
+    </div>
+    <div class="modal-footer">
+      <button type="button"  [disabled]="!CourseForm.valid" class="btn btn-outline-dark"
       (click)="modal.close('Save click');publishedCourse()">Published</button>
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click');createcourseDraft()">Add to
-      draft</button>
-  </div>
+      <button type="button"   [disabled]="!CourseForm.valid" class="btn btn-outline-dark" (click)="modal.close('Save click');createcourseDraft()">Add to
+        draft</button>
+      </div>
+    </form>
 </ng-template>
 <ng-template #content3 let-modal>
   <div class="modal-header">
@@ -246,16 +264,20 @@
     </button>
 
   </div>
+  <form [formGroup]="CourseForm">
   <div class="modal-body">
-    <form [formGroup]="CourseForm">
       <div class="form-group">
         <label>Course Title</label>
         <div class="input-group">
-          <input formControlName="course_title" class="form-control">
+          <input formControlName="course_title" class="form-control"
+          [ngClass]="{ 'is-invalid': CourseForm.get('course_title').touched && CourseForm.get('course_title').invalid}">
+          <div class="invalid-feedback">Please fille the field are correctly </div>
         </div>
         <label>Course Content</label>
         <div class="input-group">
-          <input formControlName="course_content" class="form-control">
+          <input formControlName="course_content" class="form-control"
+          [ngClass]="{ 'is-invalid': CourseForm.get('course_content').touched && CourseForm.get('course_content').invalid}">
+          <div class="invalid-feedback">Please fille the field are correctly </div>
         </div>
         <label>Course Description</label>
         <div class="input-group">
@@ -275,12 +297,12 @@
           <img [src]="imgURL" height="200" *ngIf="imgURL">
       </div>
       </div>
-    </form>
-  </div>
-  <div class="modal-footer">
-
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click');editCourse(i)">Edit</button>
-  </div>
+    </div>
+    <div class="modal-footer">
+      
+      <button type="button" [disabled]="!CourseForm.valid" class="btn btn-outline-dark" (click)="modal.close('Save click');editCourse(i)">Edit</button>
+    </div>
+  </form>
 </ng-template>
 
 <ng-template #content4 let-modal>
@@ -333,8 +355,8 @@
       </button>
   
     </div>
+    <form [formGroup]="ProjectForm">
     <div class="modal-body">
-      <form [formGroup]="ProjectForm">
         <div class="form-group">
           <label>Project Title</label>
           <div class="input-group">
@@ -349,9 +371,9 @@
             <input type="file" (change)="selectedFile($event)" class="form-control" name="project_image">
           </div>
         </div>
-      </form>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click');EditPtojectUser(i)">Edit</button>
-    </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button"  [disabled]="!ProjectForm.valid" class="btn btn-outline-dark" (click)="modal.close('Save click');EditPtojectUser(i)">Edit</button>
+      </div>
+    </form>
   </ng-template>

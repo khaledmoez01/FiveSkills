@@ -37,6 +37,11 @@ export class SingleCourseComponent implements OnInit {
   commentsNumber: any;
   show: boolean = true;
   hidden: boolean = false;
+  shows: boolean = true;
+  hiddens: boolean = true
+  commentShow: boolean = true
+  commentShowDelete: boolean = true
+  hiddensDeleteProject: boolean = true;
   i: any;
   id_projec: any;
   projects: any;
@@ -46,6 +51,9 @@ export class SingleCourseComponent implements OnInit {
   IdComment;
   id_comment: any;
   id_course: string;
+  user_role: any;
+  project: any;
+  getpara: any;
   preview(files) {
     if (files.length === 0)
       return;
@@ -82,20 +90,49 @@ export class SingleCourseComponent implements OnInit {
     // this.ID = this.apiService.getid();
     console.log('this.ID ngOnInit', this.ID)
     this.id_user = jwt_decode(this.cookiesService.get('token')).id._id;
+    this.user_role = jwt_decode(this.cookiesService.get('token')).id.user_role
+    console.log('user_role', this.user_role)
     console.log('zzz', this.id_user)
     this.apiService.getCoursesById(this.ID).subscribe((data: any) => {
       console.log(data);
       this.result = [data];
       this.comments = data.course_comment
-      this.teachers =  this.result.course_teacher
+      this.teachers = data.course_teacher
       this.commentsNumber = data.course_comment.length
       this.followers = data.course_followers
       this.followersNumber = this.followers.length
       this.projects = data.course_project;
-    // this.ProjectVotes = this.projects[0]['project_vote']
+      console.log('this.id_user', this.id_user)
+      console.log('this.teachers', this.teachers._id)
+      // this.ProjectVotes = this.projects[0]['project_vote']
       console.log('projects', this.projects)
-     // console.log('projectVotes', this.ProjectVotes)
-      console.log('followersNumber', this.followers.length)
+      // console.log('projectVotes', this.ProjectVotes)
+
+      if (this.id_user == this.teachers._id) {
+        this.shows = false
+      }
+      else {
+        this.shows
+      }
+      for (let i = 0; i < this.projects.length; i++) {
+        if (this.id_user === this.projects[i].project_user._id) {
+          this.hiddens
+        }
+        else {
+          this.hiddens = false
+        }
+
+      }
+      for (let i = 0; i < this.projects.length; i++) {
+        if (this.id_user === this.projects[i].project_user._id || this.id_user === this.teachers._id) {
+          this.hiddensDeleteProject
+        }
+        else {
+          this.hiddensDeleteProject = false
+        }
+
+      }
+           console.log('followersNumber', this.followers.length)
       for (let i = 0; i < this.followers.length; i++) {
         console.log('cc', this.followers[i].user_id)
         if (this.followers[i].user_id === this.id_user) {
@@ -107,6 +144,8 @@ export class SingleCourseComponent implements OnInit {
           this.hidden
         }
       }
+
+
     });
 
     this.APIService.getApiproject().subscribe(doc => {
@@ -140,23 +179,29 @@ export class SingleCourseComponent implements OnInit {
   }
 
   addproject() {
-    console.log(this.ProjectForm.value)
-    this.id_user = jwt_decode(this.cookiesService.get('token')).id._id;
-    const formData = new FormData();
-    formData.append('project_title', this.ProjectForm.value.project_title)
-    formData.append('project_content', this.ProjectForm.value.project_content)
-    formData.append('project_image', this.selectedImage)
-    formData.append('project_course', this.ID)
-    formData.append('project_user', this.id_user)
-    console.log('id_user', this.id_user)
-    console.log('id course', this.ID)
-    console.log('formdata', formData)
+    if (this.ProjectForm.value) {
 
-    this.APIService.addproject(this.ID, this.id_user, formData).subscribe(doc => {
-      console.log(doc);
-      this.result = [doc];
-      this.ngOnInit()
-    });
+      console.log(this.ProjectForm.value)
+      this.id_user = jwt_decode(this.cookiesService.get('token')).id._id;
+      const formData = new FormData();
+      formData.append('project_title', this.ProjectForm.value.project_title)
+      formData.append('project_content', this.ProjectForm.value.project_content)
+      formData.append('project_image', this.selectedImage)
+      formData.append('project_course', this.ID)
+      formData.append('project_user', this.id_user)
+      console.log('id_user', this.id_user)
+      console.log('id course', this.ID)
+      console.log('formdata', formData)
+
+      this.APIService.addproject(this.ID, this.id_user, formData).subscribe(doc => {
+        console.log(doc);
+        this.result = [doc];
+        this.ngOnInit()
+      });
+    }
+    else {
+      alert('Please check if all fields are correctly filled')
+    }
   }
 
 
@@ -181,7 +226,7 @@ export class SingleCourseComponent implements OnInit {
 
   followthecourse() {
     this.id_user = jwt_decode(this.cookiesService.get('token')).id._id;
-    this.ID =  this.router.snapshot.paramMap.get('id')
+    this.ID = this.router.snapshot.paramMap.get('id')
     console.log('id_userFollow', this.id_user)
     console.log('ID Course', this.ID)
     this.apiService.followcourse(this.id_user, this.ID).subscribe(doc => {
@@ -207,9 +252,9 @@ export class SingleCourseComponent implements OnInit {
     })
   }
   unfollowCourse() {
-    this.id_course= this.router.snapshot.paramMap.get('id');
+    this.id_course = this.router.snapshot.paramMap.get('id');
     this.id_user = jwt_decode(this.cookiesService.get('token')).id._id;
-    this.APIService.UnfollowCourse(this.id_user,this.id_course).subscribe((data: any) => {
+    this.APIService.UnfollowCourse(this.id_user, this.id_course).subscribe((data: any) => {
       console.log(data);
       // this.hidden= true;
       /*  for (let i = 0; i < this.followers.length; i++) {
@@ -240,33 +285,70 @@ export class SingleCourseComponent implements OnInit {
 
 
   }
-editComment(f){
-  this.id_user = jwt_decode(this.cookiesService.get('token')).id._id;
-  
-  let commentObj= {
-    comment_user:this.id_user,
-    comment_course:this.router.snapshot.paramMap.get('id'),
-    comment_content: this.CommentForm.value.comment_content
+  editComment(f) {
+    this.id_user = jwt_decode(this.cookiesService.get('token')).id._id;
+
+    let commentObj = {
+      comment_user: this.id_user,
+      comment_course: this.router.snapshot.paramMap.get('id'),
+      comment_content: this.CommentForm.value.comment_content
+    }
+    this.ApiService.editComment(f, commentObj).subscribe((data: any) => {
+      console.log(data)
+      this.ngOnInit()
+    })
   }
-  this.ApiService.editComment(f,commentObj).subscribe((data:any)=>{
-    console.log(data) 
-  this.ngOnInit() })
-}
-getIdComment(f,a){
- this.IdComment=f
- this.CommentForm.controls['comment_content'].setValue(a)
-}
+  getIdComment(f, a) {
+    this.IdComment = f
+    this.CommentForm.controls['comment_content'].setValue(a)
+  }
 
-deleteComment(f){
-  this.ID=this.router.snapshot.paramMap.get('id')
+  deleteComment(f) {
+    this.ID = this.router.snapshot.paramMap.get('id')
 
-  this.ApiService.deleteComment(this.ID,f).subscribe((data:any)=>{
-    console.log(data)
-    this.ngOnInit()
-  })
-}
+    this.ApiService.deleteComment(this.ID, f).subscribe((data: any) => {
+      console.log(data)
+      this.ngOnInit()
+    })
+  }
+  StudentDeleteProject(id_project) {
+    this.id_user = jwt_decode(this.cookiesService.get('token')).id._id;
+    this.id_course = this.router.snapshot.paramMap.get('id');
+    this.APIService.StudentDeleteProject(id_project, this.id_user, this.id_course).subscribe((data: any) => {
+      console.log(data)
+      alert('Your Project is deleted')
+      this.ngOnInit()
+    })
+  }
+  getProjectIndex(i) {
+    this.i = i;
+    console.log(i)
+    this.ProjectForm.controls['project_title'].setValue(this.projects[i].project_title)
+    this.ProjectForm.controls['project_content'].setValue(this.projects[i].project_content)
 
-
+  }
+  StudentEditPtoject(i) {
+    if (this.ProjectForm.value) {
+      this.id_user = jwt_decode(this.cookiesService.get('token')).id._id
+      const formdata = new FormData
+      formdata.append('project_title', this.ProjectForm.value.project_title)
+      formdata.append('project_content', this.ProjectForm.value.project_content)
+      formdata.append('project_user', this.id_user)
+      if (this.selectedImage) {
+        formdata.append('project_image', this.selectedImage)
+      }
+      this.APIService.UserEditProject(i, formdata).subscribe((data: any) => {
+        this.project = data
+        console.log(data)
+        this.ngOnInit()
+      })
+    }
+  }
+  slice(f) {
+    console.log(f);
+    this.getpara = f.slice(0, -50);
+    return this.getpara;
+  }
 }
 
 

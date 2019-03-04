@@ -29,7 +29,8 @@ export class HomeComponent implements OnInit {
       console.log(compteur)
     })
   }
-  logout() {
+  logout() : void{
     this.cookiesService.deleteAll();
+    window.location.reload();
   }
 }

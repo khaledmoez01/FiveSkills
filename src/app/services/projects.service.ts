@@ -46,4 +46,7 @@ export class ProjectsService {
   UserDeleteProject(id_project,id_user,index){
     return this.http.get(`http://localhost:3000/user/project/${id_project}/${id_user}/${index}`)
   }
+  StudentDeleteProject(id_project,id_user,id_course){
+    return this.http.get(`http://localhost:3000/student/project/delete/${id_project}/${id_user}/${id_course}`)
+  }
 }
