@@ -130,12 +130,12 @@
               </div>
             </div>
             <div class="col-md-2">
-              <input type="button" class="profile-edit-btn" (click)="open(content);getindex();" value="Edit Profile" />
+              <input type="button" class="profile-edit-btn" (click)="openProfileDetails(content);getindex();" value="Edit Profile" />
             </div>
-            <div class="col-md-2" *ngIf="show">
+            <div class="col-md-2" *ngIf="userRole === 2">
               <input type="button" class="profile-edit-btn" (click)="open(content2);getindex();" value="Add Course" />
             </div>
-            <div class="col-md-4" *ngIf="hidden">
+            <div class="col-md-4" *ngIf="userRole === 3">
               <input type="button" class="profile-edit-btn" (click)="open(content4);getindex();"
                 value="create Course" />
             </div>
@@ -158,13 +158,13 @@
       <div class="form-group">
         <label>First Name</label>
         <div class="input-group">
-          <input [value]="ID.user_first_name" formControlName="user_first_name" class="form-control"
+          <input formControlName="user_first_name" class="form-control"
           [ngClass]="{ 'is-invalid': UserForm.get('user_first_name').touched && UserForm.get('user_first_name').invalid}">
           <div class="invalid-feedback">Please fille the field are correctly </div>
         </div>
         <label>Last Name</label>
         <div class="input-group">
-          <input [value]="ID.user_last_name" formControlName="user_last_name" class="form-control"
+          <input  formControlName="user_last_name" class="form-control"
           [ngClass]="{ 'is-invalid': UserForm.get('user_last_name').touched && UserForm.get('user_last_name').invalid}">
           <div class="invalid-feedback">Please fille the field are correctly </div>
         </div>
@@ -179,13 +179,13 @@
       </div>
         <label>Email</label>
         <div class="input-group">
-          <input [value]="ID.user_email" formControlName="user_email" class="form-control"
+          <input  formControlName="user_email" class="form-control"
           [ngClass]="{ 'is-invalid': UserForm.get('user_email').touched && UserForm.get('user_email').invalid}">
           <div class="invalid-feedback">Please fille the field are correctly </div>
         </div>
         <label>Birthday</label>
         <div class="input-group">
-          <input type="text" [value]="ID.user_birthday" formControlName="user_birthday" class="form-control"
+          <input type="text"  formControlName="user_birthday" class="form-control"
           [ngClass]="{ 'is-invalid': UserForm.get('user_birthday').touched && UserForm.get('user_birthday').invalid}">
           <div class="invalid-feedback">Please fille the field are correctly </div>
         </div>
@@ -193,7 +193,7 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click');EditProfil()">Save</button>
+    <button type="button" [disabled]="!UserForm.valid"  class="btn btn-outline-dark" (click)="modal.close('Save click');EditProfil()">Save</button>
   </div>
 </ng-template>
 <ng-template #content2 let-modal>
@@ -299,8 +299,9 @@
       </div>
     </div>
     <div class="modal-footer">
-      
-      <button type="button" [disabled]="!CourseForm.valid" class="btn btn-outline-dark" (click)="modal.close('Save click');editCourse(i)">Edit</button>
+        <button type="button" *ngIf="userRole === 3" [disabled]="!CourseForm.valid" class="btn btn-outline-dark" (click)="modal.close('Save click');CourseSendedToValidate()">Pending</button>
+      <button type="button" *ngIf="userRole === 2 && courses.course_status != 3" [disabled]="!CourseForm.valid" class="btn btn-outline-dark" (click)="modal.close('Save click');publishedCourse()">Published</button>
+      <button type="button"  [disabled]="!CourseForm.valid" class="btn btn-outline-dark" (click)="modal.close('Save click');editCourse(i)">Edit</button>
     </div>
   </form>
 </ng-template>
@@ -340,9 +341,9 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark"
+    <button type="button" class="btn btn-outline-dark" [disabled]="!CourseForm.valid"
       (click)="modal.close('Save click');CourseSendedToValidate()">Pending</button>
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click');draftStudentCourse()">Add to
+    <button type="button" [disabled]="!CourseForm.valid" class="btn btn-outline-dark" (click)="modal.close('Save click');draftStudentCourse()">Add to
       draft</button>
   </div>
 </ng-template>

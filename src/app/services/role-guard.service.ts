@@ -19,16 +19,24 @@ export class RoleGuardService  implements CanActivate {
     private cookieService: CookieService
     ) { }
     
-    user_role = decode(this.cookieService.get('token')).id.user_role
+    user_role = decode(this.cookieService.get('token')).id.user_role;
+   
     canActivate(route: ActivatedRouteSnapshot): boolean {
-      if ( this.user_role) {
-        return true;
-      } else {
-    this.router.navigateByUrl('/login');
-    return false;
+      console.log(this.user_role);
+     
+if(route.data.allowedRoles.includes(this.user_role))
+  {
+   return true;
+  }else {
+    this.router.navigateByUrl('/dashboard');
   }
-  
-
-    // return route.data.allowedRoles.includes(decodeToken['role']);
+  if(route.data.allowedRoles.includes(this.user_role)) {
+    console.log(this.user_role)
+   return true;
+  }else {
+    console.log(this.user_role)
+    this.router.navigateByUrl('/home');
   }
+  return false;
+}
 }

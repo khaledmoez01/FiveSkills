@@ -30,6 +30,7 @@ export class SingleUserComponent implements OnInit {
   id_teacher: any;
   courses: any;
   i: any;
+  userRole:any;
   course: any;
   id_course: any;
   id_user: any;
@@ -82,12 +83,13 @@ export class SingleUserComponent implements OnInit {
     this.ID = jwt_decode(this.cookieService.get('token')).id._id;
     this.user_role = jwt_decode(this.cookieService.get('token')).id.user_role
     this.apiService.getUser(this.ID).subscribe(async (doc: any) => {
-     console.log('ngOnInit',doc);
+     console.log('ngOnInit',doc.user_role);
+      this.userRole = doc.user_role;
       this.results = [doc];
       this.courses = doc.user_courses;
       this.projects= doc.user_project;
       console.log('this.projects',this.projects)
-
+/* 
       if (this.user_role === 2) {
         this.show = true
         this.hidden
@@ -96,7 +98,7 @@ export class SingleUserComponent implements OnInit {
         this.show = false
         this.hidden= true
       }
-    })
+    */ })
   }
 
   getid(i) {
@@ -116,6 +118,22 @@ export class SingleUserComponent implements OnInit {
     this.CourseForm.controls['course_statement'].setValue("")
 
 
+  }
+  openProfileDetails(content){
+    const user = jwt_decode(this.cookieService.get('token')).id
+    console.log('user', user)
+    this.UserForm = new FormGroup({
+      user_first_name: new FormControl(user.user_first_name, [Validators.required]),
+      user_last_name: new FormControl(user.user_last_name, [Validators.required]),
+      user_email: new FormControl(user.user_email, [Validators.email, Validators.required]),
+      user_birthday: new FormControl(user.user_birthday, [Validators.required])
+
+    })
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
   }
   open(content) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
@@ -140,7 +158,7 @@ export class SingleUserComponent implements OnInit {
   EditProfil() {
     console.log(this.UserForm.value, "user");
 
-    if (this.UserForm.value) {
+    if (this.UserForm.valid) {
       const formData = new FormData();
       formData.append('user_first_name', this.UserForm.value.user_first_name)
       formData.append('user_last_name', this.UserForm.value.user_last_name)
