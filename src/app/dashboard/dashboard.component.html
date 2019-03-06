@@ -1,1 +1,91 @@
-<p>works</p>
+
+
+
+  <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+
+    <a class="navbar-brand mr-1" routerLink="/home">5 Skills</a>
+
+    <a class="navbar-b mr-1" (click)="logout()" routerLink="/login"> Logout</a>
+
+  </nav>
+
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="sidebar navbar-nav" id="menu">
+      <li class="nav-item " [class.active]="route === 'Dashboard'">
+        <a class="nav-link" routerLink="/dashboard/">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+      <li class="nav-item dropdown" [class.active]="route === 'Courses'" (click)="changeRoute1()">
+        <a class="nav-link"  routerLink="/dashboard/courses">
+          <i class="fas fa-book-open"></i>
+          <span>Courses</span>
+        </a>
+        
+      </li>
+      <li class="nav-item" [class.active]="route === 'Projects'" (click)="changeRoute2()">
+        <a class="nav-link"routerLink="/dashboard/projects">
+            <i class="fas fa-tasks"></i>      
+                  <span>Projects</span></a>
+      </li>
+      <li class="nav-item" [class.active]="route === 'Comments'" (click)="changeRoute3()">
+        <a class="nav-link" routerLink="/dashboard/comments">
+          <i class="far fa-comments"></i>
+          <span>Comments</span></a>
+      </li>
+      <li class="nav-item" [class.active]="route === 'Users'" (click)="changeRoute4()">
+        <a class="nav-link" routerLink="/dashboard/users">
+          <i class="fas fa-users"></i>
+          <span>Users</span></a>
+      </li>
+    </ul>
+
+    <div id="content-wrapper">
+<router-outlet></router-outlet>
+      <!-- /.container-fluid -->
+
+      <!-- Sticky Footer -->
+      <footer class="sticky-footer">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright © Your Website 2019</span>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+    <!-- /.content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="login.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ 
+
+

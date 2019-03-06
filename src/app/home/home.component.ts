@@ -10,12 +10,14 @@ import { UsersService } from '../services/users.service';
 })
 export class HomeComponent implements OnInit {
   token;
+  user_role;
   results = [];
   constructor(private cookiesService: CookieService, private UserService: UsersService) { }
 
   ngOnInit() {
     if (this.cookiesService.get('token')) {
       this.token = jwt_decode(this.cookiesService.get('token'))
+      this.user_role = jwt_decode(this.cookiesService.get('token')).id.user_role;
     }
     this.UserService.getAllUsers().subscribe((data: any) => {
       console.log(data)
@@ -29,7 +31,8 @@ export class HomeComponent implements OnInit {
       console.log(compteur)
     })
   }
-  logout() {
+  logout() : void{
     this.cookiesService.deleteAll();
+    window.location.reload();
   }
 }

@@ -34,13 +34,15 @@ export class LoginComponent implements OnInit {
         this.cookieService.set('token',this.token);
         console.log(this.token)
         const User_role = jwt_decode(this.token).id.user_role;
-        if(User_role=== 1)
+        if (User_role === 1)
         {
-          this.router.navigate(['/dashboard'])
+          this.router.navigateByUrl('/dashboard');
+        }else {
+          this.router.navigateByUrl('/home');
         }
-        else {
-          this.router.navigate(['/home'])
-        }
+      //  console.log(jwt_decode(this.cookieService.get('token')).id.user_role);
+
+       
       });
 
   }

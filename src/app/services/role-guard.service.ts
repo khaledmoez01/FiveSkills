@@ -17,14 +17,26 @@ export class RoleGuardService  implements CanActivate {
     public auth: AuthService,
     public router: Router,
     private cookieService: CookieService
-  ) { }
-
-  canActivate(route: ActivatedRouteSnapshot): boolean {
-    let user = decode(this.cookieService.get('token'))
-    console.log('*** kmg RoleGuardService not implemented yet - route.data.expectedRole ***');
-    console.log(route.data.allowedRoles);
-    return true;
-
-    // return route.data.allowedRoles.includes(decodeToken['role']);
+    ) { }
+    
+    user_role = decode(this.cookieService.get('token')).id.user_role;
+   
+    canActivate(route: ActivatedRouteSnapshot): boolean {
+      console.log(this.user_role);
+     
+if(route.data.allowedRoles.includes(this.user_role))
+  {
+   return true;
+  }else {
+    this.router.navigateByUrl('/dashboard');
   }
+  if(route.data.allowedRoles.includes(this.user_role)) {
+    console.log(this.user_role)
+   return true;
+  }else {
+    console.log(this.user_role)
+    this.router.navigateByUrl('/home');
+  }
+  return false;
+}
 }
