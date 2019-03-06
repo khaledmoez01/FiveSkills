@@ -17,7 +17,7 @@ let userController = require('../controllers/userController')
 
 router.get('/courses/image/:name', async (req, res) => {
   console.log(__dirname);
-  res.sendFile('C:\\Users\\emna\\Desktop\\projet Niveau 3\\FiveSkills\\server\\uploads\\'+ req.params.name)
+  res.sendFile('C:\\Users\\dell\\Desktop\\Projet Niveau3\\FiveSkills\\server\\uploads\\'+ req.params.name)
  });
 
 // 01 - recuperer la liste des courses(id teacher)

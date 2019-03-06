@@ -114,7 +114,7 @@ export class SingleCourseComponent implements OnInit {
       else {
         this.shows
       }
-      for (let i = 0; i < this.projects.length; i++) {
+    /*   for (let i = 0; i < this.projects.length; i++) {
         if (this.id_user === this.projects[i].project_user._id) {
           this.hiddens
         }
@@ -122,8 +122,8 @@ export class SingleCourseComponent implements OnInit {
           this.hiddens = false
         }
 
-      }
-      for (let i = 0; i < this.projects.length; i++) {
+      } */
+    /*   for (let i = 0; i < this.projects.length; i++) {
         if (this.id_user === this.projects[i].project_user._id || this.id_user === this.teachers._id) {
           this.hiddensDeleteProject
         }
@@ -131,7 +131,7 @@ export class SingleCourseComponent implements OnInit {
           this.hiddensDeleteProject = false
         }
 
-      }
+      } */
            console.log('followersNumber', this.followers.length)
       for (let i = 0; i < this.followers.length; i++) {
         console.log('cc', this.followers[i].user_id)

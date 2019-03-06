@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { async } from '@angular/core/testing';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,7 +10,7 @@ import { async } from '@angular/core/testing';
 export class DashboardComponent implements OnInit {
 route="";
 
-  constructor() { }
+  constructor( private cookiesService : CookieService) { }
 
   ngOnInit() {
       
@@ -21,6 +22,7 @@ route="";
 
   logout(){
     console.log("fffff")
+    this.cookiesService.deleteAll();
   }
 
 }
