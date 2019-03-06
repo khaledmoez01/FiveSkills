@@ -6,7 +6,7 @@
 </div>
 <ol class="breadcrumb">
     <li class="breadcrumb-item">
-        <a  routerLink="/home">Home</a>
+        <a  routerLink="/simpleuser/courses">Courses</a>
     </li>
     <li class="breadcrumb-item active">Single Course</li>
 </ol>
@@ -135,7 +135,7 @@
                                     </div>
                                 </div>
                                 <div class="card-footer">
-                                        <button *ngIf="hiddensDeleteProject" class="btn btn-secondary float-right btn-sm"
+                                        <button *ngIf="id_user === project.project_user._id || id_user === teachers._id " class="btn btn-secondary float-right btn-sm"
                                         (click)=" open(content8)">Delete</button>
                                     <button class="btn btn-secondary float-right btn-sm"
                                     (click)="open(content);projectbyid(project._id)" style="margin-right: 5px">Show</button>
@@ -231,7 +231,7 @@
                                               
                                                 <div class="modal-footer">
                                                 
-                                                        <button *ngIf="hiddens" type="button" class="btn btn-outline-dark"
+                                                        <button *ngIf="id_user === resultat.project_user._id" type="button" class="btn btn-outline-dark"
                                                         (click)="open(content7);getProjectIndex(p)">Edit</button>
                                                     <button type="button" class="btn btn-outline-dark"
                                                         (click)="modal.close('Save click')">Close</button>
@@ -331,7 +331,7 @@
             </form>
         </div>
 
-  
+   
 </section>
 
 <ng-template #content5 let-modal>

@@ -130,10 +130,10 @@
               </div>
             </div>
             <div class="col-md-2">
-              <input type="button" class="profile-edit-btn" (click)="openProfileDetails(content);getindex();" value="Edit Profile" />
+              <input type="button" class="profile-edit-btn buttonB" (click)="openProfileDetails(content);getindex();" value="Edit Profile" />
             </div>
             <div class="col-md-2" *ngIf="userRole === 2">
-              <input type="button" class="profile-edit-btn" (click)="open(content2);getindex();" value="Add Course" />
+              <input type="button" class="profile-edit-btn buttonB" (click)="open(content2);getindex();" value="Add Course" />
             </div>
             <div class="col-md-4" *ngIf="userRole === 3">
               <input type="button" class="profile-edit-btn" (click)="open(content4);getindex();"
@@ -281,11 +281,17 @@
         </div>
         <label>Course Description</label>
         <div class="input-group">
-          <input formControlName="course_description" class="form-control">
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+            formControlName="course_description">
+           </textarea>
+        
         </div>
         <label>Course Statement</label>
         <div class="input-group">
-          <input formControlName="course_statement" class="form-control">
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+            formControlName="course_statement">
+           </textarea>
+
         </div>
         <label>Image</label>
        <!--  <div class="input-group">
@@ -300,7 +306,7 @@
     </div>
     <div class="modal-footer">
         <button type="button" *ngIf="userRole === 3" [disabled]="!CourseForm.valid" class="btn btn-outline-dark" (click)="modal.close('Save click');CourseSendedToValidate()">Pending</button>
-      <button type="button" *ngIf="userRole === 2 && courses.course_status != 3" [disabled]="!CourseForm.valid" class="btn btn-outline-dark" (click)="modal.close('Save click');publishedCourse()">Published</button>
+      <button type="button" *ngIf="userRole === 2 && course_status !== 3" [disabled]="!CourseForm.valid" class="btn btn-outline-dark" (click)="modal.close('Save click');publishedCourse()">Published</button>
       <button type="button"  [disabled]="!CourseForm.valid" class="btn btn-outline-dark" (click)="modal.close('Save click');editCourse(i)">Edit</button>
     </div>
   </form>
@@ -327,11 +333,16 @@
         </div>
         <label>Course Description</label>
         <div class="input-group">
-          <input formControlName="course_description" class="form-control">
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+            formControlName="course_description">
+           </textarea>
+      
         </div>
         <label>Course Statement</label>
         <div class="input-group">
-          <input formControlName="course_statement" class="form-control">
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+          formControlName="course_statement">
+         </textarea>
         </div>
         <label>Image</label>
         <div class="input-group">

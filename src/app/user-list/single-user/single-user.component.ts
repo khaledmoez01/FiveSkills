@@ -15,6 +15,7 @@ import { ProjectsService } from 'src/app/services/projects.service';
 export class SingleUserComponent implements OnInit {
   ID: any;
   results: any;
+  course_status:any;
   closeResult: string;
   UserForm: FormGroup;
   CourseForm: FormGroup;
@@ -108,6 +109,7 @@ export class SingleUserComponent implements OnInit {
     this.CourseForm.controls['course_content'].setValue(this.courses[i].course_content)
     this.CourseForm.controls['course_description'].setValue(this.courses[i].course_description)
     this.CourseForm.controls['course_statement'].setValue(this.courses[i].course_statement)
+    this.course_status = this.courses[i].course_status;
   }
   getindex() {
     this.ID = jwt_decode(this.cookieService.get('token')).id
@@ -240,7 +242,7 @@ export class SingleUserComponent implements OnInit {
       formData.append('course_statement', this.CourseForm.value.course_statement)
       formData.append('course_teacher', this.id_teacher)
       console.log('CourseForm', this.CourseForm.value)
-      this.id_course=this.courses[i]._id
+      this.course_status = this.courses[i].course_status
       console.log('this.id_course', this.id_course)
       if (this.selectedImage) {
         formData.append('course_image', this.selectedImage)
