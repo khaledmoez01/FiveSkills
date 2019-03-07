@@ -316,7 +316,6 @@ export class SingleCourseComponent implements OnInit {
     this.id_course = this.router.snapshot.paramMap.get('id');
     this.APIService.StudentDeleteProject(id_project, this.id_user, this.id_course).subscribe((data: any) => {
       console.log(data)
-      alert('Your Project is deleted')
       this.ngOnInit()
     })
   }

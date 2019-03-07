@@ -246,3 +246,10 @@ exports.user_delete_project =[
     res.send({msg :'deleted',delet,result,deleteProject})
   }
 ]
+
+exports.user_CourseFormDraftToPublished =[
+ (req , res , next)=>{
+  Course.findByIdAndUpdate(req.params.id_course ,{$set: {course_status : 3}}).catch(err => err)
+     res.send({msg :'Works'})
+   }
+ ]

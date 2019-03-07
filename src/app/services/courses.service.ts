@@ -48,4 +48,10 @@ export class CoursesService {
   studentSendCoursetoValidate(id_user,Course){
     return this.http.post(`http://localhost:3000/student/course/sendtovalidate/${id_user}`,Course)
   } 
+  StudentSendsCourseFormDraftToPending(id_course){
+    return this.http.get(`http://localhost:3000/student/course/courseFromDraftToPending/${id_course}`)
+  }
+  TeacherSendsCourseFormDraftToPublished(id_course){
+    return this.http.get(`http://localhost:3000/user/course/teachersendscoursefromdrafttopublished/${id_course}`)
+  }
 }

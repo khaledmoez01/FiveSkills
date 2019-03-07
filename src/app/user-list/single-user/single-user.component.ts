@@ -235,6 +235,7 @@ export class SingleUserComponent implements OnInit {
   editCourse(i){
     if (this.CourseForm.value) {
       this.id_teacher=jwt_decode(this.cookieService.get('token')).id._id
+      this.id_course=this.courses[i]._id
       const formData = new FormData();
       formData.append('course_title', this.CourseForm.value.course_title)
       formData.append('course_content', this.CourseForm.value.course_content)
@@ -335,5 +336,25 @@ export class SingleUserComponent implements OnInit {
   }
   logout(){
     this.cookieService.deleteAll();
+  }
+  StudentSendsCourseFormDraftToPending(i){
+    console.log('i draft to pending',i)
+  this.id_course =this.courses[i]._id;
+console.log('this.id_course draft to pending',this.id_course)
+    this.CourseService.StudentSendsCourseFormDraftToPending(this.id_course).subscribe((data:any)=>{
+      console.log(data)
+      this.ngOnInit()
+
+    })
+  }
+  TeacherSendsCourseFRomDraftToPublished(i){
+    console.log('i draft to published',i)
+  this.id_course =this.courses[i]._id;
+console.log('this.id_course draft to published',this.id_course)
+    this.CourseService.TeacherSendsCourseFormDraftToPublished(this.id_course).subscribe((data:any)=>{
+      console.log(data)
+      this.ngOnInit()
+
+    })
   }
 }

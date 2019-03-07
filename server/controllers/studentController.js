@@ -152,7 +152,14 @@ exports.student_project_get_byid = [
 
 ]
 
-
+// student cans send courses from draft to pending 
+exports.student_courseFromDraftToPending =[
+  (req, res , next)=>{
+       let id = { _id: ObjectId(req.params.id_course) }
+   Course.findByIdAndUpdate(id ,{$set: {course_status : 2}}).catch(err => err)
+    res.send("works")
+  }
+]
 
 
 

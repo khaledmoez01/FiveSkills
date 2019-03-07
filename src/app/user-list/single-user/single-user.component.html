@@ -83,13 +83,14 @@
                               {{ course.course_title }}
                             </td>
                             <td>
-                              {{ (course.course_status === 3 ) ?  'Published':  (course.course_status === 1)?'Draft'  :'Pending'}}
+                              {{ (course.course_status === 3 ) ?  'Published':  (course.course_status === 1)?'Draft'  : (course.course_status === 2)?'Pending'  :'Rejected'}}
                             </td>
                             <td class="tdbutton">
                               <button type="button" class="btn btn-outline-dark"
                                 (click)="open(content3); getid(i)">Edit</button>
-                              <button type="button" (click)="deleteCourse(i)"
+                              <button type="button" (click)="open(content6)"
                                 class="btn btn-outline-dark">Delete</button>
+                              
                             </td>
                           </tr>
                         </tbody>
@@ -305,8 +306,8 @@
       </div>
     </div>
     <div class="modal-footer">
-        <button type="button" *ngIf="userRole === 3" [disabled]="!CourseForm.valid" class="btn btn-outline-dark" (click)="modal.close('Save click');CourseSendedToValidate()">Pending</button>
-      <button type="button" *ngIf="userRole === 2 && course_status !== 3" [disabled]="!CourseForm.valid" class="btn btn-outline-dark" (click)="modal.close('Save click');publishedCourse()">Published</button>
+        <button type="button" *ngIf="userRole === 3 && course_status !== 2" [disabled]="!CourseForm.valid" class="btn btn-outline-dark" (click)="modal.close('Save click');StudentSendsCourseFormDraftToPending(i)">Pending</button>
+      <button type="button" *ngIf="userRole === 2 && course_status !== 3" [disabled]="!CourseForm.valid" class="btn btn-outline-dark" (click)="modal.close('Save click');TeacherSendsCourseFRomDraftToPublished(i)">Published</button>
       <button type="button"  [disabled]="!CourseForm.valid" class="btn btn-outline-dark" (click)="modal.close('Save click');editCourse(i)">Edit</button>
     </div>
   </form>
@@ -388,4 +389,21 @@
         <button type="button"  [disabled]="!ProjectForm.valid" class="btn btn-outline-dark" (click)="modal.close('Save click');EditPtojectUser(i)">Edit</button>
       </div>
     </form>
+  </ng-template>
+  <ng-template #content6 let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">delete</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+  
+    </div>
+    <div class="modal-body">
+      <p>
+        Are you sure you want to delete your course ?!
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click');deleteCourse(i)">Delete</button>
+    </div>
   </ng-template>

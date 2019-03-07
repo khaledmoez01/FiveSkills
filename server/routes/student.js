@@ -16,7 +16,7 @@ var upload = multer({ storage: storage });
 // Require controller modules.
 router.get('/projects/image/:name', async (req, res) => {
   console.log(__dirname);
-  res.sendFile('C:\\Users\\dell\\Desktop\\Projet Niveau3\\FiveSkills\\server\\uploads\\'+ req.params.name)
+  res.sendFile('C:\\Users\\emna\\Desktop\\projet Niveau 3\\FiveSkills\\server\\uploads\\'+ req.params.name)
 });
 
 // 08 - recuperer la liste des projets
@@ -58,5 +58,8 @@ router.get('/projets/:id_project', auth.optional, studentController.student_proj
 router.post('/course/sendtovalidate/:id_user', auth.optional,upload.single('course_image'), studentController.student_send_Course_to_validate)
 // 02 - Mettre à jour un projet écrit par ce student. l'id du student sera récupéré du token
 router.post('/project/update/:id_project', auth.optional, studentController.student_update_project)
+
+// student can send courses form draft to pending
+router.get('/course/courseFromDraftToPending/:id_course', auth.optional, studentController.student_courseFromDraftToPending)
 
 module.exports = router

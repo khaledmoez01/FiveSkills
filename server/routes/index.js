@@ -25,6 +25,6 @@ router.post('/login', auth.optional, indexController.index_login_post)
 
 router.get('/image/:name', upload.single('user_image'),async (req, res) => {
   console.log(__dirname)
-  res.sendFile('C:\\Users\\dell\\Desktop\\Projet Niveau3\\FiveSkills\\server\\uploads\\' + req.params.name)
+  res.sendFile('C:\\Users\\emna\\Desktop\\projet Niveau 3\\FiveSkills\\server\\uploads\\' + req.params.name)
 })
 module.exports = router
