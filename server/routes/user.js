@@ -17,7 +17,7 @@ let userController = require('../controllers/userController')
 
 router.get('/courses/image/:name', async (req, res) => {
   console.log(__dirname);
-  res.sendFile('C:\\Users\\dell\\Desktop\\Projet Niveau3\\FiveSkills\\server\\uploads\\'+ req.params.name)
+  res.sendFile('C:\\Users\\emna\\Desktop\\projet Niveau 3\\FiveSkills\\server\\uploads\\'+ req.params.name)
  });
 
 // 01 - recuperer la liste des courses(id teacher)
@@ -61,6 +61,10 @@ router.post('/comment/create/:id_Course/:id_user', auth.optional, userController
 
 // 12 - Mettre à jour un comment ecrit par ce user (id_user récupéré depuis le token). id_comment present dans body.
 router.post('/comment/update/:id_comment', auth.optional, userController.user_comment_update_post)
+
+
+// 12 - teacher sends courses form draft to published
+router.get('/course/teachersendscoursefromdrafttopublished/:id_course', auth.optional, userController.user_CourseFormDraftToPublished)
 
 // 13 - Suppression d'un comment ecrit par ce user (id_user récupéré depuis le token). id_comment present dans body
 router.get('/comment/delete/:id_Course/:id_comment', auth.optional, userController.user_comment_delete_post)
