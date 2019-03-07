@@ -76,7 +76,8 @@
                         <tbody>
                           <tr *ngFor="let course of courses;let i = index">
                             <td>
-                              <img class="image" src="http://localhost:3000/user/courses/image/{{ course.course_image }}" alt="" />
+                              <img class="image"
+                                src="http://localhost:3000/user/courses/image/{{ course.course_image }}" alt="" />
 
                             </td>
                             <td>
@@ -90,7 +91,7 @@
                                 (click)="open(content3); getid(i)">Edit</button>
                               <button type="button" (click)="open(content6)"
                                 class="btn btn-outline-dark">Delete</button>
-                              
+
                             </td>
                           </tr>
                         </tbody>
@@ -98,43 +99,45 @@
                     </ng-template>
                   </ngb-tab>
                   <ngb-tab title="Projects" *ngIf="hidden">
-                        <ng-template ngbTabContent >
-                          <table class="table table-striped">
-                            <thead>
-                              <tr>
-                                <th scope="col-4">Image</th>
-                                <th scope="col-4">Project Title</th>
-                                <th scope="col">Options</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr *ngFor="let project of projects;let i = index">
-                                <td>
-                                  <img class="image" src="http://localhost:3000/student/projects/image/{{ project.project_image}}" alt="" />
-                                </td>
-                                <td>
-                                  {{ project.project_title }}
-                                </td>
-                                <td class="tdbutton">
-                                  <button type="button" class="btn btn-outline-dark"
-                                    (click)="open(content5);getProjectIndex(i)">Edit</button>
-                                  <button type="button" (click)="Userdeleteproject(i)"
-                                    class="btn btn-outline-dark">Delete</button>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
+                    <ng-template ngbTabContent>
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th scope="col-4">Image</th>
+                            <th scope="col-4">Project Title</th>
+                            <th scope="col">Options</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let project of projects;let i = index">
+                            <td>
+                              <img class="image"
+                                src="http://localhost:3000/student/projects/image/{{ project.project_image}}" alt="" />
+                            </td>
+                            <td>
+                              {{ project.project_title }}
+                            </td>
+                            <td class="tdbutton">
+                              <button type="button" class="btn btn-outline-dark"
+                                (click)="open(content5);getProjectIndex(i)">Edit</button>
+                              <button type="button" (click)="Userdeleteproject(i)"
+                                class="btn btn-outline-dark">Delete</button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
                     </ng-template>
                   </ngb-tab>
                 </ngb-tabset>
-
               </div>
             </div>
             <div class="col-md-2">
-              <input type="button" class="profile-edit-btn buttonB" (click)="openProfileDetails(content);getindex();" value="Edit Profile" />
+              <input type="button" class="profile-edit-btn buttonB" (click)="openProfileDetails(content);getindex();"
+                value="Edit Profile" />
             </div>
             <div class="col-md-2" *ngIf="userRole === 2">
-              <input type="button" class="profile-edit-btn buttonB" (click)="open(content2);getindex();" value="Add Course" />
+              <input type="button" class="profile-edit-btn buttonB" (click)="open(content2);getindex();"
+                value="Add Course" />
             </div>
             <div class="col-md-4" *ngIf="userRole === 3">
               <input type="button" class="profile-edit-btn" (click)="open(content4);getindex();"
@@ -160,13 +163,13 @@
         <label>First Name</label>
         <div class="input-group">
           <input formControlName="user_first_name" class="form-control"
-          [ngClass]="{ 'is-invalid': UserForm.get('user_first_name').touched && UserForm.get('user_first_name').invalid}">
+            [ngClass]="{ 'is-invalid': UserForm.get('user_first_name').touched && UserForm.get('user_first_name').invalid}">
           <div class="invalid-feedback">Please fille the field are correctly </div>
         </div>
         <label>Last Name</label>
         <div class="input-group">
-          <input  formControlName="user_last_name" class="form-control"
-          [ngClass]="{ 'is-invalid': UserForm.get('user_last_name').touched && UserForm.get('user_last_name').invalid}">
+          <input formControlName="user_last_name" class="form-control"
+            [ngClass]="{ 'is-invalid': UserForm.get('user_last_name').touched && UserForm.get('user_last_name').invalid}">
           <div class="invalid-feedback">Please fille the field are correctly </div>
         </div>
         <label>Image</label>
@@ -174,27 +177,28 @@
           <input type="file" (change)="selectedFile($event)" class="form-control" name="user_image">
         </div> -->
         <div class="input-group">
-          <input #file type="file" accept='image/*'
-              (change)="preview(file.files);selectedFile($event)" name="project_image" />
+          <input #file type="file" accept='image/*' (change)="preview(file.files);selectedFile($event)"
+            name="project_image" />
           <img [src]="imgURL" height="200" *ngIf="imgURL">
-      </div>
+        </div>
         <label>Email</label>
         <div class="input-group">
-          <input  formControlName="user_email" class="form-control"
-          [ngClass]="{ 'is-invalid': UserForm.get('user_email').touched && UserForm.get('user_email').invalid}">
+          <input formControlName="user_email" class="form-control"
+            [ngClass]="{ 'is-invalid': UserForm.get('user_email').touched && UserForm.get('user_email').invalid}">
           <div class="invalid-feedback">Please fille the field are correctly </div>
         </div>
         <label>Birthday</label>
         <div class="input-group">
-          <input type="text"  formControlName="user_birthday" class="form-control"
-          [ngClass]="{ 'is-invalid': UserForm.get('user_birthday').touched && UserForm.get('user_birthday').invalid}">
+          <input type="text" formControlName="user_birthday" class="form-control"
+            [ngClass]="{ 'is-invalid': UserForm.get('user_birthday').touched && UserForm.get('user_birthday').invalid}">
           <div class="invalid-feedback">Please fille the field are correctly </div>
         </div>
       </div>
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" [disabled]="!UserForm.valid"  class="btn btn-outline-dark" (click)="modal.close('Save click');EditProfil()">Save</button>
+    <button type="button" [disabled]="!UserForm.valid" class="btn btn-outline-dark"
+      (click)="modal.close('Save click');EditProfil()">Save</button>
   </div>
 </ng-template>
 <ng-template #content2 let-modal>
@@ -206,42 +210,41 @@
 
   </div>
   <form [formGroup]="CourseForm">
-  <div class="modal-body">
+    <div class="modal-body">
       <div class="form-group">
         <label>Course Title</label>
         <div class="input-group">
-          <input formControlName="course_title" class="form-control" 
-          [ngClass]="{ 'is-invalid': CourseForm.get('course_title').touched && CourseForm.get('course_title').invalid}">
+          <input formControlName="course_title" class="form-control"
+            [ngClass]="{ 'is-invalid': CourseForm.get('course_title').touched && CourseForm.get('course_title').invalid}">
           <div class="invalid-feedback">Please fille the field are correctly </div>
         </div>
         <label>course_content</label>
         <div class="input-group">
-          <input formControlName="course_content" class="form-control"    
+          <input formControlName="course_content" class="form-control"
             [ngClass]="{ 'is-invalid': CourseForm.get('course_content').touched && CourseForm.get('course_content').invalid}">
           <div class="invalid-feedback">Please fille the field are correctly </div>
         </div>
         <label>Course Description</label>
         <div class="input-group">
-          <input formControlName="course_description" class="form-control" 
-          [ngClass]="{ 'is-invalid': CourseForm.get('course_description').touched && CourseForm.get('course_description').invalid}">
+          <input formControlName="course_description" class="form-control"
+            [ngClass]="{ 'is-invalid': CourseForm.get('course_description').touched && CourseForm.get('course_description').invalid}">
           <div class="invalid-feedback">Please fille the field are correctly </div>
         </div>
         <label>Course Statement</label>
         <div class="input-group">
-              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
-          formControlName="course_statement"
-              [ngClass]="{ 'is-invalid': CourseForm.get('course_statement').touched && CourseForm.get('course_statement').invalid}">
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" formControlName="course_statement"
+            [ngClass]="{ 'is-invalid': CourseForm.get('course_statement').touched && CourseForm.get('course_statement').invalid}">
          </textarea>
-         <div class="invalid-feedback">Please fille the field are correctly </div>
+          <div class="invalid-feedback">Please fille the field are correctly </div>
         </div>
         <label>Image</label>
-      
+
         <div class="input-group">
           <span style="color:red;" *ngIf="message">{{message}}</span>
-          <input #file type="file" accept='image/*'
-              (change)="preview(file.files);selectedFile($event)" name="project_image" />
+          <input #file type="file" accept='image/*' (change)="preview(file.files);selectedFile($event)"
+            name="project_image" />
           <img [src]="imgURL" height="200" *ngIf="imgURL">
-      </div>
+        </div>
 
 
 
@@ -250,12 +253,13 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button"  [disabled]="!CourseForm.valid" class="btn btn-outline-dark"
-      (click)="modal.close('Save click');publishedCourse()">Published</button>
-      <button type="button"   [disabled]="!CourseForm.valid" class="btn btn-outline-dark" (click)="modal.close('Save click');createcourseDraft()">Add to
+      <button type="button" [disabled]="!CourseForm.valid" class="btn btn-outline-dark"
+        (click)="modal.close('Save click');publishedCourse()">Published</button>
+      <button type="button" [disabled]="!CourseForm.valid" class="btn btn-outline-dark"
+        (click)="modal.close('Save click');createcourseDraft()">Add to
         draft</button>
-      </div>
-    </form>
+    </div>
+  </form>
 </ng-template>
 <ng-template #content3 let-modal>
   <div class="modal-header">
@@ -266,49 +270,52 @@
 
   </div>
   <form [formGroup]="CourseForm">
-  <div class="modal-body">
+    <div class="modal-body">
       <div class="form-group">
         <label>Course Title</label>
         <div class="input-group">
           <input formControlName="course_title" class="form-control"
-          [ngClass]="{ 'is-invalid': CourseForm.get('course_title').touched && CourseForm.get('course_title').invalid}">
+            [ngClass]="{ 'is-invalid': CourseForm.get('course_title').touched && CourseForm.get('course_title').invalid}">
           <div class="invalid-feedback">Please fille the field are correctly </div>
         </div>
         <label>Course Content</label>
         <div class="input-group">
           <input formControlName="course_content" class="form-control"
-          [ngClass]="{ 'is-invalid': CourseForm.get('course_content').touched && CourseForm.get('course_content').invalid}">
+            [ngClass]="{ 'is-invalid': CourseForm.get('course_content').touched && CourseForm.get('course_content').invalid}">
           <div class="invalid-feedback">Please fille the field are correctly </div>
         </div>
         <label>Course Description</label>
         <div class="input-group">
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
-            formControlName="course_description">
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" formControlName="course_description">
            </textarea>
-        
+
         </div>
         <label>Course Statement</label>
         <div class="input-group">
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
-            formControlName="course_statement">
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" formControlName="course_statement">
            </textarea>
 
         </div>
         <label>Image</label>
-       <!--  <div class="input-group">
+        <!--  <div class="input-group">
           <input type="file" (change)="selectedFile($event)" class="form-control" name="course_image">
         </div> -->
         <div class="input-group">
-          <input #file type="file" accept='image/*'
-              (change)="preview(file.files);selectedFile($event)" name="project_image" />
+          <input #file type="file" accept='image/*' (change)="preview(file.files);selectedFile($event)"
+            name="project_image" />
           <img [src]="imgURL" height="200" *ngIf="imgURL">
-      </div>
+        </div>
       </div>
     </div>
     <div class="modal-footer">
-        <button type="button" *ngIf="userRole === 3 && course_status !== 2" [disabled]="!CourseForm.valid" class="btn btn-outline-dark" (click)="modal.close('Save click');StudentSendsCourseFormDraftToPending(i)">Pending</button>
-      <button type="button" *ngIf="userRole === 2 && course_status !== 3" [disabled]="!CourseForm.valid" class="btn btn-outline-dark" (click)="modal.close('Save click');TeacherSendsCourseFRomDraftToPublished(i)">Published</button>
-      <button type="button"  [disabled]="!CourseForm.valid" class="btn btn-outline-dark" (click)="modal.close('Save click');editCourse(i)">Edit</button>
+      <button type="button" *ngIf="userRole === 3 && course_status !== 2" [disabled]="!CourseForm.valid"
+        class="btn btn-outline-dark"
+        (click)="modal.close('Save click');StudentSendsCourseFormDraftToPending(i)">Pending</button>
+      <button type="button" *ngIf="userRole === 2 && course_status !== 3" [disabled]="!CourseForm.valid"
+        class="btn btn-outline-dark"
+        (click)="modal.close('Save click');TeacherSendsCourseFRomDraftToPublished(i)">Published</button>
+      <button type="button" [disabled]="!CourseForm.valid" class="btn btn-outline-dark"
+        (click)="modal.close('Save click');editCourse(i)">Edit</button>
     </div>
   </form>
 </ng-template>
@@ -334,15 +341,13 @@
         </div>
         <label>Course Description</label>
         <div class="input-group">
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
-            formControlName="course_description">
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" formControlName="course_description">
            </textarea>
-      
+
         </div>
         <label>Course Statement</label>
         <div class="input-group">
-          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
-          formControlName="course_statement">
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" formControlName="course_statement">
          </textarea>
         </div>
         <label>Image</label>
@@ -355,55 +360,58 @@
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" [disabled]="!CourseForm.valid"
       (click)="modal.close('Save click');CourseSendedToValidate()">Pending</button>
-    <button type="button" [disabled]="!CourseForm.valid" class="btn btn-outline-dark" (click)="modal.close('Save click');draftStudentCourse()">Add to
+    <button type="button" [disabled]="!CourseForm.valid" class="btn btn-outline-dark"
+      (click)="modal.close('Save click');draftStudentCourse()">Add to
       draft</button>
   </div>
 </ng-template>
 
 <ng-template #content5 let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Edit Project</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-  
-    </div>
-    <form [formGroup]="ProjectForm">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Edit Project</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+  </div>
+  <form [formGroup]="ProjectForm">
     <div class="modal-body">
-        <div class="form-group">
-          <label>Project Title</label>
-          <div class="input-group">
-            <input formControlName="project_title" class="form-control">
-          </div>
-          <label>Project Content</label>
-          <div class="input-group">
-            <input formControlName="project_content" class="form-control">
-          </div>
-          <label>Image</label>
-          <div class="input-group">
-            <input type="file" (change)="selectedFile($event)" class="form-control" name="project_image">
-          </div>
+      <div class="form-group">
+        <label>Project Title</label>
+        <div class="input-group">
+          <input formControlName="project_title" class="form-control">
+        </div>
+        <label>Project Content</label>
+        <div class="input-group">
+          <input formControlName="project_content" class="form-control">
+        </div>
+        <label>Image</label>
+        <div class="input-group">
+          <input type="file" (change)="selectedFile($event)" class="form-control" name="project_image">
         </div>
       </div>
-      <div class="modal-footer">
-        <button type="button"  [disabled]="!ProjectForm.valid" class="btn btn-outline-dark" (click)="modal.close('Save click');EditPtojectUser(i)">Edit</button>
-      </div>
-    </form>
-  </ng-template>
-  <ng-template #content6 let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">delete</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-  
-    </div>
-    <div class="modal-body">
-      <p>
-        Are you sure you want to delete your course ?!
-      </p>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click');deleteCourse(i)">Delete</button>
+      <button type="button" [disabled]="!ProjectForm.valid" class="btn btn-outline-dark"
+        (click)="modal.close('Save click');EditPtojectUser(i)">Edit</button>
     </div>
-  </ng-template>
+  </form>
+</ng-template>
+<ng-template #content6 let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">delete</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+  </div>
+  <div class="modal-body">
+    <p>
+      Are you sure you want to delete your course ?!
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark"
+      (click)="modal.close('Save click');deleteCourse(i)">Delete</button>
+  </div>
+</ng-template>
